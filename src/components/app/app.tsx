@@ -1,5 +1,13 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
