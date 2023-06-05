@@ -5,12 +5,13 @@ import { AppRoute } from '../../const';
 type CardProps = {
   product: TProduct;
   className?: string;
+  style?: {width: string};
 }
 
-export default function Card({product, className}: CardProps) {
+export default function Card({product, className, style}: CardProps) {
 
   return (
-    <div className={className ? `product-card ${className}` : 'product-card'}>
+    <div className={className ? `product-card ${className}` : 'product-card'} style={style}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${product.previewImgWebp}, /${product.previewImgWebp2x}`}/>
