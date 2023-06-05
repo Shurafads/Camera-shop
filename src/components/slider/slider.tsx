@@ -33,7 +33,7 @@ export default function Slider() {
       </Swiper>
 
       <button
-        style={state.isBegin ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
+        style={state.isBegin ? {pointerEvents: 'none', zIndex: '1'} : {pointerEvents: 'auto', zIndex: '1'}}
         className="slider-controls slider-controls--prev"
         type="button" aria-label="Предыдущий слайд"
         onClick={() => swiperRef.current?.slidePrev()}
@@ -44,7 +44,7 @@ export default function Slider() {
         </svg>
       </button>
       <button
-        style={state.isEnd ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
+        style={state.isEnd ? {pointerEvents: 'none', zIndex: '1'} : {pointerEvents: 'auto', zIndex: '1'}}
         className="slider-controls slider-controls--next"
         type="button" aria-label="Следующий слайд"
         onClick={() => swiperRef.current?.slideNext()}
