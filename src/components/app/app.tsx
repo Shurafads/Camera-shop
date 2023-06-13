@@ -1,23 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Catalog from '../../pages/catalog';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Header from '../header/header';
-import Footer from '../footer/footer';
+// import Header from '../header/header';
+// import Footer from '../footer/footer';
 import { HelmetProvider } from 'react-helmet-async';
-import Product from '../../pages/product';
+import CatalogPage from '../../pages/catalog-page/catalog-page';
+import ProductPage from '../../pages/product-page/product-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import Layout from '../layout/layout';
 
 function App(): JSX.Element {
   return (
     <BrowserRouter>
       <HelmetProvider>
-        <div className="wrapper">
-          <Header />
-          <Routes>
-            <Route path={AppRoute.Catalog} element={<Catalog />}/>
-            <Route path={`${AppRoute.Product}/:id`} element={<Product />}/>
-          </Routes>
-          <Footer />
-        </div>
+        <Routes>
+          <Route path={'/'} element={<Layout />}>
+            <Route index element={<Navigate to={AppRoute.Catalog}/>}/>
+            <Route path={AppRoute.Catalog} element={<CatalogPage/>}/>
+            <Route path={AppRoute.Product}>
+              <Route path={':id'} element={<ProductPage />}/>
+            </Route>
+            <Route path={'*'} element={<NotFoundPage />}/>
+          </Route>
+        </Routes>
       </HelmetProvider>
     </BrowserRouter>
   );

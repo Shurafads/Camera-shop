@@ -16,5 +16,14 @@ export enum NameSpace {
 
 export enum ApiRoute {
   Cameras = '/cameras',
-  Promo = '/promo'
+  Promo = '/promo',
+}
+
+export const DEFAULT_REVIEW_COUNT = 3;
+
+export const STARS_COUNT = 5;
+
+export enum ProductTab {
+  Description = 'description',
+  Characteristics = 'characteristics',
 }

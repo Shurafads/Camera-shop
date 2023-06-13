@@ -4,7 +4,7 @@ import { ApiRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { TPromo } from '../types/promo';
-import { TReview } from '../types/review';
+import { TReview, TUserReview } from '../types/review';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
@@ -71,6 +71,22 @@ export const fetchReviewsAction = createAsyncThunk<TReview[], string, {
   async (productId, {extra: api}) => {
 
     const {data} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productId}/reviews`);
+
+    return data;
+  }
+);
+
+export const postReviewAction = createAsyncThunk<TReview, TUserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'review/postReviewAction',
+  async ({cameraId, userName, advantage, disadvantage, review, rating, reset, onSubmitModal}, {extra: api}) => {
+
+    const {data} = await api.post<TReview>('/reviews', {cameraId, userName, advantage, disadvantage, review, rating});
+    onSubmitModal();
+    reset();
 
     return data;
   }
