@@ -3,6 +3,7 @@ import CardList from '../../components/card-list/card-list';
 import Banner from '../../components/banner/banner';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import Pagination from '../../components/pagination/pagiantion';
 
 export default function CatalogPage() {
   return (
@@ -166,18 +167,7 @@ export default function CatalogPage() {
                     </form>
                   </div>
                   <CardList />
-                  <div className="pagination">
-                    <ul className="pagination__list">
-                      <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="2">2</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="3">3</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <Pagination />
                 </div>
               </div>
             </div>

@@ -7,3 +7,5 @@ export const getProductsList = (state: State): TProduct[] => state[NameSpace.Pro
 export const getProductInfo = (state: State): TProduct | null => state[NameSpace.Product].ProductInfo;
 
 export const getSimilarProductsList = (state: State): TProduct[] => state[NameSpace.Product].SimilarProductsList;
+
+export const getProductsOnPage = (state: State): TProduct[] => state[NameSpace.Product].ProductsOnPage;

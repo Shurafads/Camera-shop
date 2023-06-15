@@ -9,6 +9,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type TCamerasData = {
   ProductsList: TProduct[];
+  ProductsOnPage: TProduct[];
   ProductInfo: TProduct | null;
   SimilarProductsList: TProduct[];
 }

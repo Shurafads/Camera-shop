@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { TReview } from '../../types/review';
 import localeRu from 'dayjs/locale/ru';
 import Star from '../star/star';
-import { nanoid } from 'nanoid';
 import { STARS_COUNT } from '../../const';
 
 type ReviewProps = {
@@ -14,8 +13,8 @@ export default function Review({review}: ReviewProps) {
   const dateReview = dayjs(review.createAt).locale(localeRu).format('D MMMM');
   const dateTimeReview = dayjs(review.createAt).format('YYYY-MM-DD');
 
-  const filledStars = (number: number) => Array.from({length: number}).map(() => <Star key={nanoid()} starHref={'#icon-full-star'}/>);
-  const emptyStars = (number: number) => Array.from({length: number}).map(() => <Star key={nanoid()} starHref={'#icon-star'}/>);
+  const filledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
+  const emptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
   const emptyStarsCount = STARS_COUNT - review.rating;
 
   return (

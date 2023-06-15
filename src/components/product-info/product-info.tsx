@@ -11,7 +11,7 @@ export default function ProductInfo() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentProduct = useAppSelector(getProductInfo);
-  const postQuery = searchParams.get('tab');
+  const currentTab = searchParams.get('tab');
 
   useEffect(() => {
     let isMounted = true;
@@ -35,7 +35,7 @@ export default function ProductInfo() {
     <div className="tabs product__tabs">
       <div className="tabs__controls product__tabs-controls">
         <button
-          className={postQuery === ProductTab.Characteristics ? 'tabs__control is-active' : 'tabs__control'}
+          className={currentTab === ProductTab.Characteristics ? 'tabs__control is-active' : 'tabs__control'}
           type="button"
           name={ProductTab.Characteristics}
           onClick={handleButtonClick}
@@ -43,7 +43,7 @@ export default function ProductInfo() {
           Характеристики
         </button>
         <button
-          className={postQuery === ProductTab.Description ? 'tabs__control is-active' : 'tabs__control'}
+          className={currentTab === ProductTab.Description ? 'tabs__control is-active' : 'tabs__control'}
           type="button"
           name={ProductTab.Description}
           onClick={handleButtonClick}
@@ -52,8 +52,8 @@ export default function ProductInfo() {
         </button>
       </div>
       <div className="tabs__content">
-        <TabCharacteristics postQuery={postQuery}/>
-        <TabDescription postQuery={postQuery}/>
+        <TabCharacteristics postQuery={currentTab}/>
+        <TabDescription postQuery={currentTab}/>
       </div>
     </div>
   );

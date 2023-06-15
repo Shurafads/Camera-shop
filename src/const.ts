@@ -27,3 +27,5 @@ export enum ProductTab {
   Description = 'description',
   Characteristics = 'characteristics',
 }
+
+export const PRODUCTS_PER_PAGE = 9;

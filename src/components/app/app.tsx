@@ -1,7 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-// import Header from '../header/header';
-// import Footer from '../footer/footer';
 import { HelmetProvider } from 'react-helmet-async';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductPage from '../../pages/product-page/product-page';

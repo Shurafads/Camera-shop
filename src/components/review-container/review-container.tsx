@@ -46,8 +46,8 @@ export default function ReviewContainer({onClickFeedbackButton}: ReviewContainer
       </ul>
       <div className="review-block__buttons">
         <button
-          className="btn btn--purple"
-          type="button" style={isButtonVisible ? {display: 'block'} : {display: 'none'}}
+          className={isButtonVisible ? 'btn btn--purple' : 'visually-hidden'}
+          type="button"
           onClick={handleButtonClick}
         >
           Показать больше отзывов
