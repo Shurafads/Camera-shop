@@ -6,9 +6,10 @@ type CardProps = {
   product: TProduct;
   className?: string;
   style?: {width: string};
+  onBuyClick: () => void;
 }
 
-export default function Card({product, className, style}: CardProps) {
+export default function Card({product, className, style, onBuyClick}: CardProps) {
 
   return (
     <div className={className ? `product-card ${className}` : 'product-card'} style={style}>
@@ -43,7 +44,7 @@ export default function Card({product, className, style}: CardProps) {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button className="btn btn--purple product-card__btn" type="button" onClick={onBuyClick}>Купить
         </button>
         <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}`}>Подробнее
         </Link>

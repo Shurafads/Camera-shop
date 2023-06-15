@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { fetchProductAction, fetchReviewsAction, fetchSimilarProductsAction } from '../../store/api-action';
 import { Link, useParams } from 'react-router-dom';
@@ -9,7 +9,8 @@ import ProductContainer from '../../components/product-container/product-contain
 import ReviewContainer from '../../components/review-container/review-container';
 import ModalReview from '../../components/modal-review/modal-review';
 import ModalSuccess from '../../components/modal-success/modal-success';
-import FocusLock from 'react-focus-lock';
+import ReactFocusLock from 'react-focus-lock';
+import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
 
 export default function ProductPage() {
 
@@ -19,6 +20,7 @@ export default function ProductPage() {
 
   const [modalReviewState, setModalReviewState] = useState(false);
   const [modalSuccessState, setModalSuccessState] = useState(false);
+  const [modalAddState, setModalAddState] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -38,11 +40,12 @@ export default function ProductPage() {
     if (evt.key === 'Escape') {
       handleReviewModalClose();
       handleSuccessModalClose();
+      handleCloseModalClick();
     }
   };
 
   useEffect(() => {
-    if (!modalReviewState && !modalSuccessState) {
+    if (!modalReviewState && !modalSuccessState && !modalAddState) {
       return;
     }
 
@@ -79,6 +82,15 @@ export default function ProductPage() {
     setModalSuccessState(false);
   };
 
+  const handleBuyClick = () => {
+    setModalAddState(true);
+  };
+
+  const handleCloseModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
+    evt?.preventDefault();
+    setModalAddState(false);
+  };
+
   return (
     <>
       <main>
@@ -107,10 +119,10 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="page-content__section">
-            <ProductContainer />
+            <ProductContainer onBuyClick={handleBuyClick}/>
           </div>
           <div className="page-content__section">
-            <Slider />
+            <Slider onBuyClick={handleBuyClick}/>
           </div>
           <div className="page-content__section">
             <section className="review-block">
@@ -124,10 +136,11 @@ export default function ProductPage() {
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
       </a>
-      <FocusLock>
+      <ReactFocusLock>
         <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
         <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
-      </FocusLock>
+        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseModalClick}/>
+      </ReactFocusLock>
     </>
   );
 }

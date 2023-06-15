@@ -4,8 +4,34 @@ import Banner from '../../components/banner/banner';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Pagination from '../../components/pagination/pagiantion';
+import ReactFocusLock from 'react-focus-lock';
+import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
+import { MouseEvent, useState } from 'react';
 
 export default function CatalogPage() {
+
+  const [modalAddState, setModalAddState] = useState(false);
+
+  const handleEscapeKeydown = (evt: globalThis.KeyboardEvent) => {
+    if (evt.key === 'Escape') {
+      handleCloseModalClick();
+    }
+  };
+
+  const handleBuyClick = () => {
+    setModalAddState(true);
+    document.addEventListener('keydown', handleEscapeKeydown);
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+  };
+
+  const handleCloseModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
+    evt?.preventDefault();
+    setModalAddState(false);
+    document.body.style.overflow = '';
+    document.documentElement.style.paddingRight = '';
+  };
+
   return (
     <>
       <Helmet>
@@ -166,7 +192,7 @@ export default function CatalogPage() {
                       </div>
                     </form>
                   </div>
-                  <CardList />
+                  <CardList onBuyClick={handleBuyClick}/>
                   <Pagination />
                 </div>
               </div>
@@ -174,6 +200,9 @@ export default function CatalogPage() {
           </section>
         </div>
       </main>
+      <ReactFocusLock>
+        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseModalClick}/>
+      </ReactFocusLock>
     </>
   );
 }

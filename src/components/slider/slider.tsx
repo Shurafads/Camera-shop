@@ -5,7 +5,11 @@ import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
 import 'swiper/css';
 import { useRef, useState } from 'react';
 
-export default function Slider() {
+type SliderProps = {
+  onBuyClick: () => void;
+}
+
+export default function Slider({onBuyClick}: SliderProps) {
 
   const similarProductList = useAppSelector(getSimilarProductsList);
   const swiperRef = useRef<SwiperRef['swiper']>();
@@ -35,7 +39,7 @@ export default function Slider() {
           >
             {similarProductList.map((product) => (
               <SwiperSlide key={product.id}>
-                <Card className="is-active" product={product} style={{width: '90%'}}/>
+                <Card className="is-active" product={product} onBuyClick={onBuyClick} style={{width: '90%'}}/>
               </SwiperSlide>
             ))}
           </Swiper>
