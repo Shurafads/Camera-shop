@@ -4,19 +4,21 @@ import { fetchProductAction, fetchReviewsAction, fetchSimilarProductsAction } fr
 import { Link, useParams } from 'react-router-dom';
 import Slider from '../../components/slider/slider';
 import { AppRoute } from '../../const';
-import { getProductInfo } from '../../store/products-data/products-data.selectors';
+import { getIsLoadingProducInfo, getProductInfo } from '../../store/products-data/products-data.selectors';
 import ProductContainer from '../../components/product-container/product-container';
 import ReviewContainer from '../../components/review-container/review-container';
 import ModalReview from '../../components/modal-review/modal-review';
 import ModalSuccess from '../../components/modal-success/modal-success';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
+import LoadingPage from '../loading-page/loading-page';
 
 export default function ProductPage() {
 
   const dispatch = useAppDispatch();
   const param = useParams();
   const currentProduct = useAppSelector(getProductInfo);
+  const isLoadingProducInfo = useAppSelector(getIsLoadingProducInfo);
 
   const [modalReviewState, setModalReviewState] = useState(false);
   const [modalSuccessState, setModalSuccessState] = useState(false);
@@ -36,14 +38,6 @@ export default function ProductPage() {
     };
   }, [param.id, dispatch]);
 
-  const handleEscapeKeydown = (evt: globalThis.KeyboardEvent) => {
-    if (evt.key === 'Escape') {
-      handleReviewModalClose();
-      handleSuccessModalClose();
-      handleCloseModalClick();
-    }
-  };
-
   useEffect(() => {
     if (!modalReviewState && !modalSuccessState && !modalAddState) {
       return;
@@ -54,16 +48,26 @@ export default function ProductPage() {
     document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
 
     return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.paddingRight = '';
+      setTimeout(() => {
+        document.body.style.overflow = '';
+        document.documentElement.style.paddingRight = '';
+      }, 500);
       document.removeEventListener('keydown', handleEscapeKeydown);
     };
 
   });
 
-  if (!currentProduct) {
-    return null;
+  if (!currentProduct || isLoadingProducInfo) {
+    return <LoadingPage />;
   }
+
+  const handleEscapeKeydown = (evt: globalThis.KeyboardEvent) => {
+    if (evt.key === 'Escape') {
+      handleReviewModalClose();
+      handleSuccessModalClose();
+      handleCloseModalClick();
+    }
+  };
 
   const handleFeedbackButtonClick = () => {
     setModalReviewState(true);

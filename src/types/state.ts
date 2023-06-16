@@ -12,6 +12,8 @@ export type TCamerasData = {
   ProductsOnPage: TProduct[];
   ProductInfo: TProduct | null;
   SimilarProductsList: TProduct[];
+  isLoadingProductsList: boolean;
+  isLoadingProducInfo: boolean;
 }
 
 export type TPromoData = {

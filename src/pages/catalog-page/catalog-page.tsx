@@ -6,30 +6,51 @@ import { AppRoute } from '../../const';
 import Pagination from '../../components/pagination/pagiantion';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import { getIsLoadingProductsList } from '../../store/products-data/products-data.selectors';
+import { useAppSelector } from '../../store';
+import LoadingPage from '../loading-page/loading-page';
 
 export default function CatalogPage() {
 
+  const isLoadingProductsList = useAppSelector(getIsLoadingProductsList);
   const [modalAddState, setModalAddState] = useState(false);
 
-  const handleEscapeKeydown = (evt: globalThis.KeyboardEvent) => {
+  useEffect(() => {
+    if (!modalAddState) {
+      return;
+    }
+    document.addEventListener('keydown', handleEscapeKeydown);
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+
+    return () => {
+      setTimeout(() => {
+        document.body.style.overflow = '';
+        document.documentElement.style.paddingRight = '';
+      }, 500);
+      document.removeEventListener('keydown', handleEscapeKeydown);
+    };
+
+  });
+
+  if (isLoadingProductsList) {
+    return <LoadingPage />;
+  }
+
+  const handleEscapeKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      handleCloseModalClick();
+      handleCloseModalClick(evt);
     }
   };
 
   const handleBuyClick = () => {
     setModalAddState(true);
-    document.addEventListener('keydown', handleEscapeKeydown);
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
   };
 
-  const handleCloseModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
-    evt?.preventDefault();
+  const handleCloseModalClick = (evt: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement> | KeyboardEvent) => {
+    evt.preventDefault();
     setModalAddState(false);
-    document.body.style.overflow = '';
-    document.documentElement.style.paddingRight = '';
   };
 
   return (

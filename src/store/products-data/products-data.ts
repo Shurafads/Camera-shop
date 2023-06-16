@@ -9,6 +9,8 @@ const initialState: TCamerasData = {
   ProductsOnPage: [],
   ProductInfo: null,
   SimilarProductsList: [],
+  isLoadingProductsList: true,
+  isLoadingProducInfo: true,
 };
 
 export const productsData = createSlice({
@@ -22,18 +24,28 @@ export const productsData = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchProductsAction.pending, (state) => {
+        state.isLoadingProductsList = true;
+      })
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
         state.ProductsList = action.payload;
         state.ProductsOnPage = state.ProductsList.slice(0, PRODUCTS_PER_PAGE);
+        state.isLoadingProductsList = false;
       })
-      .addCase(fetchProductsAction.rejected, () => {
+      .addCase(fetchProductsAction.rejected, (state) => {
         toast.error('Не удалось загрузить данные о продуктах, попробуйте позже');
+        state.isLoadingProductsList = false;
+      })
+      .addCase(fetchProductAction.pending, (state) => {
+        state.isLoadingProducInfo = true;
       })
       .addCase(fetchProductAction.fulfilled, (state, action) => {
         state.ProductInfo = action.payload;
+        state.isLoadingProducInfo = false;
       })
-      .addCase(fetchProductAction.rejected, () => {
+      .addCase(fetchProductAction.rejected, (state) => {
         toast.error('Не удалось загрузить данные продуктe, попробуйте позже');
+        state.isLoadingProducInfo = false;
       })
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
         state.SimilarProductsList = action.payload;
