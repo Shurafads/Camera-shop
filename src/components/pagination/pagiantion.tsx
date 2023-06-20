@@ -23,7 +23,19 @@ export default function Pagination() {
     return () => {
       isMounted = false;
     };
-  }, [productList]);
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted && currentPage === '1') {
+      dispatch(changeProductsAction([0, PRODUCTS_PER_PAGE]));
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentPage, dispatch]);
 
   const paginationCount = Math.ceil(productList.length / 9);
 

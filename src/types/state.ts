@@ -14,6 +14,7 @@ export type TCamerasData = {
   SimilarProductsList: TProduct[];
   isLoadingProductsList: boolean;
   isLoadingProducInfo: boolean;
+  isLoadingSimilarProducts: boolean;
 }
 
 export type TPromoData = {

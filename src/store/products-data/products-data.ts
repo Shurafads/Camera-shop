@@ -4,13 +4,14 @@ import { TCamerasData } from '../../types/state';
 import { fetchProductAction, fetchProductsAction, fetchSimilarProductsAction } from '../api-action';
 import { toast } from 'react-toastify';
 
-const initialState: TCamerasData = {
+export const initialState: TCamerasData = {
   ProductsList: [],
   ProductsOnPage: [],
   ProductInfo: null,
   SimilarProductsList: [],
   isLoadingProductsList: true,
   isLoadingProducInfo: true,
+  isLoadingSimilarProducts: true,
 };
 
 export const productsData = createSlice({
@@ -47,8 +48,16 @@ export const productsData = createSlice({
         toast.error('Не удалось загрузить данные продуктe, попробуйте позже');
         state.isLoadingProducInfo = false;
       })
+      .addCase(fetchSimilarProductsAction.pending, (state) => {
+        state.isLoadingSimilarProducts = true;
+      })
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
         state.SimilarProductsList = action.payload;
+        state.isLoadingSimilarProducts = false;
+      })
+      .addCase(fetchSimilarProductsAction.rejected, (state) => {
+        toast.error('Не удалось загрузить данные о похожих продуктов');
+        state.isLoadingSimilarProducts = false;
       });
   }
 });

@@ -3,7 +3,7 @@ import { NameSpace } from '../../const';
 import { TPromoData } from '../../types/state';
 import { fetchPromoAction } from '../api-action';
 
-const initialState: TPromoData = {
+export const initialState: TPromoData = {
   Promo: null,
 };
 

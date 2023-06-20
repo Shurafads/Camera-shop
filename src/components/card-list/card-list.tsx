@@ -8,11 +8,11 @@ type CardListProps = {
 
 export default function CardList({onBuyClick}: CardListProps) {
 
-  const productsList = useAppSelector(getProductsOnPage);
+  const productsListOnPage = useAppSelector(getProductsOnPage);
 
   return (
     <div className="cards catalog__cards">
-      {productsList.map((product) => <Card key={product.id} product={product} onBuyClick={onBuyClick}/>)}
+      {productsListOnPage.map((product) => <Card key={product.id} product={product} onBuyClick={onBuyClick}/>)}
     </div>
   );
 }

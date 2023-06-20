@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TReviewsData } from '../../types/state';
 import { fetchReviewsAction, postReviewAction } from '../api-action';
-import { SortDate } from '../../utils';
 import { toast } from 'react-toastify';
+import { SortDate } from '../../utils/utils';
 
-const initialState: TReviewsData = {
+export const initialState: TReviewsData = {
   ReviewsList: [],
 };
 
@@ -17,6 +17,9 @@ export const reviewsData = createSlice({
     builder
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.ReviewsList = action.payload.sort(SortDate);
+      })
+      .addCase(fetchReviewsAction.rejected, () => {
+        toast.error('Не удалось получить список отзывов');
       })
       .addCase(postReviewAction.fulfilled, (state, action) => {
         state.ReviewsList = [ action.payload, ...state.ReviewsList];

@@ -7,7 +7,7 @@ export type TReview = {
   disadvantage: string;
   review: string;
   rating: number;
-  }
+}
 
 export type TUserReview = {
   cameraId: number;

@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import CardList from '../../components/card-list/card-list';
 import Banner from '../../components/banner/banner';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import Pagination from '../../components/pagination/pagiantion';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
@@ -65,7 +64,7 @@ export default function CatalogPage() {
             <div className="container">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link className="breadcrumbs__link" to={AppRoute.Catalog}>Главная
+                  <Link className="breadcrumbs__link" to={'/'}>Главная
                     <svg width="5" height="8" aria-hidden="true">
                       <use xlinkHref="#icon-arrow-mini"></use>
                     </svg>

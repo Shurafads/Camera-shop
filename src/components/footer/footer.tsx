@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -38,8 +41,8 @@ export default function Footer() {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">Каталог
-                </a>
+                <Link className="link" to={`${AppRoute.Catalog}?page=1`}>Каталог
+                </Link>
               </li>
               <li className="footer__item">
                 <a className="link" href="#">Гарантии

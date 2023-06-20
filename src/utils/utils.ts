@@ -1,4 +1,4 @@
-import { TReview } from './types/review';
+import { TReview } from '../types/review';
 
 export const SortDate = (a: TReview, b: TReview) => {
   if (a.createAt > b.createAt) {
