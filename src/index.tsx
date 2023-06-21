@@ -6,6 +6,7 @@ import { store } from './store';
 import { fetchProductsAction, fetchPromoAction } from './store/api-action';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
 
 store.dispatch(fetchProductsAction());
 store.dispatch(fetchPromoAction());
@@ -17,8 +18,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer/>
-      <App />
+      <BrowserRouter>
+        <ToastContainer/>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
 );

@@ -9,3 +9,5 @@ export const SortDate = (a: TReview, b: TReview) => {
   }
   return 0;
 };
+
+export const WindowScrollToTop = () => window.scrollTo(0, 0);

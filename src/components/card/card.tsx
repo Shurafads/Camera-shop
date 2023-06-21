@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../types/product';
-import { AppRoute } from '../../const';
+import { AppRoute, ProductTab } from '../../const';
+import { WindowScrollToTop } from '../../utils/utils';
 
 type CardProps = {
   product: TProduct;
@@ -46,7 +47,7 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button" onClick={onBuyClick}>Купить
         </button>
-        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}`}>Подробнее
+        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}?tab=${ProductTab.Description}`} onClick={() => WindowScrollToTop()}>Подробнее
         </Link>
       </div>
     </div>

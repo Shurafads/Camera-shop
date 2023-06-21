@@ -1,33 +1,17 @@
 import { useSearchParams } from 'react-router-dom';
 import TabCharacteristics from '../tab-characteristics/tab-characteristics';
 import TabDescription from '../tab-description/tab-description';
-import { MouseEvent, useEffect } from 'react';
-import { getProductInfo } from '../../store/products-data/products-data.selectors';
-import { useAppSelector } from '../../store';
+import { MouseEvent } from 'react';
 import { ProductTab } from '../../const';
 
 export default function ProductInfo() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentProduct = useAppSelector(getProductInfo);
   const currentTab = searchParams.get('tab');
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      setSearchParams({tab: ProductTab.Description});
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentProduct]);
 
   const handleButtonClick = (evt: MouseEvent<HTMLButtonElement>) => {
     const currentButton = evt.currentTarget;
-
     setSearchParams({tab: currentButton.name});
   };
 
@@ -52,8 +36,8 @@ export default function ProductInfo() {
         </button>
       </div>
       <div className="tabs__content">
-        <TabCharacteristics postQuery={currentTab}/>
-        <TabDescription postQuery={currentTab}/>
+        <TabCharacteristics currentTab={currentTab}/>
+        <TabDescription currentTab={currentTab}/>
       </div>
     </div>
   );
