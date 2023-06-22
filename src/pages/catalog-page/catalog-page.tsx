@@ -6,7 +6,7 @@ import Pagination from '../../components/pagination/pagiantion';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
 import { MouseEvent, useEffect, useState } from 'react';
-import { getIsLoadingProductsList } from '../../store/products-data/products-data.selectors';
+import { getIsLoadingProductsList, getProductsList } from '../../store/products-data/products-data.selectors';
 import { useAppSelector } from '../../store';
 import LoadingPage from '../loading-page/loading-page';
 
@@ -14,6 +14,7 @@ export default function CatalogPage() {
 
   const isLoadingProductsList = useAppSelector(getIsLoadingProductsList);
   const [modalAddState, setModalAddState] = useState(false);
+  const productList = useAppSelector(getProductsList);
 
   useEffect(() => {
     if (!modalAddState) {
@@ -213,7 +214,7 @@ export default function CatalogPage() {
                     </form>
                   </div>
                   <CardList onBuyClick={handleBuyClick}/>
-                  <Pagination />
+                  {productList && <Pagination />}
                 </div>
               </div>
             </div>

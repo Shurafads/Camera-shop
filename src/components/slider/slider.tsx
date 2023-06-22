@@ -2,7 +2,7 @@ import { useAppSelector } from '../../store';
 import { getSimilarProductsList } from '../../store/products-data/products-data.selectors';
 import Card from '../card/card';
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
-import 'swiper/css';
+import 'swiper/swiper-bundle.min.css';
 import { useRef, useState } from 'react';
 
 type SliderProps = {

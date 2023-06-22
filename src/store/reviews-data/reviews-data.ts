@@ -25,7 +25,7 @@ export const reviewsData = createSlice({
         state.ReviewsList = [ action.payload, ...state.ReviewsList];
       })
       .addCase(postReviewAction.rejected, () => {
-        toast.error('Не удалось отправить отзыв, попробуйте еще раз');
+        toast.info('Не удалось отправить отзыв, попробуйте еще раз');
       });
   }
 });

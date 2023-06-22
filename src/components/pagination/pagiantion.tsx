@@ -15,7 +15,7 @@ export default function Pagination() {
   const productList = useAppSelector(getProductsList);
 
   const paginationCount = Math.ceil(productList.length / PRODUCTS_PER_PAGE);
-  const currentPage = Number(searchParams.get('page'));
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   const lastProduct = PRODUCTS_PER_PAGE * currentPage;
   const firstProduct = lastProduct - PRODUCTS_PER_PAGE;
@@ -31,7 +31,7 @@ export default function Pagination() {
   }, [currentPage, setSearchParams, paginationCount]);
 
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid={'pagination'}>
       <ul className="pagination__list">
 
         <li className={Number(currentPage) > 1 ? 'pagination__item' : 'visually-hidden'}>

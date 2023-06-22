@@ -16,7 +16,7 @@ export default function ProductInfo() {
   };
 
   return (
-    <div className="tabs product__tabs">
+    <div className="tabs product__tabs" data-testid={'product-info'}>
       <div className="tabs__controls product__tabs-controls">
         <button
           className={currentTab === ProductTab.Characteristics ? 'tabs__control is-active' : 'tabs__control'}

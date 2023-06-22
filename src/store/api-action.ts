@@ -85,6 +85,7 @@ export const postReviewAction = createAsyncThunk<TReview, TUserReview, {
   async ({cameraId, userName, advantage, disadvantage, review, rating, reset, onSubmitModal}, {extra: api}) => {
 
     const {data} = await api.post<TReview>('/reviews', {cameraId, userName, advantage, disadvantage, review, rating});
+
     onSubmitModal();
     reset();
 

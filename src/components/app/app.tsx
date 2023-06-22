@@ -10,7 +10,7 @@ function App(): JSX.Element {
   return (
     <HelmetProvider>
       <Routes>
-        <Route path={'/'} element={<Layout />}>
+        <Route path={AppRoute.Root} element={<Layout />}>
           <Route index element={<Navigate to={AppRoute.Catalog}/>}/>
           <Route path={AppRoute.Catalog} element={<CatalogPage/>}/>
           <Route path={AppRoute.Product}>

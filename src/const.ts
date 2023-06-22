@@ -1,6 +1,7 @@
 export const URL = 'https://camera-shop.accelerator.pages.academy/';
 
 export enum AppRoute {
+  Root = '/',
   Catalog = '/catalog',
   Basket = '/basket',
   Product = '/product',

@@ -28,8 +28,8 @@ export default function ReviewContainer({onClickFeedbackButton}: ReviewContainer
   }, [currentProduct]);
 
   const [reviewCount, setReviewCount] = useState(DEFAULT_REVIEW_COUNT);
-
   const isButtonVisible = reviewList.length > reviewCount;
+  const slicedReviewList = reviewList.slice(0, reviewCount).map((review) => <Review key={review.id} review={review}/>);
 
   const handleButtonClick = () => {
     setReviewCount((prevState) => prevState + DEFAULT_REVIEW_COUNT);
@@ -42,7 +42,7 @@ export default function ReviewContainer({onClickFeedbackButton}: ReviewContainer
         <button className="btn" type="button" onClick={onClickFeedbackButton}>Оставить свой отзыв</button>
       </div>
       <ul className="review-block__list">
-        {reviewList.length < 1 ? <p style={{margin: 'auto'}}>У товара еще нет отзывов</p> : reviewList.slice(0, reviewCount).map((review) => <Review key={review.id} review={review}/>)}
+        {reviewList.length < 1 ? <p style={{margin: 'auto'}}>У товара еще нет отзывов</p> : slicedReviewList}
       </ul>
       <div className="review-block__buttons">
         <button

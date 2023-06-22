@@ -10,6 +10,7 @@ function LoadingPage() {
 
   return (
     <PuffLoader
+      data-testid="spinner"
       color={'#7575e2'}
       cssOverride={override}
       size={75}

@@ -12,6 +12,7 @@ import ModalSuccess from '../../components/modal-success/modal-success';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
 import LoadingPage from '../loading-page/loading-page';
+import { WindowScrollToTop } from '../../utils/utils';
 
 export default function ProductPage() {
 
@@ -95,10 +96,15 @@ export default function ProductPage() {
     setModalAddState(false);
   };
 
+  const handleUpButtonClick = (evt: MouseEvent) => {
+    evt.preventDefault();
+    WindowScrollToTop();
+  };
+
   return (
     <>
       <main>
-        <div className="page-content">
+        <div className="page-content" data-testid="product-content-page">
           <div className="breadcrumbs">
             <div className="container">
               <ul className="breadcrumbs__list">
@@ -135,7 +141,7 @@ export default function ProductPage() {
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
+      <a className="up-btn" href="#header" onClick={handleUpButtonClick}>
         <svg width="12" height="18" aria-hidden="true">
           <use xlinkHref="#icon-arrow2"></use>
         </svg>

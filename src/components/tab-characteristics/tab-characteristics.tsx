@@ -6,7 +6,7 @@ type TabCharacteristicsProps = {
   currentTab: string | null;
 }
 
-export default function TabСharacteristics({currentTab}: TabCharacteristicsProps) {
+export default function TabCharacteristics({currentTab}: TabCharacteristicsProps) {
 
   const currentProduct = useAppSelector(getProductInfo);
 

@@ -11,7 +11,7 @@ export default function TabDescription({currentTab}: TabDescriptionProps) {
   const currentProduct = useAppSelector(getProductInfo);
 
   return (
-    <div className={currentTab === ProductTab.Description ? 'tabs__element is-active' : 'tabs__element'}>
+    <div className={currentTab === ProductTab.Description ? 'tabs__element is-active' : 'tabs__element'} data-testid="tab-description">
       <div className="product__tabs-text">
         <p>{currentProduct?.description}</p>
       </div>
