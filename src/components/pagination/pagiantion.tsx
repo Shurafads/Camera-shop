@@ -21,13 +21,27 @@ export default function Pagination() {
   const firstProduct = lastProduct - PRODUCTS_PER_PAGE;
 
   useEffect(() => {
-    dispatch(changeProductsAction([firstProduct, lastProduct]));
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(changeProductsAction([firstProduct, lastProduct]));
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, firstProduct, lastProduct]);
 
   useEffect(() => {
-    if (currentPage > paginationCount) {
+    let isMounted = true;
+
+    if (currentPage > paginationCount && isMounted) {
       setSearchParams({'page': '1'});
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [currentPage, setSearchParams, paginationCount]);
 
   return (

@@ -40,13 +40,17 @@ export default function ProductPage() {
   }, [param.id, dispatch]);
 
   useEffect(() => {
-    if (!modalReviewState && !modalSuccessState && !modalAddState) {
+    let isMounted = true;
+
+    if (!modalReviewState && !modalSuccessState && !modalAddState && isMounted) {
       return;
     }
 
-    document.addEventListener('keydown', handleEscapeKeydown);
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+    if (isMounted) {
+      document.addEventListener('keydown', handleEscapeKeydown);
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+    }
 
     return () => {
       setTimeout(() => {
@@ -54,6 +58,7 @@ export default function ProductPage() {
         document.documentElement.style.paddingRight = '';
       }, 500);
       document.removeEventListener('keydown', handleEscapeKeydown);
+      isMounted = false;
     };
 
   });

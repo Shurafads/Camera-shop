@@ -17,12 +17,16 @@ export default function CatalogPage() {
   const productList = useAppSelector(getProductsList);
 
   useEffect(() => {
-    if (!modalAddState) {
+    let isMounted = true;
+
+    if (!modalAddState && isMounted) {
       return;
     }
-    document.addEventListener('keydown', handleEscapeKeydown);
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+    if (isMounted) {
+      document.addEventListener('keydown', handleEscapeKeydown);
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
+    }
 
     return () => {
       setTimeout(() => {
@@ -30,6 +34,7 @@ export default function CatalogPage() {
         document.documentElement.style.paddingRight = '';
       }, 500);
       document.removeEventListener('keydown', handleEscapeKeydown);
+      isMounted = false;
     };
 
   });
