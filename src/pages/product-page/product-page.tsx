@@ -53,14 +53,11 @@ export default function ProductPage() {
     }
 
     return () => {
-      setTimeout(() => {
-        document.body.style.overflow = '';
-        document.documentElement.style.paddingRight = '';
-      }, 500);
+      document.body.style.overflow = '';
+      document.documentElement.style.paddingRight = '';
       document.removeEventListener('keydown', handleEscapeKeydown);
       isMounted = false;
     };
-
   });
 
   if (!currentProduct || isLoadingProducInfo) {

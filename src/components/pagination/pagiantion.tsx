@@ -1,4 +1,3 @@
-// import { MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getProductsList } from '../../store/products-data/products-data.selectors';
 import { Link, useSearchParams } from 'react-router-dom';
