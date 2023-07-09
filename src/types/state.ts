@@ -1,3 +1,4 @@
+import { SortDirection, SortType } from '../const';
 import { store } from '../store';
 import { TProduct } from './product';
 import { TPromo } from './promo';
@@ -9,7 +10,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type TCamerasData = {
   ProductsList: TProduct[];
-  ProductsOnPage: TProduct[];
+  CopyProductsList: TProduct[];
   ProductInfo: TProduct | null;
   SimilarProductsList: TProduct[];
   isLoadingProductsList: boolean;
@@ -25,3 +26,10 @@ export type TReviewsData = {
   ReviewsList: TReview[];
 }
 
+export type TSearchData = {
+  Page: number;
+  SortType: SortType | null;
+  SortDirection: SortDirection | null;
+  MinPrice: number;
+  MaxPrice: number;
+}

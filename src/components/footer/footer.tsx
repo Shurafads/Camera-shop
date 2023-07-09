@@ -3,6 +3,7 @@ import { AppRoute } from '../../const';
 import { WindowScrollToTop } from '../../utils/utils';
 
 export default function Footer() {
+
   return (
     <footer className="footer" data-testid="footer">
       <div className="container">
@@ -15,25 +16,25 @@ export default function Footer() {
           <p className="footer__description">Интернет-магазин фото- и видеотехники</p>
           <ul className="social">
             <li className="social__item">
-              <a className="link" href="#" aria-label="Переход на страницу вконтатке">
+              <Link className="link" to="#" aria-label="Переход на страницу вконтатке">
                 <svg width="20" height="20" aria-hidden="true">
                   <use xlinkHref="#icon-vk"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="social__item">
-              <a className="link" href="#" aria-label="Переход на страницу pinterest">
+              <Link className="link" to="#" aria-label="Переход на страницу pinterest">
                 <svg width="20" height="20" aria-hidden="true">
                   <use xlinkHref="#icon-pinterest"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="social__item">
-              <a className="link" href="#" aria-label="Переход на страницу reddit">
+              <Link className="link" to="#" aria-label="Переход на страницу reddit">
                 <svg width="20" height="20" aria-hidden="true">
                   <use xlinkHref="#icon-reddit"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -42,21 +43,25 @@ export default function Footer() {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <Link className="link" to={AppRoute.Catalog} onClick={() => WindowScrollToTop()}>
+                <Link
+                  className="link"
+                  to={AppRoute.Catalog}
+                  onClick={() => WindowScrollToTop()}
+                >
                   Каталог
                 </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Гарантии
-                </a>
+                <Link className="link" to="/garanty">Гарантии
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Доставка
-                </a>
+                <Link className="link" to="/delivery">Доставка
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">О компании
-                </a>
+                <Link className="link" to="/about">О компании
+                </Link>
               </li>
             </ul>
           </li>
@@ -64,16 +69,16 @@ export default function Footer() {
             <p className="footer__title">Ресурсы</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">Курсы операторов
-                </a>
+                <Link className="link" to="/courses">Курсы операторов
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Блог
-                </a>
+                <Link className="link" to="/blog">Блог
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Сообщество
-                </a>
+                <Link className="link" to="/community">Сообщество
+                </Link>
               </li>
             </ul>
           </li>
@@ -81,12 +86,12 @@ export default function Footer() {
             <p className="footer__title">Поддержка</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">FAQ
-                </a>
+                <Link className="link" to="/faq">FAQ
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Задать вопрос
-                </a>
+                <Link className="link" to="/question">Задать вопрос
+                </Link>
               </li>
             </ul>
           </li>

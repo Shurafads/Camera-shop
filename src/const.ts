@@ -11,8 +11,7 @@ export enum NameSpace {
   Product = 'PRODUCT',
   Promo = 'PROMO',
   Review = 'REVIEW',
-  Coupon = 'COUPON',
-  Order = 'ORDER',
+  Search = 'SEARCH'
 }
 
 export enum ApiRoute {
@@ -27,6 +26,21 @@ export const STARS_COUNT = 5;
 export enum ProductTab {
   Description = 'description',
   Characteristics = 'characteristics',
+}
+
+export enum Sorting {
+  Type = 'sort-type',
+  Direction = 'sort-direction',
+}
+
+export enum SortType {
+  Price = 'price',
+  Popular = 'popular',
+}
+
+export enum SortDirection {
+  Down = 'down',
+  Up = 'up',
 }
 
 export const PRODUCTS_PER_PAGE = 9;

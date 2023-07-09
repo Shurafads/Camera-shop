@@ -1,12 +1,12 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace, PRODUCTS_PER_PAGE } from '../../const';
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
 import { TCamerasData } from '../../types/state';
 import { fetchProductAction, fetchProductsAction, fetchSimilarProductsAction } from '../api-action';
 import { toast } from 'react-toastify';
 
 export const initialState: TCamerasData = {
   ProductsList: [],
-  ProductsOnPage: [],
+  CopyProductsList: [],
   ProductInfo: null,
   SimilarProductsList: [],
   isLoadingProductsList: true,
@@ -17,12 +17,7 @@ export const initialState: TCamerasData = {
 export const productsData = createSlice({
   name: NameSpace.Product,
   initialState,
-  reducers: {
-    changeProductsAction: (state, action: PayloadAction<number[]>) => {
-      const [firstProduct, lastProduct] = action.payload;
-      state.ProductsOnPage = state.ProductsList.slice(firstProduct, lastProduct);
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchProductsAction.pending, (state) => {
@@ -30,7 +25,7 @@ export const productsData = createSlice({
       })
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
         state.ProductsList = action.payload;
-        state.ProductsOnPage = state.ProductsList.slice(0, PRODUCTS_PER_PAGE);
+        state.CopyProductsList = action.payload;
         state.isLoadingProductsList = false;
       })
       .addCase(fetchProductsAction.rejected, (state) => {
@@ -62,4 +57,3 @@ export const productsData = createSlice({
   }
 });
 
-export const { changeProductsAction } = productsData.actions;

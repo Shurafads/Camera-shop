@@ -1,11 +1,12 @@
+import { STARS_COUNT } from '../../const';
 import { useAppSelector } from '../../store';
 import { getProductInfo } from '../../store/products-data/products-data.selectors';
 import ProductInfo from '../product-info/product-info';
+import Star from '../star/star';
 
 type ProductContainerProps = {
   onBuyClick: () => void;
 }
-
 
 export default function ProductContainer({onBuyClick}: ProductContainerProps) {
 
@@ -14,6 +15,10 @@ export default function ProductContainer({onBuyClick}: ProductContainerProps) {
   if (!currentProduct) {
     return null;
   }
+
+  const filledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
+  const emptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
+  const emptyStarsCount = STARS_COUNT - Math.round(currentProduct.rating);
 
   return (
     <section className="product">
@@ -27,21 +32,8 @@ export default function ProductContainer({onBuyClick}: ProductContainerProps) {
         <div className="product__content">
           <h1 className="title title--h3">{`${currentProduct.category} ${currentProduct.name}`}</h1>
           <div className="rate product__rate">
-            <svg width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-            <svg width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-            <svg width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-            <svg width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-            <svg width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
+            {filledStars(Math.round(currentProduct.rating))}
+            {emptyStars(emptyStarsCount)}
             <p className="visually-hidden">Рейтинг: 4</p>
             <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{currentProduct.reviewCount}</p>
           </div>

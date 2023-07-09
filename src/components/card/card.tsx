@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../types/product';
-import { AppRoute, ProductTab } from '../../const';
+import { AppRoute, ProductTab, STARS_COUNT } from '../../const';
 import { WindowScrollToTop } from '../../utils/utils';
+import Star from '../star/star';
 
 type CardProps = {
   product: TProduct;
@@ -11,6 +12,10 @@ type CardProps = {
 }
 
 export default function Card({product, className, style, onBuyClick}: CardProps) {
+
+  const filledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
+  const emptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
+  const emptyStarsCount = STARS_COUNT - Math.round(product.rating);
 
   return (
     <div className={className ? `product-card ${className}` : 'product-card'} style={style}>
@@ -22,22 +27,9 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
+          {filledStars(Math.round(product.rating))}
+          {emptyStars(emptyStarsCount)}
+          <p className="visually-hidden">Рейтинг: </p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{product.reviewCount}</p>
         </div>
         <p className="product-card__title">{product.name}</p>

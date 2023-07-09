@@ -19,6 +19,7 @@ export const createFakeProduct = (): TProduct => ({
   price: faker.datatype.number(),
   id: faker.datatype.number(),
   reviewCount: faker.datatype.number(),
+  rating: faker.datatype.number(),
 });
 
 export const createFakeProductInfo = (): TProduct => ({
@@ -35,6 +36,7 @@ export const createFakeProductInfo = (): TProduct => ({
   price: faker.datatype.number(),
   id: faker.datatype.number({min: 1}),
   reviewCount: faker.datatype.number(),
+  rating: faker.datatype.number(),
 });
 
 export const createFakePromo = (): TPromo => ({
@@ -71,6 +73,7 @@ export const createFakeReview = (): TReview => ({
 export const fakeStore = (): State => ({
   [NameSpace.Product]: {
     ProductsList: [createFakeProduct()],
+    CopyProductsList: [createFakeProduct()],
     ProductsOnPage: [createFakeProduct()],
     ProductInfo: createFakeProductInfo(),
     SimilarProductsList: [createFakeProduct()],

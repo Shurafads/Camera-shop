@@ -1,57 +1,88 @@
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getProductsList } from '../../store/products-data/products-data.selectors';
-import { Link, useSearchParams } from 'react-router-dom';
-import { changeProductsAction } from '../../store/products-data/products-data';
+import { getFiltredProductsList } from '../../store/products-data/products-data.selectors';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { AppRoute, PRODUCTS_PER_PAGE } from '../../const';
-import { useEffect } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { WindowScrollToTop } from '../../utils/utils';
+import { getCurrentPage } from '../../store/search-data/search-data.selectors';
+import { changeCurrentPage } from '../../store/search-data/search-data';
 
 export default function Pagination() {
 
-  const [searchParams, setSearchParams] = useSearchParams({'page': '1'});
-
   const dispatch = useAppDispatch();
-  const productList = useAppSelector(getProductsList);
+  const navigate = useNavigate();
+  const productList = useAppSelector(getFiltredProductsList);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const paginationCount = Math.ceil(productList.length / PRODUCTS_PER_PAGE);
-  const currentPage = Number(searchParams.get('page')) || 1;
-
-  const lastProduct = PRODUCTS_PER_PAGE * currentPage;
-  const firstProduct = lastProduct - PRODUCTS_PER_PAGE;
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      dispatch(changeProductsAction([firstProduct, lastProduct]));
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [dispatch, firstProduct, lastProduct]);
+  const currentPage = useAppSelector(getCurrentPage);
 
   useEffect(() => {
     let isMounted = true;
 
     if (currentPage > paginationCount && isMounted) {
-      setSearchParams({'page': '1'});
+      dispatch(changeCurrentPage(1));
     }
 
     return () => {
       isMounted = false;
     };
-  }, [currentPage, setSearchParams, paginationCount]);
+  }, [currentPage, setSearchParams, paginationCount, dispatch]);
+
+  const handlePaginationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+
+    const target = evt.target as Element;
+
+    if (target.textContent) {
+      dispatch(changeCurrentPage(Number(target.textContent)));
+      navigate({
+        pathname: AppRoute.Catalog,
+        search: searchParams.toString()
+      });
+      WindowScrollToTop();
+    }
+  };
+
+  const handlePrevClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+
+    const target = evt.target as Element;
+
+    if (target.textContent) {
+      dispatch(changeCurrentPage(currentPage - 1));
+      navigate({
+        pathname: AppRoute.Catalog,
+        search: searchParams.toString()
+      });
+      WindowScrollToTop();
+    }
+  };
+
+  const handleNextClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+
+    const target = evt.target as Element;
+
+    if (target.textContent) {
+      dispatch(changeCurrentPage(currentPage + 1));
+      navigate({
+        pathname: AppRoute.Catalog,
+        search: searchParams.toString()
+      });
+      WindowScrollToTop();
+    }
+  };
 
   return (
     <div className="pagination" data-testid={'pagination'}>
       <ul className="pagination__list">
 
-        <li className={Number(currentPage) > 1 ? 'pagination__item' : 'visually-hidden'}>
+        <li className={currentPage > 1 ? 'pagination__item' : 'visually-hidden'}>
           <Link
             className="pagination__link pagination__link--text"
-            to={`${AppRoute.Catalog}?page=${currentPage - 1}`}
-            onClick={() => WindowScrollToTop()}
+            to={'/'}
+            onClick={handlePrevClick}
           >
             Назад
           </Link>
@@ -67,8 +98,8 @@ export default function Pagination() {
                 style={{marginRight: index + 1 === currentPage && index + 1 === paginationCount ? '99px' : ''}}
               >
                 <Link className={currentPage === index + 1 ? 'pagination__link pagination__link--active' : 'pagination__link'}
-                  to={`${AppRoute.Catalog}?page=${index + 1}`}
-                  onClick={() => WindowScrollToTop()}
+                  to={'/'}
+                  onClick={handlePaginationClick}
                 >
                   {index + 1}
                 </Link>
@@ -76,11 +107,11 @@ export default function Pagination() {
             ))
         }
 
-        <li className={Number(currentPage) < paginationCount ? 'pagination__item' : 'visually-hidden'}>
+        <li className={currentPage < paginationCount ? 'pagination__item' : 'visually-hidden'}>
           <Link
             className="pagination__link pagination__link--text"
-            to={`${AppRoute.Catalog}?page=${currentPage + 1}`}
-            onClick={() => WindowScrollToTop()}
+            to={'/'}
+            onClick={handleNextClick}
           >
             Далее
           </Link>

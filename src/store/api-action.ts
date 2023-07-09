@@ -14,9 +14,17 @@ export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   'product/fetchProductsAction',
   async (_arg, {extra: api}) => {
 
-    const {data} = await api.get<TProduct[]>(ApiRoute.Cameras);
+    const {data: productsList} = await api.get<TProduct[]>(ApiRoute.Cameras);
 
-    return data;
+    for (let i = 0; i < productsList.length; i++) {
+      const {data: reviewList} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productsList[i].id}/reviews`);
+
+      const ProductRating = Number((reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length).toFixed(1));
+
+      productsList[i] = { ...productsList[i], rating: ProductRating};
+    }
+
+    return productsList;
   }
 );
 
@@ -28,9 +36,14 @@ export const fetchProductAction = createAsyncThunk<TProduct, string, {
   'product/fetchProductAction',
   async (productId, {extra: api}) => {
 
-    const {data} = await api.get<TProduct>(`${ApiRoute.Cameras}/${productId}`);
+    const {data: product} = await api.get<TProduct>(`${ApiRoute.Cameras}/${productId}`);
 
-    return data;
+    const {data: productReview} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${product.id}/reviews`);
+
+    const ProductRating = Number((productReview.reduce((acc, review) => acc + review.rating, 0) / productReview.length).toFixed(1));
+    const ProductWithRating = {...product, rating: ProductRating};
+
+    return ProductWithRating;
   }
 );
 
@@ -44,7 +57,17 @@ export const fetchSimilarProductsAction = createAsyncThunk<TProduct[], string, {
 
     const {data} = await api.get<TProduct[]>(`${ApiRoute.Cameras}/${productId}/similar`);
 
-    return data;
+    const productList = [...data];
+
+    for (let i = 0; i < productList.length; i++) {
+      const {data: reviewList} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productList[i].id}/reviews`);
+
+      const ProductRating = Math.round(reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length);
+
+      productList[i] = { ...productList[i], rating: ProductRating};
+    }
+
+    return productList;
   }
 );
 
