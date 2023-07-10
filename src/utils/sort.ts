@@ -4,36 +4,6 @@ import { SortPriceToHigh, SortPriceToLow, SortRatingToHigh, SortRatingToLow } fr
 
 export const sortProductsList = (productsList: TProduct[], type: SortType | null, direction: SortDirection| null) => {
 
-  // let sortedCamerasByType: TProduct[] = [];
-
-  // switch (type) {
-  //   case SortType.Popular:
-  //     sortedCamerasByType = [...productsList].sort((a, b) => a.rating - b.rating);
-  //     break;
-  //   case SortType.Price:
-  //     sortedCamerasByType = [...productsList].sort((a, b) => b.price - a.price);
-  //     break;
-  //   default:
-  //     sortedCamerasByType = [...productsList];
-  //     break;
-  // }
-
-  // let sortedCamerasByOrder: TProduct[] = [];
-
-  // switch (direction) {
-  //   case SortDirection.Up:
-  //     sortedCamerasByOrder = sortedCamerasByType.reverse();
-  //     break;
-  //   case SortDirection.Down:
-  //     sortedCamerasByOrder = sortedCamerasByType;
-  //     break;
-  //   default:
-  //     sortedCamerasByOrder = [...productsList];
-  //     break;
-  // }
-
-  // return sortedCamerasByOrder;
-
   let sortedProductsList = [...productsList];
 
   if (type === SortType.Price && direction === SortDirection.Up) {

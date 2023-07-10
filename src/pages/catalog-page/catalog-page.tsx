@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import Banner from '../../components/banner/banner';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getCurrentPage, getCurrentSortDirection, getCurrentSortType } from '../../store/search-data/search-data.selectors';
-import { changeSortDirection, changeSortType } from '../../store/search-data/search-data';
+import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
+import { changeCurrentPage, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType } from '../../store/search-data/search-data';
 import { SortDirection, SortType, Sorting } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
 import LoadingPage from '../loading-page/loading-page';
@@ -17,32 +17,72 @@ export default function CatalogPage() {
   const currentPage = useAppSelector(getCurrentPage);
   const currentSortType = useAppSelector(getCurrentSortType);
   const currentSortDirection = useAppSelector(getCurrentSortDirection);
+  const currentMinPrice = useAppSelector(getcurrentMinPrice);
+  const currentMaxPrice = useAppSelector(getcurrentMaxPrice);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const page = searchParams.get('page');
   const sortType = searchParams.get(Sorting.Type);
   const sortDirection = searchParams.get(Sorting.Direction);
+  const minPrice = searchParams.get('price_min');
+  const maxPrice = searchParams.get('price_max');
 
-  useEffect(() => {
+  type QueryParam = {
+    page?: string;
+    [Sorting.Type]?: string;
+    [Sorting.Direction]?: string;
+    price_min?: string;
+    price_max?: string;
+  };
 
-    searchParams.set('page', currentPage.toString());
+  const currentParams = useMemo(() => {
+    const queryParams: QueryParam = {};
+
+    queryParams.page = currentPage.toString();
 
     if (currentSortType && currentSortDirection) {
-      searchParams.set(Sorting.Type, currentSortType);
-      searchParams.set(Sorting.Direction, currentSortDirection);
+      queryParams[Sorting.Type] = currentSortType;
+      queryParams[Sorting.Direction] = currentSortDirection;
+    }
+    if (currentMinPrice) {
+      queryParams['price_min'] = currentMinPrice.toString();
+    }
+    if (currentMaxPrice) {
+      queryParams['price_max'] = currentMaxPrice.toString();
     }
 
-    setSearchParams(searchParams);
-  },[currentPage, currentSortType, currentSortDirection, searchParams, sortType, sortDirection, setSearchParams]);
+    return queryParams;
+
+  }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice]);
 
   useEffect(() => {
-    if (sortType) {
-      dispatch(changeSortType(sortType as SortType));
-    }
-    if (sortDirection) {
-      dispatch(changeSortDirection(sortDirection as SortDirection));
+
+    if (page && +page > 0) {
+      dispatch(changeCurrentPage(+page));
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[page, dispatch]);
+
+  useEffect(() => {
+
+    setSearchParams(currentParams);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[currentParams, dispatch]);
+
+  useEffect(() => {
+
+    if (sortType) {dispatch(changeSortType(sortType as SortType));}
+    if (sortDirection) {dispatch(changeSortDirection(sortDirection as SortDirection));}
+
   }, [sortType, sortDirection, dispatch]);
+
+  useEffect(() => {
+
+    if (minPrice) {dispatch(changeMinPrice(+minPrice));}
+    if (maxPrice) {dispatch(changeMaxPrice(+maxPrice));}
+
+  }, [minPrice, maxPrice, dispatch]);
 
   if (isLoadingProductsList) {
     return <LoadingPage />;

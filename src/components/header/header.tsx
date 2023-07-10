@@ -18,7 +18,6 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
                 to={`${AppRoute.Catalog}`}
-                style={({ isActive }) => isActive ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
                 end
               >
                 Каталог
@@ -28,7 +27,6 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
                 to="/garanty"
-                style={({ isActive }) => isActive ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
               >
                 Гарантии
               </NavLink>
@@ -37,7 +35,6 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
                 to="/delivery"
-                style={({ isActive }) => isActive ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
               >
                 Доставка
               </NavLink>
@@ -46,7 +43,6 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
                 to="/about"
-                style={({ isActive }) => isActive ? {pointerEvents: 'none'} : {pointerEvents: 'auto'}}
               >
                 О компании
               </NavLink>

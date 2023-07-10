@@ -31,12 +31,13 @@ export const searchData = createSlice({
     changeCurrentPage: (state, action: PayloadAction<number>) => {
       state.Page = action.payload;
     },
-    changePrice: (state, action: PayloadAction<number[]>) => {
-      const [minPrice, maxPrice] = action.payload;
-      state.MinPrice = minPrice;
-      state.MaxPrice = maxPrice;
+    changeMinPrice: (state, action: PayloadAction<number>) => {
+      state.MinPrice = action.payload;
+    },
+    changeMaxPrice: (state, action: PayloadAction<number>) => {
+      state.MaxPrice = action.payload;
     },
   },
 });
 
-export const { changeSortType, changeSortDirection, changeCurrentPage, changePrice } = searchData.actions;
+export const { changeSortType, changeSortDirection, changeCurrentPage, changeMinPrice, changeMaxPrice } = searchData.actions;

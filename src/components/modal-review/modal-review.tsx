@@ -38,7 +38,7 @@ export default function ModalReview({isActive, onCloseModal, onSubmitModal}: Mod
       advantage: data.advantage,
       disadvantage: data.disadvantage,
       review: data.review,
-      rating: Number(data.rating),
+      rating: +data.rating,
       reset,
       onSubmitModal,
     };

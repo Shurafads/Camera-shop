@@ -20,7 +20,7 @@ describe('Reducer: productsData', () => {
 
     it('should update products by load products', () => {
       expect(productsData.reducer(initialState, {type: fetchProductsAction.fulfilled.type, payload: products}))
-        .toEqual({...initialState, ProductsList: products, ProductsOnPage: products, isLoadingProductsList: false});
+        .toEqual({...initialState, ProductsList: products, isLoadingProductsList: false});
     });
 
     it('should show error if server is unavailable', () => {

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getFiltredProductsList } from '../../store/products-data/products-data.selectors';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { AppRoute, PRODUCTS_PER_PAGE } from '../../const';
+import { Link, useSearchParams } from 'react-router-dom';
+import { PRODUCTS_PER_PAGE } from '../../const';
 import { MouseEvent, useEffect } from 'react';
 import { WindowScrollToTop } from '../../utils/utils';
 import { getCurrentPage } from '../../store/search-data/search-data.selectors';
@@ -10,24 +10,25 @@ import { changeCurrentPage } from '../../store/search-data/search-data';
 export default function Pagination() {
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const productList = useAppSelector(getFiltredProductsList);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const paginationCount = Math.ceil(productList.length / PRODUCTS_PER_PAGE);
   const currentPage = useAppSelector(getCurrentPage);
 
-  useEffect(() => {
-    let isMounted = true;
+  const page = searchParams.get('page');
 
-    if (currentPage > paginationCount && isMounted) {
-      dispatch(changeCurrentPage(1));
+  useEffect(() => {
+
+    if (page && +page < 1) {
+      dispatch(changeCurrentPage(currentPage));
+    }
+    if (page && +page > paginationCount) {
+      dispatch(changeCurrentPage(paginationCount));
     }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [currentPage, setSearchParams, paginationCount, dispatch]);
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+  },[page, dispatch]);
 
   const handlePaginationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
@@ -36,10 +37,6 @@ export default function Pagination() {
 
     if (target.textContent) {
       dispatch(changeCurrentPage(Number(target.textContent)));
-      navigate({
-        pathname: AppRoute.Catalog,
-        search: searchParams.toString()
-      });
       WindowScrollToTop();
     }
   };
@@ -51,10 +48,6 @@ export default function Pagination() {
 
     if (target.textContent) {
       dispatch(changeCurrentPage(currentPage - 1));
-      navigate({
-        pathname: AppRoute.Catalog,
-        search: searchParams.toString()
-      });
       WindowScrollToTop();
     }
   };
@@ -66,10 +59,6 @@ export default function Pagination() {
 
     if (target.textContent) {
       dispatch(changeCurrentPage(currentPage + 1));
-      navigate({
-        pathname: AppRoute.Catalog,
-        search: searchParams.toString()
-      });
       WindowScrollToTop();
     }
   };

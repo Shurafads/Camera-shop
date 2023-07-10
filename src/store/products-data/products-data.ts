@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 export const initialState: TCamerasData = {
   ProductsList: [],
-  CopyProductsList: [],
   ProductInfo: null,
   SimilarProductsList: [],
   isLoadingProductsList: true,
@@ -25,7 +24,6 @@ export const productsData = createSlice({
       })
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
         state.ProductsList = action.payload;
-        state.CopyProductsList = action.payload;
         state.isLoadingProductsList = false;
       })
       .addCase(fetchProductsAction.rejected, (state) => {

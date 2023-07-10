@@ -29,16 +29,25 @@ export const filterProductsList = (productsList: TProduct[], type: SortType | nu
     return sortedProductsList;
   };
 
-  const sortedProducts = getSortedProducts();
+  const sortedProductsList = getSortedProducts();
 
-  let filtredProdcuts: TProduct[] = sortedProducts;
+  const getFiltredProducts = () => {
+    let filtredProdcutsList: TProduct[] = getSortedProducts();
 
-  if (maxPrice === 0) {
-    filtredProdcuts = sortedProducts.filter((product) => product.price >= minPrice);
+    if (!maxPrice && !minPrice) {
+      return filtredProdcutsList;
+    }
 
-    return filtredProdcuts;
-  }
-  filtredProdcuts = sortedProducts.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+    if (!maxPrice) {
+      filtredProdcutsList = sortedProductsList.filter((product) => product.price >= minPrice);
 
-  return filtredProdcuts;
+      return filtredProdcutsList;
+    }
+    filtredProdcutsList = sortedProductsList.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+
+    return filtredProdcutsList;
+  };
+
+  return getFiltredProducts();
 };
+

@@ -6,7 +6,7 @@ import { sortProductsList } from '../../utils/sort';
 import { getCurrentSortDirection, getCurrentSortType, getcurrentMaxPrice, getcurrentMinPrice } from '../search-data/search-data.selectors';
 import { filterProductsList } from '../../utils/filter';
 
-export const getProductsList = (state: State): TProduct[] => state[NameSpace.Product].CopyProductsList; // test
+export const getProductsList = (state: State): TProduct[] => state[NameSpace.Product].ProductsList;
 
 export const getSortedProductsList = createSelector(
   [getProductsList, getCurrentSortType, getCurrentSortDirection],
@@ -14,13 +14,13 @@ export const getSortedProductsList = createSelector(
 );
 
 export const getFiltredProductsList = createSelector(
-  [getProductsList, getCurrentSortType, getCurrentSortDirection, getcurrentMinPrice, getcurrentMaxPrice],
+  [getSortedProductsList, getCurrentSortType, getCurrentSortDirection, getcurrentMinPrice, getcurrentMaxPrice],
   (productsList, type, direction, minPrice, maxPrice) => filterProductsList(productsList, type, direction, minPrice, maxPrice)
 );
 
 // export const getFiltredProductsList = createSelector(
 //   [getSortedProductsList, getcurrentMinPrice, getcurrentMaxPrice],
-//   (productsList, minPrice, maxPrice) => filterProductsList(productsList, minPrice, maxPrice)
+//   (productsList, minPrice, maxPrice) => filteredProductsList(productsList, minPrice, maxPrice)
 // );
 
 export const getProductInfo = (state: State): TProduct | null => state[NameSpace.Product].ProductInfo;

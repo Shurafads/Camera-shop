@@ -62,7 +62,7 @@ export default function CatalogContainer() {
             <div className="catalog__content">
               <Sort />
               <CardList onBuyClick={handleBuyClick}/>
-              {productList && <Pagination />}
+              {productList.length > 1 && <Pagination />}
             </div>
           </div>
         </div>

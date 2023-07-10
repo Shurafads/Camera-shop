@@ -10,7 +10,6 @@ export type AppDispatch = typeof store.dispatch;
 
 export type TCamerasData = {
   ProductsList: TProduct[];
-  CopyProductsList: TProduct[];
   ProductInfo: TProduct | null;
   SimilarProductsList: TProduct[];
   isLoadingProductsList: boolean;

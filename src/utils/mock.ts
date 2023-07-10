@@ -73,8 +73,6 @@ export const createFakeReview = (): TReview => ({
 export const fakeStore = (): State => ({
   [NameSpace.Product]: {
     ProductsList: [createFakeProduct()],
-    CopyProductsList: [createFakeProduct()],
-    ProductsOnPage: [createFakeProduct()],
     ProductInfo: createFakeProductInfo(),
     SimilarProductsList: [createFakeProduct()],
     isLoadingProductsList: false,
@@ -86,5 +84,12 @@ export const fakeStore = (): State => ({
   },
   [NameSpace.Promo]: {
     Promo: createFakePromo(),
+  },
+  [NameSpace.Search]: {
+    Page: faker.datatype.number({min: 1, max: 6}),
+    SortType: null,
+    SortDirection: null,
+    MinPrice: faker.datatype.number(),
+    MaxPrice: faker.datatype.number(),
   },
 });

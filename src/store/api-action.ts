@@ -19,7 +19,7 @@ export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
     for (let i = 0; i < productsList.length; i++) {
       const {data: reviewList} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productsList[i].id}/reviews`);
 
-      const ProductRating = Number((reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length).toFixed(1));
+      const ProductRating = +(reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length).toFixed(1);
 
       productsList[i] = { ...productsList[i], rating: ProductRating};
     }
@@ -40,7 +40,7 @@ export const fetchProductAction = createAsyncThunk<TProduct, string, {
 
     const {data: productReview} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${product.id}/reviews`);
 
-    const ProductRating = Number((productReview.reduce((acc, review) => acc + review.rating, 0) / productReview.length).toFixed(1));
+    const ProductRating = +(productReview.reduce((acc, review) => acc + review.rating, 0) / productReview.length).toFixed(1);
     const ProductWithRating = {...product, rating: ProductRating};
 
     return ProductWithRating;

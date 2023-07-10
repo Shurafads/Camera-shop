@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
 import { SortPriceToHigh } from '../../utils/utils';
 import { getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
-import { changePrice } from '../../store/search-data/search-data';
+import { changeMaxPrice, changeMinPrice } from '../../store/search-data/search-data';
 
 export default function Filter() {
 
@@ -32,16 +32,25 @@ export default function Filter() {
         ...prevState,
         price: 0,
       }));
-      dispatch(changePrice([0, priceValue.priceUp]));
+      dispatch(changeMinPrice(0));
       return;
     }
 
-    if (+priceValue.price < +minPrice) {
+    if (priceValue.price < +minPrice) {
       setPriceValue((prevState) => ({
         ...prevState,
         price: +minPrice,
       }));
-      dispatch(changePrice([+minPrice, priceValue.priceUp]));
+      dispatch(changeMinPrice(+minPrice));
+      return;
+    }
+
+    if (priceValue.priceUp > 0 && priceValue.price > priceValue.priceUp) {
+      setPriceValue((prevState) => ({
+        ...prevState,
+        price: priceValue.priceUp,
+      }));
+      dispatch(changeMinPrice(priceValue.priceUp));
       return;
     }
 
@@ -50,11 +59,11 @@ export default function Filter() {
         ...prevState,
         price: +maxPrice,
       }));
-      dispatch(changePrice([+maxPrice, priceValue.priceUp]));
+      dispatch(changeMinPrice(+maxPrice));
       return;
     }
 
-    dispatch(changePrice([priceValue.price, priceValue.priceUp]));
+    dispatch(changeMinPrice(priceValue.price));
   };
 
   const handleMaxPriceBlur = () => {
@@ -64,29 +73,38 @@ export default function Filter() {
         ...prevState,
         priceUp: 0,
       }));
-      dispatch(changePrice([priceValue.price, 0]));
+      dispatch(changeMaxPrice(0));
       return;
     }
 
-    if (+priceValue.priceUp < +minPrice) {
-      setPriceValue((prevState) => ({
-        ...prevState,
-        priceUp: +minPrice,
-      }));
-      dispatch(changePrice([priceValue.price, +minPrice]));
-      return;
-    }
-
-    if (+priceValue.priceUp > +maxPrice) {
+    if (priceValue.priceUp > +maxPrice) {
       setPriceValue((prevState) => ({
         ...prevState,
         priceUp: +maxPrice,
       }));
-      dispatch(changePrice([priceValue.price, +maxPrice]));
+      dispatch(changeMaxPrice(+maxPrice));
       return;
     }
 
-    dispatch(changePrice([priceValue.price, priceValue.priceUp]));
+    if (priceValue.price > 0 && priceValue.priceUp < priceValue.price) {
+      setPriceValue((prevState) => ({
+        ...prevState,
+        priceUp: priceValue.price,
+      }));
+      dispatch(changeMaxPrice(priceValue.price));
+      return;
+    }
+
+    if (priceValue.priceUp < +minPrice) {
+      setPriceValue((prevState) => ({
+        ...prevState,
+        priceUp: +minPrice,
+      }));
+      dispatch(changeMaxPrice(+minPrice));
+      return;
+    }
+
+    dispatch(changeMaxPrice(priceValue.priceUp));
   };
 
   return (
