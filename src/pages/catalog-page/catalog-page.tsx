@@ -3,9 +3,9 @@ import Banner from '../../components/banner/banner';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
-import { changeCurrentPage, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType } from '../../store/search-data/search-data';
-import { SortDirection, SortType, Sorting } from '../../const';
+import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getcurrentCategory, getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
+import { changeCategory, changeCurrentPage, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType } from '../../store/search-data/search-data';
+import { Category, SortDirection, SortType, Sorting } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
 import LoadingPage from '../loading-page/loading-page';
 import { getIsLoadingProductsList } from '../../store/products-data/products-data.selectors';
@@ -20,6 +20,7 @@ export default function CatalogPage() {
   const currentSortDirection = useAppSelector(getCurrentSortDirection);
   const currentMinPrice = useAppSelector(getcurrentMinPrice);
   const currentMaxPrice = useAppSelector(getcurrentMaxPrice);
+  const currentCategory = useAppSelector(getcurrentCategory);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = searchParams.get('page');
@@ -27,6 +28,7 @@ export default function CatalogPage() {
   const sortDirection = searchParams.get(Sorting.Direction);
   const minPrice = searchParams.get('price_min');
   const maxPrice = searchParams.get('price_max');
+  const category = searchParams.get('category');
 
   const currentParams = useMemo(() => {
     const queryParam: TQueryParam = {};
@@ -43,10 +45,13 @@ export default function CatalogPage() {
     if (currentMaxPrice) {
       queryParam['price_max'] = currentMaxPrice.toString();
     }
+    if (currentCategory) {
+      queryParam['category'] = currentCategory.toString();
+    }
 
     return queryParam;
 
-  }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice]);
+  }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice, currentCategory]);
 
   useEffect(() => {
 
@@ -78,6 +83,12 @@ export default function CatalogPage() {
     if (maxPrice) {dispatch(changeMaxPrice(+maxPrice));}
 
   }, [minPrice, maxPrice, dispatch]);
+
+  useEffect(() => {
+
+    if (category) {dispatch(changeCategory(category as Category));}
+
+  }, [category, dispatch]);
 
   if (isLoadingProductsList) {
     return <LoadingPage />;

@@ -6,4 +6,5 @@ export type TQueryParam = {
   [Sorting.Direction]?: string;
   price_min?: string;
   price_max?: string;
+  category?: string;
 }
