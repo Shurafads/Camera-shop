@@ -3,7 +3,7 @@ import Banner from '../../components/banner/banner';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getcurrentCategory, getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
+import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getCurrentCategory, getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
 import { changeCategory, changeCurrentPage, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType } from '../../store/search-data/search-data';
 import { Category, SortDirection, SortType, Sorting } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
@@ -18,9 +18,9 @@ export default function CatalogPage() {
   const currentPage = useAppSelector(getCurrentPage);
   const currentSortType = useAppSelector(getCurrentSortType);
   const currentSortDirection = useAppSelector(getCurrentSortDirection);
-  const currentMinPrice = useAppSelector(getcurrentMinPrice);
-  const currentMaxPrice = useAppSelector(getcurrentMaxPrice);
-  const currentCategory = useAppSelector(getcurrentCategory);
+  const currentMinPrice = useAppSelector(getCurrentMinPrice);
+  const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
+  const currentCategory = useAppSelector(getCurrentCategory);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = searchParams.get('page');

@@ -32,4 +32,5 @@ export type TSearchData = {
   MinPrice: number;
   MaxPrice: number;
   Category: Category | null;
+  ProductType: string[];
 }

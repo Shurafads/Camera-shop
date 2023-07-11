@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { changeCategory } from '../../store/search-data/search-data';
 import { Category } from '../../const';
-import { getcurrentCategory } from '../../store/search-data/search-data.selectors';
+import { getCurrentCategory } from '../../store/search-data/search-data.selectors';
 
 export default function FilterByCategory() {
 
   const dispatch = useAppDispatch();
-  const currentCategory = useAppSelector(getcurrentCategory);
+  const currentCategory = useAppSelector(getCurrentCategory);
 
   const refPhoto = useRef<HTMLInputElement>(null);
   const refVideo = useRef<HTMLInputElement>(null);

@@ -1,8 +1,8 @@
-import { Category, CategoryName, SortDirection, SortType } from '../const';
+import { Category, CategoryName, ProductName, SortDirection, SortType } from '../const';
 import { TProduct } from '../types/product';
 import { sortProductsList } from './sort';
 
-const filterProductsListByPrice = (productsList: TProduct[] , maxPrice: number, minPrice: number) => {
+const filterByPrice = (productsList: TProduct[] , maxPrice: number, minPrice: number) => {
 
   if (!maxPrice && !minPrice) {
     return productsList;
@@ -14,7 +14,7 @@ const filterProductsListByPrice = (productsList: TProduct[] , maxPrice: number, 
 
 };
 
-const filterProductsListByCategory = (productsList: TProduct[] , category: Category | null) => {
+const filterByCategory = (productsList: TProduct[] , category: Category | null) => {
 
   if (!category) {
     return productsList;
@@ -23,18 +23,27 @@ const filterProductsListByCategory = (productsList: TProduct[] , category: Categ
 
 };
 
+const filterByCameraType = (productsList: TProduct[], cameraType: string[]) => {
+  if (cameraType.length < 1) {
+    return productsList;
+  }
+  return productsList.filter((product) => Object.values(cameraType).includes(ProductName[product.type]));
+};
+
 export const filterProductsList = (
   productsList: TProduct[],
-  type: SortType | null,
+  sortType: SortType | null,
   direction: SortDirection| null,
   minPrice: number,
   maxPrice: number,
-  category: Category | null) => {
+  category: Category | null,
+  productType: string[]) => {
 
-  const sortedProductsList = sortProductsList(productsList, type, direction);
+  const sortedProductsList = sortProductsList(productsList, sortType, direction);
 
-  const filteredByCategory = filterProductsListByCategory(sortedProductsList, category);
-  const filteredByPrice = filterProductsListByPrice(filteredByCategory, maxPrice, minPrice);
+  const filteredByCategory = filterByCategory(sortedProductsList, category);
+  const filteredByCameraType = filterByCameraType(filteredByCategory, productType);
+  const filteredByPrice = filterByPrice(filteredByCameraType, maxPrice, minPrice);
 
   return filteredByPrice;
 };

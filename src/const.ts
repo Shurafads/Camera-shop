@@ -1,5 +1,11 @@
 export const URL = 'https://camera-shop.accelerator.pages.academy/';
 
+export const PRODUCTS_PER_PAGE = 9;
+
+export const DEFAULT_REVIEW_COUNT = 3;
+
+export const STARS_COUNT = 5;
+
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog',
@@ -18,10 +24,6 @@ export enum ApiRoute {
   Cameras = '/cameras',
   Promo = '/promo',
 }
-
-export const DEFAULT_REVIEW_COUNT = 3;
-
-export const STARS_COUNT = 5;
 
 export enum ProductTab {
   Description = 'description',
@@ -53,4 +55,10 @@ export enum CategoryName {
   videocamera = 'Видеокамера',
 }
 
-export const PRODUCTS_PER_PAGE = 9;
+export const ProductName: {[key: string]: string} = {
+  Цифровая: 'digital',
+  Плёночная: 'film',
+  Моментальная: 'snapshot',
+  Коллекционная: 'collection',
+} as const;
+

@@ -1,5 +1,6 @@
 import FilterByCategory from '../filter-by-category/filter-by-category';
 import FilterByPrice from '../filter-by-price/filter-by-price';
+import FilterByType from '../filter-by-type/filter-by-type';
 
 export default function Filters() {
 
@@ -9,37 +10,7 @@ export default function Filters() {
         <h2 className="visually-hidden">Фильтр</h2>
         <FilterByPrice />
         <FilterByCategory />
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Тип камеры</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="digital"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Цифровая</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="film"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Плёночная</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="snapshot"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Моментальная</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="collection"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Коллекционная</span>
-            </label>
-          </div>
-        </fieldset>
+        <FilterByType />
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
           <div className="custom-checkbox catalog-filter__item">

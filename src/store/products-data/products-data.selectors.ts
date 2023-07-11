@@ -3,7 +3,7 @@ import { NameSpace } from '../../const';
 import { TProduct } from '../../types/product';
 import { State } from '../../types/state';
 import { sortProductsList } from '../../utils/sort';
-import { getCurrentSortDirection, getCurrentSortType, getcurrentCategory, getcurrentMaxPrice, getcurrentMinPrice } from '../search-data/search-data.selectors';
+import { getCurrentSortDirection, getCurrentSortType, getCurrentCategory, getCurrentMaxPrice, getCurrentMinPrice, getCurrentProductType } from '../search-data/search-data.selectors';
 import { filterProductsList } from '../../utils/filter';
 
 export const getProductsList = (state: State): TProduct[] => state[NameSpace.Product].ProductsList;
@@ -14,12 +14,13 @@ export const getSortedProductsList = createSelector(
 );
 
 export const getFiltredProductsList = createSelector(
-  [getProductsList, getCurrentSortType, getCurrentSortDirection, getcurrentMinPrice, getcurrentMaxPrice, getcurrentCategory],
-  (productsList, type, direction, minPrice, maxPrice, category) => filterProductsList(productsList, type, direction, minPrice, maxPrice, category)
+  [getProductsList, getCurrentSortType, getCurrentSortDirection, getCurrentMinPrice, getCurrentMaxPrice, getCurrentCategory, getCurrentProductType],
+  (productsList, sortType, direction, minPrice, maxPrice, category, productType) =>
+    filterProductsList(productsList, sortType, direction, minPrice, maxPrice, category, productType)
 );
 
 // export const getFiltredProductsList = createSelector(
-//   [getSortedProductsList, getcurrentMinPrice, getcurrentMaxPrice],
+//   [getSortedProductsList, getCurrentMinPrice, getCurrentMaxPrice],
 //   (productsList, minPrice, maxPrice) => filteredProductsList(productsList, minPrice, maxPrice)
 // );
 

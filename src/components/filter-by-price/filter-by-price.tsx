@@ -2,14 +2,14 @@ import { ChangeEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
 import { SortPriceToHigh } from '../../utils/utils';
-import { getcurrentMaxPrice, getcurrentMinPrice } from '../../store/search-data/search-data.selectors';
+import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
 import { changeMaxPrice, changeMinPrice } from '../../store/search-data/search-data';
 
 export default function FilterByPrice() {
 
   const dispatch = useAppDispatch();
-  const currentMinPrice = useAppSelector(getcurrentMinPrice);
-  const currentMaxPrice = useAppSelector(getcurrentMaxPrice);
+  const currentMinPrice = useAppSelector(getCurrentMinPrice);
+  const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
   const productsList = useAppSelector(getSortedProductsList).sort(SortPriceToHigh);
 
   const minPrice = productsList[0].price.toString();

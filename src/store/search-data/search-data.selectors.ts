@@ -7,8 +7,10 @@ export const getCurrentSortDirection = (state: State): SortDirection | null => s
 
 export const getCurrentPage = (state: State): number => state[NameSpace.Search].Page;
 
-export const getcurrentMinPrice = (state: State): number => state[NameSpace.Search].MinPrice;
+export const getCurrentMinPrice = (state: State): number => state[NameSpace.Search].MinPrice;
 
-export const getcurrentMaxPrice = (state: State): number => state[NameSpace.Search].MaxPrice;
+export const getCurrentMaxPrice = (state: State): number => state[NameSpace.Search].MaxPrice;
 
-export const getcurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;
+export const getCurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;
+
+export const getCurrentProductType = (state: State): string[] => state[NameSpace.Search].ProductType;
