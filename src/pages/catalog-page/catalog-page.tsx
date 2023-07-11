@@ -9,6 +9,7 @@ import { SortDirection, SortType, Sorting } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
 import LoadingPage from '../loading-page/loading-page';
 import { getIsLoadingProductsList } from '../../store/products-data/products-data.selectors';
+import { TQueryParam } from '../../types/param';
 
 export default function CatalogPage() {
 
@@ -27,40 +28,34 @@ export default function CatalogPage() {
   const minPrice = searchParams.get('price_min');
   const maxPrice = searchParams.get('price_max');
 
-  type QueryParam = {
-    page?: string;
-    [Sorting.Type]?: string;
-    [Sorting.Direction]?: string;
-    price_min?: string;
-    price_max?: string;
-  };
-
   const currentParams = useMemo(() => {
-    const queryParams: QueryParam = {};
+    const queryParam: TQueryParam = {};
 
-    queryParams.page = currentPage.toString();
+    queryParam.page = currentPage.toString();
 
     if (currentSortType && currentSortDirection) {
-      queryParams[Sorting.Type] = currentSortType;
-      queryParams[Sorting.Direction] = currentSortDirection;
+      queryParam[Sorting.Type] = currentSortType;
+      queryParam[Sorting.Direction] = currentSortDirection;
     }
     if (currentMinPrice) {
-      queryParams['price_min'] = currentMinPrice.toString();
+      queryParam['price_min'] = currentMinPrice.toString();
     }
     if (currentMaxPrice) {
-      queryParams['price_max'] = currentMaxPrice.toString();
+      queryParam['price_max'] = currentMaxPrice.toString();
     }
 
-    return queryParams;
+    return queryParam;
 
   }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice]);
 
   useEffect(() => {
 
+    if (page && +page < 1) {
+      dispatch(changeCurrentPage(currentPage));
+    }
     if (page && +page > 0) {
       dispatch(changeCurrentPage(+page));
     }
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page, dispatch]);
 
