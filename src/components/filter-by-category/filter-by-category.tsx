@@ -1,16 +1,18 @@
 import { useRef } from 'react';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { changeCategory } from '../../store/search-data/search-data';
 import { Category } from '../../const';
+import { getcurrentCategory } from '../../store/search-data/search-data.selectors';
 
 export default function FilterByCategory() {
 
   const dispatch = useAppDispatch();
+  const currentCategory = useAppSelector(getcurrentCategory);
 
   const refPhoto = useRef<HTMLInputElement>(null);
   const refVideo = useRef<HTMLInputElement>(null);
 
-  const handleCategoryClick = () => {
+  const handleCategoryChange = () => {
 
     if (refPhoto.current?.checked) {
       return dispatch(changeCategory(refPhoto.current?.name as Category));
@@ -28,10 +30,11 @@ export default function FilterByCategory() {
         <label>
           <input
             type="checkbox"
-            name="photocamera"
-            onChange={handleCategoryClick}
+            name={Category.Photocamera}
+            onChange={handleCategoryChange}
             ref={refPhoto}
             disabled={refVideo.current?.checked}
+            checked={currentCategory === Category.Photocamera}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Фотокамера</span>
@@ -41,10 +44,11 @@ export default function FilterByCategory() {
         <label>
           <input
             type="checkbox"
-            name="videocamera"
-            onChange={handleCategoryClick}
+            name={Category.Videocamera}
+            onChange={handleCategoryChange}
             ref={refVideo}
             disabled={refPhoto.current?.checked}
+            checked={currentCategory === Category.Videocamera}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Видеокамера</span>
