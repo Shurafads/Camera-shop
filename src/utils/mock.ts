@@ -91,5 +91,6 @@ export const fakeStore = (): State => ({
     SortDirection: null,
     MinPrice: faker.datatype.number(),
     MaxPrice: faker.datatype.number(),
+    Category: null,
   },
 });

@@ -1,53 +1,41 @@
-import { SortDirection, SortType } from '../const';
+import { Category, CategoryName, SortDirection, SortType } from '../const';
 import { TProduct } from '../types/product';
-import { SortPriceToHigh, SortPriceToLow, SortRatingToHigh, SortRatingToLow } from './utils';
+import { sortProductsList } from './sort';
 
-export const filterProductsList = (productsList: TProduct[], type: SortType | null, direction: SortDirection| null, minPrice: number, maxPrice: number) => {
-  const getSortedProducts = () => {
-    let sortedProductsList = [...productsList];
+const filterProductsListByPrice = (productsList: TProduct[] , maxPrice: number, minPrice: number) => {
 
-    if (type === SortType.Price && direction === SortDirection.Up) {
-      sortedProductsList = [...productsList].sort(SortPriceToHigh);
-      return sortedProductsList;
-    }
+  if (!maxPrice && !minPrice) {
+    return productsList;
+  }
+  if (!maxPrice) {
+    return productsList.filter((product) => product.price >= minPrice);
+  }
+  return productsList.filter((product) => product.price >= minPrice && product.price <= maxPrice);
 
-    if (type === SortType.Price && direction === SortDirection.Down) {
-      sortedProductsList = [...productsList].sort(SortPriceToLow);
-      return sortedProductsList;
-    }
+};
 
-    if (type === SortType.Popular && direction === SortDirection.Up) {
-      sortedProductsList = [...productsList].sort(SortRatingToHigh);
-      return sortedProductsList;
-    }
+const filterProductsListByCategory = (productsList: TProduct[] , category: Category | null) => {
 
-    if (type === SortType.Popular && direction === SortDirection.Down) {
-      sortedProductsList = [...productsList].sort(SortRatingToLow);
-      return sortedProductsList;
-    }
+  if (!category) {
+    return productsList;
+  }
+  return productsList.filter((product) => product.category === CategoryName[category]);
 
-    return sortedProductsList;
-  };
+};
 
-  const sortedProductsList = getSortedProducts();
+export const filterProductsList = (
+  productsList: TProduct[],
+  type: SortType | null,
+  direction: SortDirection| null,
+  minPrice: number,
+  maxPrice: number,
+  category: Category | null) => {
 
-  const getFiltredProducts = () => {
-    let filtredProdcutsList: TProduct[] = getSortedProducts();
+  const sortedProductsList = sortProductsList(productsList, type, direction);
 
-    if (!maxPrice && !minPrice) {
-      return filtredProdcutsList;
-    }
+  const filteredByCategory = filterProductsListByCategory(sortedProductsList, category);
+  const filteredByPrice = filterProductsListByPrice(filteredByCategory, maxPrice, minPrice);
 
-    if (!maxPrice) {
-      filtredProdcutsList = sortedProductsList.filter((product) => product.price >= minPrice);
-
-      return filtredProdcutsList;
-    }
-    filtredProdcutsList = sortedProductsList.filter((product) => product.price >= minPrice && product.price <= maxPrice);
-
-    return filtredProdcutsList;
-  };
-
-  return getFiltredProducts();
+  return filteredByPrice;
 };
 

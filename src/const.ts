@@ -43,4 +43,14 @@ export enum SortDirection {
   Up = 'up',
 }
 
+export enum Category {
+  Photocamera = 'photocamera',
+  Videocamera = 'videocamera',
+}
+
+export enum CategoryName {
+  photocamera = 'Фотоаппарат',
+  videocamera = 'Видеокамера',
+}
+
 export const PRODUCTS_PER_PAGE = 9;

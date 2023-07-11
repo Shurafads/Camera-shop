@@ -1,4 +1,4 @@
-import { SortDirection, SortType } from '../const';
+import { Category, SortDirection, SortType } from '../const';
 import { store } from '../store';
 import { TProduct } from './product';
 import { TPromo } from './promo';
@@ -31,4 +31,5 @@ export type TSearchData = {
   SortDirection: SortDirection | null;
   MinPrice: number;
   MaxPrice: number;
+  Category: Category | null;
 }

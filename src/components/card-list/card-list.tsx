@@ -28,8 +28,10 @@ export default function CardList({onBuyClick}: CardListProps) {
     if (currentPage > paginationCount) {
       dispatch(changeCurrentPage(paginationCount));
     }
+    if (!paginationCount) {
+      dispatch(changeCurrentPage(1));
+    }
 
-  //eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentPage, paginationCount, dispatch]);
 
   return (

@@ -1,3 +1,4 @@
+import FilterByCategory from '../filter-by-category/filter-by-category';
 import FilterByPrice from '../filter-by-price/filter-by-price';
 
 export default function Filters() {
@@ -7,23 +8,7 @@ export default function Filters() {
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
         <FilterByPrice />
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Категория</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="photocamera"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Фотокамера</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="videocamera"/>
-              <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">Видеокамера</span>
-            </label>
-          </div>
-        </fieldset>
+        <FilterByCategory />
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
           <div className="custom-checkbox catalog-filter__item">

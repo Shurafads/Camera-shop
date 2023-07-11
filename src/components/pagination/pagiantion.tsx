@@ -11,9 +11,9 @@ export default function Pagination() {
 
   const dispatch = useAppDispatch();
   const productsList = useAppSelector(getFiltredProductsList);
+  const currentPage = useAppSelector(getCurrentPage);
 
   const paginationCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
-  const currentPage = useAppSelector(getCurrentPage);
 
   const handlePaginationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
@@ -21,7 +21,7 @@ export default function Pagination() {
     const target = evt.target as Element;
 
     if (target.textContent) {
-      dispatch(changeCurrentPage(Number(target.textContent)));
+      dispatch(changeCurrentPage(+target.textContent));
       WindowScrollToTop();
     }
   };

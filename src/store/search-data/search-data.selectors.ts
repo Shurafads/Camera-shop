@@ -1,4 +1,4 @@
-import { NameSpace, SortDirection, SortType } from '../../const';
+import { Category, NameSpace, SortDirection, SortType } from '../../const';
 import { State } from '../../types/state';
 
 export const getCurrentSortType = (state: State): SortType | null => state[NameSpace.Search].SortType;
@@ -10,3 +10,5 @@ export const getCurrentPage = (state: State): number => state[NameSpace.Search].
 export const getcurrentMinPrice = (state: State): number => state[NameSpace.Search].MinPrice;
 
 export const getcurrentMaxPrice = (state: State): number => state[NameSpace.Search].MaxPrice;
+
+export const getcurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;

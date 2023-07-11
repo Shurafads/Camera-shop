@@ -3,7 +3,7 @@ import { NameSpace } from '../../const';
 import { TProduct } from '../../types/product';
 import { State } from '../../types/state';
 import { sortProductsList } from '../../utils/sort';
-import { getCurrentSortDirection, getCurrentSortType, getcurrentMaxPrice, getcurrentMinPrice } from '../search-data/search-data.selectors';
+import { getCurrentSortDirection, getCurrentSortType, getcurrentCategory, getcurrentMaxPrice, getcurrentMinPrice } from '../search-data/search-data.selectors';
 import { filterProductsList } from '../../utils/filter';
 
 export const getProductsList = (state: State): TProduct[] => state[NameSpace.Product].ProductsList;
@@ -14,8 +14,8 @@ export const getSortedProductsList = createSelector(
 );
 
 export const getFiltredProductsList = createSelector(
-  [getSortedProductsList, getCurrentSortType, getCurrentSortDirection, getcurrentMinPrice, getcurrentMaxPrice],
-  (productsList, type, direction, minPrice, maxPrice) => filterProductsList(productsList, type, direction, minPrice, maxPrice)
+  [getProductsList, getCurrentSortType, getCurrentSortDirection, getcurrentMinPrice, getcurrentMaxPrice, getcurrentCategory],
+  (productsList, type, direction, minPrice, maxPrice, category) => filterProductsList(productsList, type, direction, minPrice, maxPrice, category)
 );
 
 // export const getFiltredProductsList = createSelector(

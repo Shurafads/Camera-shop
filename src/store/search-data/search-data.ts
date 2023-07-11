@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace, SortDirection, SortType } from '../../const';
+import { Category, NameSpace, SortDirection, SortType } from '../../const';
 import { TSearchData } from '../../types/state';
 
 export const initialState: TSearchData = {
@@ -8,6 +8,7 @@ export const initialState: TSearchData = {
   SortDirection: null,
   MinPrice: 0,
   MaxPrice: 0,
+  Category: null,
 };
 
 export const searchData = createSlice({
@@ -37,7 +38,10 @@ export const searchData = createSlice({
     changeMaxPrice: (state, action: PayloadAction<number>) => {
       state.MaxPrice = action.payload;
     },
+    changeCategory: (state, action: PayloadAction<Category | null>) => {
+      state.Category = action.payload;
+    },
   },
 });
 
-export const { changeSortType, changeSortDirection, changeCurrentPage, changeMinPrice, changeMaxPrice } = searchData.actions;
+export const { changeSortType, changeSortDirection, changeCurrentPage, changeMinPrice, changeMaxPrice, changeCategory } = searchData.actions;
