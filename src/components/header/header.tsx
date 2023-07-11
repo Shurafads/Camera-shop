@@ -1,8 +1,10 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Search from '../search/search';
 
 export default function Header() {
+
+  const [searchParams] = useSearchParams();
 
   return (
     <header className="header" id="header" data-testid="header">
@@ -17,7 +19,10 @@ export default function Header() {
             <li className="main-nav__item">
               <NavLink
                 className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
-                to={`${AppRoute.Catalog}`}
+                to={{
+                  pathname: AppRoute.Catalog,
+                  search: searchParams.toString()
+                }}
                 end
               >
                 Каталог

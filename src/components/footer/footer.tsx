@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { WindowScrollToTop } from '../../utils/utils';
 
 export default function Footer() {
+
+  const [searchParams] = useSearchParams();
 
   return (
     <footer className="footer" data-testid="footer">
@@ -45,7 +47,10 @@ export default function Footer() {
               <li className="footer__item">
                 <Link
                   className="link"
-                  to={AppRoute.Catalog}
+                  to={{
+                    pathname: AppRoute.Catalog,
+                    search: searchParams.toString()
+                  }}
                   onClick={() => WindowScrollToTop()}
                 >
                   Каталог

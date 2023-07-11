@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import CardList from '../card-list/card-list';
-import Filter from '../filter/filter';
+import Filters from '../filters/filters';
 import Pagination from '../pagination/pagiantion';
 import Sort from '../sort/sort';
 import { useAppSelector } from '../../store';
@@ -57,7 +57,7 @@ export default function CatalogContainer() {
           <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
           <div className="page-content__columns">
             <div className="catalog__aside">
-              <Filter />
+              <Filters />
             </div>
             <div className="catalog__content">
               <Sort />

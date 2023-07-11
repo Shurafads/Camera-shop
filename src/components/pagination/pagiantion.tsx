@@ -10,10 +10,10 @@ import { changeCurrentPage } from '../../store/search-data/search-data';
 export default function Pagination() {
 
   const dispatch = useAppDispatch();
-  const productList = useAppSelector(getFiltredProductsList);
+  const productsList = useAppSelector(getFiltredProductsList);
   const [searchParams] = useSearchParams();
 
-  const paginationCount = Math.ceil(productList.length / PRODUCTS_PER_PAGE);
+  const paginationCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
   const currentPage = useAppSelector(getCurrentPage);
 
   const page = searchParams.get('page');
@@ -26,9 +26,12 @@ export default function Pagination() {
     if (page && +page > paginationCount) {
       dispatch(changeCurrentPage(paginationCount));
     }
+    if (currentPage > paginationCount) {
+      dispatch(changeCurrentPage(paginationCount));
+    }
 
   //eslint-disable-next-line react-hooks/exhaustive-deps
-  },[page, dispatch]);
+  },[page, currentPage, paginationCount, dispatch]);
 
   const handlePaginationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
