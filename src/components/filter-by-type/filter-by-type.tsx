@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { changeType } from '../../store/search-data/search-data';
-import { getCurrentCategory, getCurrentProductType } from '../../store/search-data/search-data.selectors';
+import { getCurrentCategory, getCurrentFilterType } from '../../store/search-data/search-data.selectors';
 import { Category } from '../../const';
 
 export default function FilterByType() {
@@ -13,33 +13,39 @@ export default function FilterByType() {
 
   const dispatch = useAppDispatch();
   const currentCategory = useAppSelector(getCurrentCategory);
-  const currentType = useAppSelector(getCurrentProductType);
+  const currentType = useAppSelector(getCurrentFilterType);
 
   const handleTypeChange = () => {
 
-    const checkedCameraType = {
-      digital: refDigital.current?.checked,
-      film: refFilm.current?.checked,
-      snapshot: refSnapshot.current?.checked,
-      collection: refCollection.current?.checked,
-    };
+    const checkedProductType = [];
+    if (refDigital.current?.checked) {
+      checkedProductType.push('digital');
+    }
+    if (refFilm.current?.checked) {
+      checkedProductType.push('film');
+    }
+    if (refSnapshot.current?.checked) {
+      checkedProductType.push('snapshot');
+    }
+    if (refCollection.current?.checked) {
+      checkedProductType.push('collection');
+    }
 
-    dispatch(changeType(checkedCameraType));
+    dispatch(changeType(checkedProductType));
   };
 
   useEffect(() => {
 
-    const checkedCameraType = {
-      digital: refDigital.current?.checked,
-      film: refFilm.current?.checked,
-      snapshot: refSnapshot.current?.checked,
-      collection: refCollection.current?.checked,
-    };
+    const checkedProductType = [];
+    if (refDigital.current?.checked) {
+      checkedProductType.push('digital');
+    }
+    if (refCollection.current?.checked) {
+      checkedProductType.push('collection');
+    }
 
     if (currentCategory === Category.Videocamera) {
-      checkedCameraType.film = false;
-      checkedCameraType.snapshot = false;
-      dispatch(changeType(checkedCameraType));
+      dispatch(changeType(checkedProductType));
     }
   }, [currentCategory, dispatch]);
 
@@ -67,7 +73,7 @@ export default function FilterByType() {
             ref={refFilm}
             onChange={handleTypeChange}
             disabled={currentCategory === Category.Videocamera}
-            checked={currentCategory !== 'videocamera' && currentType.includes('film')}
+            checked={currentCategory !== Category.Videocamera && currentType.includes('film')}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Плёночная</span>
@@ -81,7 +87,7 @@ export default function FilterByType() {
             ref={refSnapshot}
             onChange={handleTypeChange}
             disabled={currentCategory === Category.Videocamera}
-            checked={currentCategory !== 'videocamera' && currentType.includes('snapshot')}
+            checked={currentCategory !== Category.Videocamera && currentType.includes('snapshot')}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Моментальная</span>

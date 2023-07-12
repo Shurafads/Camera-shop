@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Category, NameSpace, SortDirection, SortType } from '../../const';
 import { TSearchData } from '../../types/state';
-import { TCheckedType } from '../../types/type';
 
 export const initialState: TSearchData = {
   Page: 1,
@@ -10,7 +9,8 @@ export const initialState: TSearchData = {
   MinPrice: 0,
   MaxPrice: 0,
   Category: null,
-  ProductType: [],
+  FilterType: [],
+  Level: [],
 };
 
 export const searchData = createSlice({
@@ -43,10 +43,20 @@ export const searchData = createSlice({
     changeCategory: (state, action: PayloadAction<Category | null>) => {
       state.Category = action.payload;
     },
-    changeType: (state, action: PayloadAction<TCheckedType>) => {
-      state.ProductType = Object.keys(action.payload).filter((key) => action.payload[key as keyof TCheckedType]);
+    changeType: (state, action: PayloadAction<string[]>) => {
+      state.FilterType = action.payload;
+    },
+    changeLevel: (state, action: PayloadAction<string[]>) => {
+      state.Level = action.payload;
+    },
+    resetFilter: (state) => {
+      state.MinPrice = 0;
+      state.MaxPrice = 0;
+      state.Category = null;
+      state.FilterType = [];
+      state.Level = [];
     },
   },
 });
 
-export const { changeSortType, changeSortDirection, changeCurrentPage, changeMinPrice, changeMaxPrice, changeCategory, changeType } = searchData.actions;
+export const { changeSortType, changeSortDirection, changeCurrentPage, changeMinPrice, changeMaxPrice, changeCategory, changeType, changeLevel, resetFilter } = searchData.actions;

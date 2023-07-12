@@ -13,4 +13,6 @@ export const getCurrentMaxPrice = (state: State): number => state[NameSpace.Sear
 
 export const getCurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;
 
-export const getCurrentProductType = (state: State): string[] => state[NameSpace.Search].ProductType;
+export const getCurrentFilterType = (state: State): string[] => state[NameSpace.Search].FilterType;
+
+export const getCurrentLevel = (state: State): string[] => state[NameSpace.Search].Level;

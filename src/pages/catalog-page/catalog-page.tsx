@@ -3,8 +3,8 @@ import Banner from '../../components/banner/banner';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getCurrentCategory, getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
-import { changeCategory, changeCurrentPage, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType } from '../../store/search-data/search-data';
+import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getCurrentCategory, getCurrentMaxPrice, getCurrentMinPrice, getCurrentFilterType, getCurrentLevel } from '../../store/search-data/search-data.selectors';
+import { changeCategory, changeCurrentPage, changeLevel, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType, changeType } from '../../store/search-data/search-data';
 import { Category, SortDirection, SortType, Sorting } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
 import LoadingPage from '../loading-page/loading-page';
@@ -21,6 +21,8 @@ export default function CatalogPage() {
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
   const currentCategory = useAppSelector(getCurrentCategory);
+  const currentType = useAppSelector(getCurrentFilterType);
+  const currentLevel = useAppSelector(getCurrentLevel);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = searchParams.get('page');
@@ -29,6 +31,8 @@ export default function CatalogPage() {
   const minPrice = searchParams.get('price_min');
   const maxPrice = searchParams.get('price_max');
   const category = searchParams.get('category');
+  const type = searchParams.get('type');
+  const level = searchParams.get('level');
 
   const currentParams = useMemo(() => {
     const queryParam: TQueryParam = {};
@@ -48,10 +52,16 @@ export default function CatalogPage() {
     if (currentCategory) {
       queryParam['category'] = currentCategory.toString();
     }
+    if (currentType.length) {
+      queryParam['type'] = [currentType.toString()];
+    }
+    if (currentLevel.length) {
+      queryParam['level'] = [currentLevel.toString()];
+    }
 
     return queryParam;
 
-  }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice, currentCategory]);
+  }, [currentPage, currentSortType, currentSortDirection, currentMinPrice, currentMaxPrice, currentCategory, currentType, currentLevel]);
 
   useEffect(() => {
 
@@ -89,6 +99,26 @@ export default function CatalogPage() {
     if (category) {dispatch(changeCategory(category as Category));}
 
   }, [category, dispatch]);
+
+  useEffect(() => {
+
+    const arrayOfType = type?.split(',');
+
+    if (arrayOfType?.length) {
+      dispatch(changeType(arrayOfType));
+    }
+
+  }, [type, dispatch]);
+
+  useEffect(() => {
+
+    const arrayOfLevel = level?.split(',');
+
+    if (arrayOfLevel?.length) {
+      dispatch(changeLevel(arrayOfLevel));
+    }
+
+  }, [level, dispatch]);
 
   if (isLoadingProductsList) {
     return <LoadingPage />;

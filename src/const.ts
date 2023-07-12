@@ -55,10 +55,23 @@ export enum CategoryName {
   videocamera = 'Видеокамера',
 }
 
-export const ProductName: {[key: string]: string} = {
+export enum ProductTypeNameReverse {
+  digital = 'Цифровая',
+  videocamera = 'Плёночная',
+  snapshot = 'Моментальная',
+  collection = 'Коллекционная',
+}
+
+export const ProductTypeName: {[key: string]: string} = {
   Цифровая: 'digital',
   Плёночная: 'film',
   Моментальная: 'snapshot',
   Коллекционная: 'collection',
+} as const;
+
+export const ProductLevelName: {[key: string]: string} = {
+  Нулевой: 'zero',
+  Любительский: 'amateur',
+  Профессиональный: 'professional',
 } as const;
 

@@ -1,11 +1,15 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
 import { SortPriceToHigh } from '../../utils/utils';
 import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
 import { changeMaxPrice, changeMinPrice } from '../../store/search-data/search-data';
 
-export default function FilterByPrice() {
+type FilterByPriceProps = {
+  isResetFilter: boolean;
+}
+
+export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
 
   const dispatch = useAppDispatch();
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
@@ -24,6 +28,12 @@ export default function FilterByPrice() {
       [name]: +value,
     }));
   };
+
+  useEffect(() => {
+    if (isResetFilter) {
+      setPriceValue({price: 0, priceUp: 0});
+    }
+  }, [isResetFilter]);
 
   const handleMinPriceBlur = () => {
 

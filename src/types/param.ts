@@ -7,4 +7,6 @@ export type TQueryParam = {
   price_min?: string;
   price_max?: string;
   category?: string;
+  type?: string[];
+  level?: string[];
 }
