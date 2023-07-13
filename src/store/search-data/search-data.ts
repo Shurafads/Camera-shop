@@ -17,6 +17,9 @@ export const searchData = createSlice({
   name: NameSpace.Search,
   initialState,
   reducers: {
+    changeCurrentPage: (state, action: PayloadAction<number>) => {
+      state.Page = action.payload;
+    },
     changeSortType: (state, action: PayloadAction<SortType | null>) => {
       state.SortType = action.payload;
 
@@ -30,9 +33,6 @@ export const searchData = createSlice({
       if (!state.SortType) {
         state.SortType = SortType.Price;
       }
-    },
-    changeCurrentPage: (state, action: PayloadAction<number>) => {
-      state.Page = action.payload;
     },
     changeMinPrice: (state, action: PayloadAction<number>) => {
       state.MinPrice = action.payload;

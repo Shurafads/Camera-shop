@@ -18,6 +18,7 @@ export default function FilterByType() {
   const handleTypeChange = () => {
 
     const checkedProductType = [];
+
     if (refDigital.current?.checked) {
       checkedProductType.push('digital');
     }
@@ -37,6 +38,7 @@ export default function FilterByType() {
   useEffect(() => {
 
     const checkedProductType = [];
+
     if (refDigital.current?.checked) {
       checkedProductType.push('digital');
     }
