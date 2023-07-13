@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { changeType } from '../../store/search-data/search-data';
 import { getCurrentCategory, getCurrentFilterType } from '../../store/search-data/search-data.selectors';
-import { Category } from '../../const';
+import { Category, Type } from '../../const';
 
 export default function FilterByType() {
 
@@ -20,16 +20,16 @@ export default function FilterByType() {
     const checkedProductType = [];
 
     if (refDigital.current?.checked) {
-      checkedProductType.push('digital');
+      checkedProductType.push(Type.Digital);
     }
     if (refFilm.current?.checked) {
-      checkedProductType.push('film');
+      checkedProductType.push(Type.Film);
     }
     if (refSnapshot.current?.checked) {
-      checkedProductType.push('snapshot');
+      checkedProductType.push(Type.Snapshot);
     }
     if (refCollection.current?.checked) {
-      checkedProductType.push('collection');
+      checkedProductType.push(Type.Collection);
     }
 
     dispatch(changeType(checkedProductType));
@@ -40,10 +40,10 @@ export default function FilterByType() {
     const checkedProductType = [];
 
     if (refDigital.current?.checked) {
-      checkedProductType.push('digital');
+      checkedProductType.push(Type.Digital);
     }
     if (refCollection.current?.checked) {
-      checkedProductType.push('collection');
+      checkedProductType.push(Type.Collection);
     }
 
     if (currentCategory === Category.Videocamera) {
@@ -58,10 +58,10 @@ export default function FilterByType() {
         <label>
           <input
             type="checkbox"
-            name="digital"
+            name={Type.Digital}
             ref={refDigital}
             onChange={handleTypeChange}
-            checked={currentType.includes('digital')}
+            checked={currentType.includes(Type.Digital)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Цифровая</span>
@@ -71,11 +71,11 @@ export default function FilterByType() {
         <label>
           <input
             type="checkbox"
-            name="film"
+            name={Type.Film}
             ref={refFilm}
             onChange={handleTypeChange}
             disabled={currentCategory === Category.Videocamera}
-            checked={currentCategory !== Category.Videocamera && currentType.includes('film')}
+            checked={currentCategory !== Category.Videocamera && currentType.includes(Type.Film)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Плёночная</span>
@@ -85,11 +85,11 @@ export default function FilterByType() {
         <label>
           <input
             type="checkbox"
-            name="snapshot"
+            name={Type.Snapshot}
             ref={refSnapshot}
             onChange={handleTypeChange}
             disabled={currentCategory === Category.Videocamera}
-            checked={currentCategory !== Category.Videocamera && currentType.includes('snapshot')}
+            checked={currentCategory !== Category.Videocamera && currentType.includes(Type.Snapshot)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Моментальная</span>
@@ -99,10 +99,10 @@ export default function FilterByType() {
         <label>
           <input
             type="checkbox"
-            name="collection"
+            name={Type.Collection}
             ref={refCollection}
             onChange={handleTypeChange}
-            checked={currentType.includes('collection')}
+            checked={currentType.includes(Type.Collection)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Коллекционная</span>

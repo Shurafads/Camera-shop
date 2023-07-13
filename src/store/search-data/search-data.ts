@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Category, NameSpace, SortDirection, SortType } from '../../const';
+import { Category, Level, NameSpace, SortDirection, SortType, Type } from '../../const';
 import { TSearchData } from '../../types/state';
 
 export const initialState: TSearchData = {
@@ -43,10 +43,10 @@ export const searchData = createSlice({
     changeCategory: (state, action: PayloadAction<Category | null>) => {
       state.Category = action.payload;
     },
-    changeType: (state, action: PayloadAction<string[]>) => {
+    changeType: (state, action: PayloadAction<Type[]>) => {
       state.FilterType = action.payload;
     },
-    changeLevel: (state, action: PayloadAction<string[]>) => {
+    changeLevel: (state, action: PayloadAction<Level[]>) => {
       state.Level = action.payload;
     },
     resetFilter: (state) => {

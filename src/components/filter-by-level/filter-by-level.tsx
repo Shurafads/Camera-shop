@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { changeLevel } from '../../store/search-data/search-data';
 import { getCurrentLevel } from '../../store/search-data/search-data.selectors';
+import { Level } from '../../const';
 
 export default function FilterByLevel() {
 
@@ -16,13 +17,13 @@ export default function FilterByLevel() {
 
     const checkedProductLevel = [];
     if (refZero.current?.checked) {
-      checkedProductLevel.push('zero');
+      checkedProductLevel.push(Level.Zero);
     }
     if (refMiddle.current?.checked) {
-      checkedProductLevel.push('amateur');
+      checkedProductLevel.push(Level.Amateur);
     }
     if (refProfessional.current?.checked) {
-      checkedProductLevel.push('professional');
+      checkedProductLevel.push(Level.Professional);
     }
 
     dispatch(changeLevel(checkedProductLevel));
@@ -35,10 +36,10 @@ export default function FilterByLevel() {
         <label>
           <input
             type="checkbox"
-            name="zero"
+            name={Level.Zero}
             ref={refZero}
             onChange={handleLevelChange}
-            checked={currentLevel.includes('zero')}
+            checked={currentLevel.includes(Level.Zero)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Нулевой</span>
@@ -48,10 +49,10 @@ export default function FilterByLevel() {
         <label>
           <input
             type="checkbox"
-            name="amateur"
+            name={Level.Amateur}
             ref={refMiddle}
             onChange={handleLevelChange}
-            checked={currentLevel.includes('amateur')}
+            checked={currentLevel.includes(Level.Amateur)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Любительский</span>
@@ -61,10 +62,10 @@ export default function FilterByLevel() {
         <label>
           <input
             type="checkbox"
-            name="professional"
+            name={Level.Professional}
             ref={refProfessional}
             onChange={handleLevelChange}
-            checked={currentLevel.includes('professional')}
+            checked={currentLevel.includes(Level.Professional)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Профессиональный</span>

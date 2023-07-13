@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getCurrentPage, getCurrentSortDirection, getCurrentSortType, getCurrentCategory, getCurrentMaxPrice, getCurrentMinPrice, getCurrentFilterType, getCurrentLevel } from '../../store/search-data/search-data.selectors';
 import { changeCategory, changeCurrentPage, changeLevel, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType, changeType } from '../../store/search-data/search-data';
-import { Category, SortDirection, SortType, Sorting } from '../../const';
+import { Category, Level, SortDirection, SortType, Sorting, Type } from '../../const';
 import CatalogContainer from '../../components/catalog-container/catalog-container';
 import LoadingPage from '../loading-page/loading-page';
 import { getIsLoadingProductsList } from '../../store/products-data/products-data.selectors';
@@ -105,7 +105,7 @@ export default function CatalogPage() {
     const arrayOfType = type?.split(',');
 
     if (arrayOfType?.length) {
-      dispatch(changeType(arrayOfType));
+      dispatch(changeType(arrayOfType as Type[]));
     }
 
   }, [type, dispatch]);
@@ -115,7 +115,7 @@ export default function CatalogPage() {
     const arrayOfLevel = level?.split(',');
 
     if (arrayOfLevel?.length) {
-      dispatch(changeLevel(arrayOfLevel));
+      dispatch(changeLevel(arrayOfLevel as Level[]));
     }
 
   }, [level, dispatch]);

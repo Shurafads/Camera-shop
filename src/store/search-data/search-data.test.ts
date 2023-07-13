@@ -1,4 +1,4 @@
-import { Category, SortDirection, SortType } from '../../const';
+import { Category, Level, SortDirection, SortType, Type } from '../../const';
 import { changeCategory, changeCurrentPage, changeLevel, changeMaxPrice, changeMinPrice, changeSortDirection, changeSortType, changeType, initialState, resetFilter, searchData } from './search-data';
 
 describe('Reducer: searchData', () => {
@@ -12,8 +12,8 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeCurrentPage(5)))
       .toEqual({
         ...initialState,
-        Page: 5}
-      );
+        Page: 5
+      });
   });
 
   it('should update SortType and SortDirection after getting the type', () => {
@@ -21,8 +21,8 @@ describe('Reducer: searchData', () => {
       .toEqual({
         ...initialState,
         SortType: SortType.Price,
-        SortDirection: SortDirection.Up}
-      );
+        SortDirection: SortDirection.Up
+      });
   });
 
   it('should update SortDirection and SortType after getting the direction', () => {
@@ -30,48 +30,48 @@ describe('Reducer: searchData', () => {
       .toEqual({
         ...initialState,
         SortType: SortType.Price,
-        SortDirection: SortDirection.Down}
-      );
+        SortDirection: SortDirection.Down
+      });
   });
 
   it('should update MinPrice after getting the price', () => {
     expect(searchData.reducer(initialState, changeMinPrice(500)))
       .toEqual({
         ...initialState,
-        MinPrice: 500}
-      );
+        MinPrice: 500
+      });
   });
 
   it('should update MaxPrice after getting the price', () => {
     expect(searchData.reducer(initialState, changeMaxPrice(500)))
       .toEqual({
         ...initialState,
-        MaxPrice: 500}
-      );
+        MaxPrice: 500
+      });
   });
 
   it('should update Category after getting the category', () => {
     expect(searchData.reducer(initialState, changeCategory(Category.Photocamera)))
       .toEqual({
         ...initialState,
-        Category: Category.Photocamera}
-      );
+        Category: Category.Photocamera
+      });
   });
 
   it('should update Type after getting the type', () => {
-    expect(searchData.reducer(initialState, changeType(['digital'])))
+    expect(searchData.reducer(initialState, changeType([Type.Digital])))
       .toEqual({
         ...initialState,
-        FilterType: ['digital']}
-      );
+        FilterType: [Type.Digital]
+      });
   });
 
   it('should update Level after getting the level', () => {
-    expect(searchData.reducer(initialState, changeLevel(['amateur'])))
+    expect(searchData.reducer(initialState, changeLevel([Level.Amateur])))
       .toEqual({
         ...initialState,
-        Level: ['amateur']}
-      );
+        Level: [Level.Amateur]
+      });
   });
 
   it('should update filters after initial resetFilter', () => {

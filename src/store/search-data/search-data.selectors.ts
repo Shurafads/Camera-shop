@@ -1,4 +1,4 @@
-import { Category, NameSpace, SortDirection, SortType } from '../../const';
+import { Category, Level, NameSpace, SortDirection, SortType, Type } from '../../const';
 import { State } from '../../types/state';
 
 export const getCurrentSortType = (state: State): SortType | null => state[NameSpace.Search].SortType;
@@ -13,6 +13,6 @@ export const getCurrentMaxPrice = (state: State): number => state[NameSpace.Sear
 
 export const getCurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;
 
-export const getCurrentFilterType = (state: State): string[] => state[NameSpace.Search].FilterType;
+export const getCurrentFilterType = (state: State): Type[] => state[NameSpace.Search].FilterType;
 
-export const getCurrentLevel = (state: State): string[] => state[NameSpace.Search].Level;
+export const getCurrentLevel = (state: State): Level[] => state[NameSpace.Search].Level;

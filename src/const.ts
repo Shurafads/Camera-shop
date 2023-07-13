@@ -55,6 +55,19 @@ export enum CategoryName {
   videocamera = 'Видеокамера',
 }
 
+export enum Type {
+  Digital = 'digital',
+  Film = 'film',
+  Snapshot = 'snapshot',
+  Collection = 'collection',
+}
+
+export enum Level {
+  Zero = 'zero',
+  Amateur = 'amateur',
+  Professional = 'professional',
+}
+
 export const ProductTypeName: {[key: string]: string} = {
   Цифровая: 'digital',
   Плёночная: 'film',

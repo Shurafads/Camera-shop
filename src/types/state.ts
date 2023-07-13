@@ -1,4 +1,4 @@
-import { Category, SortDirection, SortType } from '../const';
+import { Category, Level, SortDirection, SortType, Type } from '../const';
 import { store } from '../store';
 import { TProduct } from './product';
 import { TPromo } from './promo';
@@ -32,6 +32,6 @@ export type TSearchData = {
   MinPrice: number;
   MaxPrice: number;
   Category: Category | null;
-  FilterType: string[];
-  Level: string[];
+  FilterType: Type[];
+  Level: Level[];
 }
