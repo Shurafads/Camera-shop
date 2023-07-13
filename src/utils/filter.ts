@@ -1,8 +1,27 @@
 import { Category, CategoryName, ProductTypeName, ProductLevelName, SortDirection, SortType } from '../const';
 import { TProduct } from '../types/product';
 import { sortProductsList } from './sort';
+import { SortPriceToHigh } from './utils';
+
+export const getPrice = (productList: TProduct[], type: 'max' | 'min'): string => {
+  if (!productList.length) {
+    return '';
+  }
+
+  const sortedProductList = productList.sort(SortPriceToHigh);
+
+  if (type === 'max' && sortedProductList.length) {
+    return sortedProductList[sortedProductList.length - 1].price.toString();
+  } else {
+    return productList[0].price.toString();
+  }
+};
 
 const filterByCategory = (productsList: TProduct[] , category: Category | null) => {
+
+  if(!productsList.length) {
+    return productsList;
+  }
 
   if (!category) {
     return productsList;
@@ -12,6 +31,10 @@ const filterByCategory = (productsList: TProduct[] , category: Category | null) 
 
 const filterByProductType = (productsList: TProduct[], cameraType: string[]) => {
 
+  if(!productsList.length) {
+    return productsList;
+  }
+
   if (!cameraType.length) {
     return productsList;
   }
@@ -19,6 +42,10 @@ const filterByProductType = (productsList: TProduct[], cameraType: string[]) => 
 };
 
 const filterByProductLevel = (productsList: TProduct[], level: string[]) => {
+
+  if(!productsList.length) {
+    return productsList;
+  }
 
   if (!level.length) {
     return productsList;

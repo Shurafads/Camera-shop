@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
-import { SortPriceToHigh } from '../../utils/utils';
 import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
 import { changeMaxPrice, changeMinPrice } from '../../store/search-data/search-data';
+import { getPrice } from '../../utils/filter';
 
 type FilterByPriceProps = {
   isResetFilter: boolean;
@@ -14,14 +14,15 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
   const dispatch = useAppDispatch();
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
-  const productsList = useAppSelector(getSortedProductsList).sort(SortPriceToHigh);
+  const productsList = useAppSelector(getSortedProductsList);
 
-  const minPrice = productsList[0].price.toString();
-  const maxPrice = productsList[productsList.length - 1].price.toString();
+  const minPrice = getPrice(productsList, 'min');
+  const maxPrice = getPrice(productsList, 'max');
 
   const [priceValue, setPriceValue] = useState({price: currentMinPrice || 0, priceUp: currentMaxPrice || 0});
 
   const handleChangePrice = (evt: ChangeEvent<HTMLInputElement>) => {
+
     const {value, name} = evt.target;
     setPriceValue((prevState) => ({
       ...prevState,
@@ -30,9 +31,11 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
   };
 
   useEffect(() => {
+
     if (isResetFilter) {
       setPriceValue({price: 0, priceUp: 0});
     }
+
   }, [isResetFilter]);
 
   const handleMinPriceBlur = () => {
@@ -52,15 +55,6 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
         price: +minPrice,
       }));
       dispatch(changeMinPrice(+minPrice));
-      return;
-    }
-
-    if (priceValue.priceUp > 0 && priceValue.price > priceValue.priceUp) {
-      setPriceValue((prevState) => ({
-        ...prevState,
-        price: priceValue.priceUp,
-      }));
-      dispatch(changeMinPrice(priceValue.priceUp));
       return;
     }
 
@@ -96,15 +90,6 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
       return;
     }
 
-    if (priceValue.price > 0 && priceValue.priceUp < priceValue.price) {
-      setPriceValue((prevState) => ({
-        ...prevState,
-        priceUp: priceValue.price,
-      }));
-      dispatch(changeMaxPrice(priceValue.price));
-      return;
-    }
-
     if (priceValue.priceUp < +minPrice) {
       setPriceValue((prevState) => ({
         ...prevState,
@@ -122,12 +107,25 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
       <div className="catalog-filter__price-range">
         <div className="custom-input">
           <label>
-            <input type="number" name="price" placeholder={minPrice} value={priceValue.price || ''} onChange={handleChangePrice} onBlur={handleMinPriceBlur}/>
+            <input
+              type="number" name="price"
+              placeholder={minPrice}
+              value={priceValue.price || ''}
+              onChange={handleChangePrice}
+              onBlur={handleMinPriceBlur}
+            />
           </label>
         </div>
         <div className="custom-input">
           <label>
-            <input type="number" name="priceUp" placeholder={maxPrice} value={priceValue.priceUp || ''} onChange={handleChangePrice} onBlur={handleMaxPriceBlur}/>
+            <input
+              type="number"
+              name="priceUp"
+              placeholder={maxPrice}
+              value={priceValue.priceUp || ''}
+              onChange={handleChangePrice}
+              onBlur={handleMaxPriceBlur}
+            />
           </label>
         </div>
       </div>
