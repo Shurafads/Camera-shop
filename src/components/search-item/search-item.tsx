@@ -36,6 +36,7 @@ export default function SearchItem({product, setIsOpen, isActive}: SearchItemPro
   return (
     <li
       className="form-search__select-item"
+      data-testid="search-item"
       tabIndex={0}
       onClick={() =>handleItemClick(product.id)}
       onKeyDown={(evt) => handleKeyDown(product.id, evt)}

@@ -19,11 +19,6 @@ export const getFiltredProductsList = createSelector(
     filterProductsList(productsList, sortType, direction, minPrice, maxPrice, category, filterType, level)
 );
 
-// export const getFiltredProductsList = createSelector(
-//   [getSortedProductsList, getCurrentMinPrice, getCurrentMaxPrice],
-//   (productsList, minPrice, maxPrice) => filteredProductsList(productsList, minPrice, maxPrice)
-// );
-
 export const getProductInfo = (state: State): TProduct | null => state[NameSpace.Product].ProductInfo;
 
 export const getSimilarProductsList = (state: State): TProduct[] => state[NameSpace.Product].SimilarProductsList;
