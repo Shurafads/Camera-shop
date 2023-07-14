@@ -26,6 +26,8 @@ export default function Search() {
   const handleButtonClick = () => {
     setInputValue('');
     setCurrentItemIndex(-1);
+    setSerchedList([]);
+    setIsOpen(false);
   };
 
   const handleInputFocus = () => {
