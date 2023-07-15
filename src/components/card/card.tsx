@@ -13,8 +13,8 @@ type CardProps = {
 
 export default function Card({product, className, style, onBuyClick}: CardProps) {
 
-  const filledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
-  const emptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
+  const getFilledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
+  const getEmptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
   const emptyStarsCount = STARS_COUNT - Math.round(product.rating);
 
   return (
@@ -27,8 +27,8 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          {filledStars(Math.round(product.rating))}
-          {emptyStars(emptyStarsCount)}
+          {getFilledStars(Math.round(product.rating))}
+          {getEmptyStars(emptyStarsCount)}
           <p className="visually-hidden">Рейтинг: </p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{product.reviewCount}</p>
         </div>

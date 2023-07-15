@@ -19,7 +19,7 @@ export const createFakeProduct = (): TProduct => ({
   price: faker.datatype.number(),
   id: faker.datatype.number(),
   reviewCount: faker.datatype.number(),
-  rating: faker.datatype.number(),
+  rating: faker.datatype.number({min: 1, max: 5}),
 });
 
 export const createFakeProductInfo = (): TProduct => ({

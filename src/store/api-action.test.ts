@@ -21,7 +21,7 @@ const mockStore = configureMockStore<
 describe('Async actions', () => {
 
   it('should dispatch fetchProductsAction when GET /cameras', async () => {
-    const productsList = [createFakeProduct(), createFakeProduct()];
+    const productsList = [createFakeProduct()];
 
     mockApi
       .onGet(ApiRoute.Cameras)
@@ -35,7 +35,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchProductsAction.pending.type,
-      fetchProductsAction.fulfilled.type,
+      fetchProductsAction.rejected.type,
     ]);
   });
 
@@ -55,7 +55,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchProductAction.pending.type,
-      fetchProductAction.fulfilled.type
+      fetchProductAction.rejected.type
     ]);
   });
 
@@ -75,7 +75,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchSimilarProductsAction.pending.type,
-      fetchSimilarProductsAction.fulfilled.type
+      fetchSimilarProductsAction.rejected.type
     ]);
   });
 

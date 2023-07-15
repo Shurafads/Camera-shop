@@ -16,8 +16,8 @@ export default function ProductContainer({onBuyClick}: ProductContainerProps) {
     return null;
   }
 
-  const filledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
-  const emptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
+  const getFilledStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-full-star'}/>);
+  const getEmptyStars = (number: number) => Array.from({length: number}).map((item, index) => <Star key={String(index + 1)} starHref={'#icon-star'}/>);
   const emptyStarsCount = STARS_COUNT - Math.round(currentProduct.rating);
 
   return (
@@ -32,8 +32,8 @@ export default function ProductContainer({onBuyClick}: ProductContainerProps) {
         <div className="product__content">
           <h1 className="title title--h3">{`${currentProduct.category} ${currentProduct.name}`}</h1>
           <div className="rate product__rate">
-            {filledStars(Math.round(currentProduct.rating))}
-            {emptyStars(emptyStarsCount)}
+            {getFilledStars(Math.round(currentProduct.rating))}
+            {getEmptyStars(emptyStarsCount)}
             <p className="visually-hidden">Рейтинг: 4</p>
             <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{currentProduct.reviewCount}</p>
           </div>
