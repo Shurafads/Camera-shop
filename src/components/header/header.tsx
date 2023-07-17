@@ -18,7 +18,7 @@ export default function Header() {
           <ul className="main-nav__list">
             <li className="main-nav__item">
               <NavLink
-                className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
+                className="main-nav__link"
                 to={{
                   pathname: AppRoute.Catalog,
                   search: searchParams.toString()
@@ -30,7 +30,7 @@ export default function Header() {
             </li>
             <li className="main-nav__item">
               <NavLink
-                className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
+                className="main-nav__link"
                 to="/garanty"
               >
                 Гарантии
@@ -38,7 +38,7 @@ export default function Header() {
             </li>
             <li className="main-nav__item">
               <NavLink
-                className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
+                className="main-nav__link"
                 to="/delivery"
               >
                 Доставка
@@ -46,7 +46,7 @@ export default function Header() {
             </li>
             <li className="main-nav__item">
               <NavLink
-                className={({ isActive }) => isActive ? 'main-nav__link main-nav__link--active' : 'main-nav__link'}
+                className="main-nav__link"
                 to="/about"
               >
                 О компании

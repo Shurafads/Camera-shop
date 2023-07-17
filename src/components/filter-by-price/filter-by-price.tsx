@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
 import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
@@ -37,6 +37,14 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
     }
 
   }, [isResetFilter]);
+
+  useEffect(() => {
+
+    if (currentMinPrice && currentMaxPrice > 0 && currentMaxPrice < currentMinPrice) {
+      setPriceValue({price: currentMinPrice, priceUp: currentMinPrice});
+    }
+
+  }, [currentMinPrice, currentMaxPrice]);
 
   const handleMinPriceBlur = () => {
 
@@ -90,6 +98,15 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
       return;
     }
 
+    if (priceValue.priceUp < currentMinPrice) {
+      setPriceValue((prevState) => ({
+        ...prevState,
+        priceUp: currentMinPrice,
+      }));
+      dispatch(changeMaxPrice(currentMinPrice));
+      return;
+    }
+
     if (priceValue.priceUp < +minPrice) {
       setPriceValue((prevState) => ({
         ...prevState,
@@ -101,6 +118,19 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
 
     dispatch(changeMaxPrice(priceValue.priceUp));
   };
+
+  const handleMinPriceEnter = (evt: KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === 'Enter') {
+      handleMinPriceBlur();
+    }
+  };
+
+  const handleMaxPriceEnter = (evt: KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === 'Enter') {
+      handleMaxPriceBlur();
+    }
+  };
+
   return (
     <fieldset className="catalog-filter__block">
       <legend className="title title--h5">Цена, ₽</legend>
@@ -113,6 +143,7 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
               value={priceValue.price || ''}
               onChange={handleChangePrice}
               onBlur={handleMinPriceBlur}
+              onKeyDown={handleMinPriceEnter}
             />
           </label>
         </div>
@@ -125,6 +156,7 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
               value={priceValue.priceUp || ''}
               onChange={handleChangePrice}
               onBlur={handleMaxPriceBlur}
+              onKeyDown={handleMaxPriceEnter}
             />
           </label>
         </div>
