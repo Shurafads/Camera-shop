@@ -8,12 +8,12 @@ export const getPrice = (productList: TProduct[], type: 'max' | 'min'): string =
     return '';
   }
 
-  const sortedProductList = productList.sort(SortPriceToHigh);
+  const sortedProductList = [...productList].sort(SortPriceToHigh);
 
   if (type === 'max' && sortedProductList.length) {
     return sortedProductList[sortedProductList.length - 1].price.toString();
   } else {
-    return productList[0].price.toString();
+    return sortedProductList[0].price.toString();
   }
 };
 

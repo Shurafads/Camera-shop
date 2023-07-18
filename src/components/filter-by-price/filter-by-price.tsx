@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { getSortedProductsList } from '../../store/products-data/products-data.selectors';
+import { getFiltredProductsList } from '../../store/products-data/products-data.selectors';
 import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/search-data/search-data.selectors';
 import { changeMaxPrice, changeMinPrice } from '../../store/search-data/search-data';
 import { getPrice } from '../../utils/filter';
@@ -14,7 +14,7 @@ export default function FilterByPrice({isResetFilter}: FilterByPriceProps) {
   const dispatch = useAppDispatch();
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
-  const productsList = useAppSelector(getSortedProductsList);
+  const productsList = useAppSelector(getFiltredProductsList);
 
   const minPrice = getPrice(productsList, 'min');
   const maxPrice = getPrice(productsList, 'max');
