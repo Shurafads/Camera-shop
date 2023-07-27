@@ -2,22 +2,34 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, State } from '../types/state';
 import { createApi } from '../services/api';
-import { rootReducer } from './root-reducer';
+import { persistedReducer } from './root-reducer';
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist';
 
 const api = createApi();
 
-const store = configureStore({
-  reducer: rootReducer,
+export const store = configureStore({
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
-      }
+      },
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
     })
 });
 
-const useAppDispatch = () => useDispatch<AppDispatch>();
+export const persistor = persistStore(store);
 
-const useAppSelector: TypedUseSelectorHook<State> = useSelector;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
-export { store, useAppDispatch, useAppSelector };
+export const useAppSelector: TypedUseSelectorHook<State> = useSelector;

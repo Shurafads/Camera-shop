@@ -3,7 +3,6 @@ import * as faker from 'faker';
 import { TReview, TUserReview } from '../types/review';
 import { TPromo } from '../types/promo';
 import { NameSpace } from '../const';
-import { State } from '../types/state';
 
 export const createFakeProduct = (): TProduct => ({
   type: faker.lorem.word(),
@@ -70,7 +69,7 @@ export const createFakeReview = (): TReview => ({
   rating: faker.datatype.number({min: 1, max: 5}),
 });
 
-export const fakeStore = (): State => ({
+export const fakeStore = () => ({
   [NameSpace.Product]: {
     ProductsList: [createFakeProduct()],
     ProductInfo: createFakeProductInfo(),

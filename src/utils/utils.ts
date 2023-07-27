@@ -64,3 +64,16 @@ export const getProductsCount = (productList: TProduct[]) => {
 
   return totalCount;
 };
+
+export const getTotalPrice = (productList: TProduct[]) =>{
+  let total = 0;
+  productList.forEach((product) => {
+    if (product.count) {
+      total += product.count * product.price;
+    }
+    if (!product.count) {
+      total += product.price;
+    }
+  });
+  return total;
+};

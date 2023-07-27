@@ -16,7 +16,7 @@ export default function BasketItem({product, onDeleteClick}: BasketItemProps) {
 
   const totalItemPrice = product.count ? product.count * product.price : MIN_PRODUCT_COUNT * product.price;
 
-  const handleChangeProductCount = () => {
+  const handleProductCountChange = () => {
 
     if (inputRef.current) {
 
@@ -30,19 +30,19 @@ export default function BasketItem({product, onDeleteClick}: BasketItemProps) {
     }
   };
 
-  const handleBlurProductCount = () => {
+  const handleProductCountBlur = () => {
 
     if (inputRef.current && +inputRef.current.value < MIN_PRODUCT_COUNT) {
       dispatch(changeProductCount({id: product.id, count: Math.round(MIN_PRODUCT_COUNT)}));
     }
   };
 
-  const HandleIncreaseButtonClick = () => {
-    dispatch(increaseProductCount(product));
+  const handleDecreaseButtonClick = () => {
+    dispatch(decreaseProductCount(product));
   };
 
-  const HandleDecreaseButtonClick = () => {
-    dispatch(decreaseProductCount(product));
+  const handleIncreaseButtonClick = () => {
+    dispatch(increaseProductCount(product));
   };
 
   return (
@@ -68,7 +68,7 @@ export default function BasketItem({product, onDeleteClick}: BasketItemProps) {
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
           disabled={product.count ? product.count <= MIN_PRODUCT_COUNT : false}
-          onClick={HandleDecreaseButtonClick}
+          onClick={handleDecreaseButtonClick}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -80,15 +80,15 @@ export default function BasketItem({product, onDeleteClick}: BasketItemProps) {
           id="counter1"
           value={product.count || ''}
           aria-label="количество товара"
-          onChange={handleChangeProductCount}
-          onBlur={handleBlurProductCount}
+          onChange={handleProductCountChange}
+          onBlur={handleProductCountBlur}
           ref={inputRef}
         />
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
           disabled={product.count ? product.count >= MAX_PRODUCT_COUNT : false}
-          onClick={HandleIncreaseButtonClick}
+          onClick={handleIncreaseButtonClick}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
