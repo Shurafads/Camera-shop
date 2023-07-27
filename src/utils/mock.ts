@@ -95,4 +95,7 @@ export const fakeStore = (): State => ({
     FilterType: [],
     Level: [],
   },
+  [NameSpace.Basket]: {
+    BasketList: [createFakeProduct()],
+  },
 });

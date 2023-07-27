@@ -1,10 +1,16 @@
 import { Link, NavLink, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Search from '../search/search';
+import { useAppSelector } from '../../store';
+import { getBasketList } from '../../store/basket-data/basket-data.selectors';
+import { getProductsCount } from '../../utils/utils';
 
 export default function Header() {
 
   const [searchParams] = useSearchParams();
+  const basketList = useAppSelector(getBasketList);
+
+  const productsCount = getProductsCount(basketList);
 
   return (
     <header className="header" id="header" data-testid="header">
@@ -55,10 +61,11 @@ export default function Header() {
           </ul>
         </nav>
         <Search />
-        <Link className="header__basket-link" to="*">
+        <Link className="header__basket-link" to={AppRoute.Basket}>
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
+          {basketList.length > 0 && <span className="header__basket-count">{productsCount}</span>}
         </Link>
       </div>
     </header>

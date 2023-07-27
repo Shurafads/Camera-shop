@@ -1,11 +1,12 @@
 import { STARS_COUNT } from '../../const';
 import { useAppSelector } from '../../store';
 import { getProductInfo } from '../../store/products-data/products-data.selectors';
+import { TProduct } from '../../types/product';
 import ProductInfo from '../product-info/product-info';
 import Star from '../star/star';
 
 type ProductContainerProps = {
-  onBuyClick: () => void;
+  onBuyClick: (product: TProduct) => void;
 }
 
 export default function ProductContainer({onBuyClick}: ProductContainerProps) {
@@ -38,7 +39,7 @@ export default function ProductContainer({onBuyClick}: ProductContainerProps) {
             <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{currentProduct.reviewCount}</p>
           </div>
           <p className="product__price"><span className="visually-hidden">Цена:</span>{currentProduct.price.toLocaleString()} ₽</p>
-          <button className="btn btn--purple" type="button" onClick={onBuyClick}>
+          <button className="btn btn--purple" type="button" onClick={() => onBuyClick(currentProduct)}>
             <svg width="24" height="16" aria-hidden="true">
               <use xlinkHref="#icon-add-basket"></use>
             </svg>Добавить в корзину

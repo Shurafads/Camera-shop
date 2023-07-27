@@ -6,9 +6,10 @@ import { getCurrentPage } from '../../store/search-data/search-data.selectors';
 import classes from './card-list.module.css';
 import { useEffect } from 'react';
 import { changeCurrentPage } from '../../store/search-data/search-data';
+import { TProduct } from '../../types/product';
 
 type CardListProps = {
-  onBuyClick: () => void;
+  onBuyClick: (product: TProduct) => void;
 }
 
 export default function CardList({onBuyClick}: CardListProps) {

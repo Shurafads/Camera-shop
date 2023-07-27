@@ -5,7 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { fakeStore } from '../../utils/mock';
 import HistoryRouter from '../history-route/history-route';
 import { createMemoryHistory } from 'history';
-import ModalAddProduct from './modal-add-product';
+import ModalAddProductSuccess from './modal-add-product-success';
 
 const history = createMemoryHistory();
 const store = fakeStore();
@@ -19,7 +19,7 @@ describe('Component: ModalAddProduct', () => {
       <Provider store={mockStore}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <ModalAddProduct isActive onCloseClick={jest.fn()}/>
+            <ModalAddProductSuccess isActive onCloseClick={jest.fn()}/>
           </HelmetProvider>
         </HistoryRouter>
       </Provider>

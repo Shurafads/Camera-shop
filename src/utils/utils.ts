@@ -52,3 +52,15 @@ export const SortRatingToLow = (a: TProduct, b: TProduct) => {
 };
 
 export const WindowScrollToTop = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+export const getProductsCount = (productList: TProduct[]) => {
+  let totalCount = 0;
+
+  productList.forEach((item) => {
+    if (item.count) {
+      totalCount += item.count;
+    }
+  });
+
+  return totalCount;
+};

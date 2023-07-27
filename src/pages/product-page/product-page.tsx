@@ -10,9 +10,12 @@ import ReviewContainer from '../../components/review-container/review-container'
 import ModalReview from '../../components/modal-review/modal-review';
 import ModalSuccess from '../../components/modal-success/modal-success';
 import ReactFocusLock from 'react-focus-lock';
-import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
 import LoadingPage from '../loading-page/loading-page';
 import { WindowScrollToTop } from '../../utils/utils';
+import ModalAddProductSuccess from '../../components/modal-add-product-success/modal-add-product-success';
+import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
+import { addProductToBasket } from '../../store/basket-data/basket-data';
+import { TProduct } from '../../types/product';
 
 export default function ProductPage() {
 
@@ -23,7 +26,10 @@ export default function ProductPage() {
 
   const [modalReviewState, setModalReviewState] = useState(false);
   const [modalSuccessState, setModalSuccessState] = useState(false);
+
   const [modalAddState, setModalAddState] = useState(false);
+  const [modalAddSuccessState, setModalAddSuccessState] = useState(false);
+  const [currentBasketProduct, setCurrentBasketProduct] = useState<TProduct | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -42,7 +48,7 @@ export default function ProductPage() {
   useEffect(() => {
     let isMounted = true;
 
-    if (!modalReviewState && !modalSuccessState && !modalAddState && isMounted) {
+    if (!modalReviewState && !modalSuccessState && !modalAddState && !modalAddSuccessState && isMounted) {
       return;
     }
 
@@ -68,7 +74,8 @@ export default function ProductPage() {
     if (evt.key === 'Escape') {
       handleReviewModalClose();
       handleSuccessModalClose();
-      handleCloseModalClick();
+      handleCloseAddModalClick();
+      handleCloseSuccessModalClick();
     }
   };
 
@@ -89,11 +96,12 @@ export default function ProductPage() {
     setModalSuccessState(false);
   };
 
-  const handleBuyClick = () => {
+  const handleBuyClick = (product: TProduct) => {
     setModalAddState(true);
+    setCurrentBasketProduct(product);
   };
 
-  const handleCloseModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
+  const handleCloseAddModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
     evt?.preventDefault();
     setModalAddState(false);
   };
@@ -101,6 +109,20 @@ export default function ProductPage() {
   const handleUpButtonClick = (evt: MouseEvent) => {
     evt.preventDefault();
     WindowScrollToTop();
+  };
+
+  const handleSuccessModalSubmit = () => {
+    setModalAddState(false);
+    if (currentBasketProduct) {
+      dispatch(addProductToBasket(currentBasketProduct));
+    }
+
+    setModalAddSuccessState(true);
+    setCurrentBasketProduct(null);
+  };
+
+  const handleCloseSuccessModalClick = () => {
+    setModalAddSuccessState(false);
   };
 
   return (
@@ -151,7 +173,9 @@ export default function ProductPage() {
       <ReactFocusLock>
         <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
         <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseModalClick}/>
+
+        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
       </ReactFocusLock>
     </>
   );

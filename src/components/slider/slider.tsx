@@ -4,9 +4,10 @@ import Card from '../card/card';
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import { useRef, useState } from 'react';
+import { TProduct } from '../../types/product';
 
 type SliderProps = {
-  onBuyClick: () => void;
+  onBuyClick: (product: TProduct) => void;
 }
 
 export default function Slider({onBuyClick}: SliderProps) {
@@ -39,7 +40,7 @@ export default function Slider({onBuyClick}: SliderProps) {
           >
             {similarProductList.map((product) => (
               <SwiperSlide key={product.id}>
-                <Card className="is-active" product={product} onBuyClick={onBuyClick} style={{width: '90%'}}/>
+                <Card className="is-active" product={product} onBuyClick={() => onBuyClick(product)} style={{width: '90%'}}/>
               </SwiperSlide>
             ))}
           </Swiper>

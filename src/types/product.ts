@@ -13,4 +13,5 @@ export type TProduct = {
   previewImgWebp: string;
   previewImgWebp2x: string;
   rating: number;
+  count?: number;
 }

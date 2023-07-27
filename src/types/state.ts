@@ -35,3 +35,7 @@ export type TSearchData = {
   FilterType: Type[];
   Level: Level[];
 }
+
+export type TBasketData = {
+  BasketList: TProduct[];
+}

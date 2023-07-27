@@ -1,24 +1,32 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardList from '../card-list/card-list';
 import Filters from '../filters/filters';
 import Pagination from '../pagination/pagiantion';
 import Sort from '../sort/sort';
-import { useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { getFiltredProductsList } from '../../store/products-data/products-data.selectors';
 import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../modal-add-product/modal-add-product';
+import { TProduct } from '../../types/product';
+import ModalAddProductSuccess from '../modal-add-product-success/modal-add-product-success';
+import { addProductToBasket } from '../../store/basket-data/basket-data';
 
 export default function CatalogContainer() {
 
-  const [modalAddState, setModalAddState] = useState(false);
+  const dispatch = useAppDispatch();
   const productList = useAppSelector(getFiltredProductsList);
+
+  const [modalAddState, setModalAddState] = useState(false);
+  const [modalAddSuccessState, setModalAddSuccessState] = useState(false);
+  const [currentBasketProduct, setCurrentBasketProduct] = useState<TProduct | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    if (!modalAddState && isMounted) {
+    if (!modalAddState && !modalAddSuccessState && isMounted) {
       return;
     }
+
     if (isMounted) {
       document.addEventListener('keydown', handleEscapeKeydown);
       document.body.style.overflow = 'hidden';
@@ -26,10 +34,8 @@ export default function CatalogContainer() {
     }
 
     return () => {
-      setTimeout(() => {
-        document.body.style.overflow = '';
-        document.documentElement.style.paddingRight = '';
-      }, 500);
+      document.body.style.overflow = '';
+      document.documentElement.style.paddingRight = '';
       document.removeEventListener('keydown', handleEscapeKeydown);
       isMounted = false;
     };
@@ -38,18 +44,33 @@ export default function CatalogContainer() {
 
   const handleEscapeKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      handleCloseModalClick(evt);
+      handleCloseAddModalClick();
+      handleCloseSuccessModalClick();
     }
   };
 
-  const handleBuyClick = () => {
+  const handleBuyClick = (product: TProduct) => {
     setModalAddState(true);
+    setCurrentBasketProduct(product);
   };
 
-  const handleCloseModalClick = (evt: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement> | KeyboardEvent) => {
-    evt.preventDefault();
+  const handleCloseAddModalClick = () => {
     setModalAddState(false);
   };
+
+  const handleCloseSuccessModalClick = () => {
+    setModalAddSuccessState(false);
+  };
+
+  const handleSuccessModalSubmit = () => {
+    setModalAddState(false);
+    if (currentBasketProduct) {
+      dispatch(addProductToBasket(currentBasketProduct));
+    }
+    setModalAddSuccessState(true);
+    setCurrentBasketProduct(null);
+  };
+
   return (
     <>
       <section className="catalog">
@@ -68,7 +89,8 @@ export default function CatalogContainer() {
         </div>
       </section>
       <ReactFocusLock>
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseModalClick}/>
+        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
       </ReactFocusLock>
     </>
   );

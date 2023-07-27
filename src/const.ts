@@ -6,6 +6,10 @@ export const DEFAULT_REVIEW_COUNT = 3;
 
 export const STARS_COUNT = 5;
 
+export const MIN_PRODUCT_COUNT = 1;
+
+export const MAX_PRODUCT_COUNT = 99;
+
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog',
@@ -17,7 +21,8 @@ export enum NameSpace {
   Product = 'PRODUCT',
   Promo = 'PROMO',
   Review = 'REVIEW',
-  Search = 'SEARCH'
+  Search = 'SEARCH',
+  Basket = 'BASKET',
 }
 
 export enum ApiRoute {
