@@ -46,7 +46,7 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
         {
           isProductInBasket
             ?
-            <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart" type="button" onClick={() => navigate(AppRoute.Basket)}>В корзине</button>
+            <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart" type="button" onClick={() => {navigate(AppRoute.Basket); WindowScrollToTop();}}>В корзине</button>
             :
             <button className="btn btn--purple product-card__btn" type="button" onClick={() => onBuyClick(product)}>Купить</button>
         }
