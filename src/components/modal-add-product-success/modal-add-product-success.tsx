@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { WindowScrollToTop } from '../../utils/utils';
 
@@ -10,7 +10,15 @@ type ModalAddProductSuccessProps = {
 export default function ModalAddProductSuccess({isActive, onCloseClick}: ModalAddProductSuccessProps) {
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const modalClassName = isActive ? 'modal modal--narrow is-active' : 'modal modal--narrow';
+
+  const handleButtonClick = () => {
+    onCloseClick();
+    navigate(AppRoute.Basket);
+    WindowScrollToTop();
+  };
 
   return (
     <div className={modalClassName}>
@@ -24,18 +32,17 @@ export default function ModalAddProductSuccess({isActive, onCloseClick}: ModalAd
           <div className="modal__buttons">
             <Link
               className="btn btn--transparent modal__btn"
-              to={AppRoute.Catalog}
+              to={{
+                pathname: AppRoute.Catalog,
+                search: searchParams.toString()
+              }}
               onClick={onCloseClick}
             >
               Продолжить покупки
             </Link>
             <button
               className="btn btn--purple modal__btn modal__btn--fit-width"
-              onClick={ () => {
-                onCloseClick();
-                navigate(AppRoute.Basket);
-                WindowScrollToTop();
-              }}
+              onClick={handleButtonClick}
             >
               Перейти в корзину
             </button>
