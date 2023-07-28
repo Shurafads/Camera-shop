@@ -48,7 +48,7 @@ export default function BasketPage() {
               </ul>
             </div>
           </div>
-          <section className="basket">
+          <section className="basket" data-testid="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
               {!basketList.length && <h2 className={`title ${classes.title}`}>В корзине нет товаров</h2>}

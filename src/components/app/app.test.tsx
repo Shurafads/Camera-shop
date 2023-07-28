@@ -58,6 +58,15 @@ describe('Application Routing', () => {
     expect(screen.getByTestId('product-content-page')).toBeInTheDocument();
   });
 
+  it('should render BasketPage when user navigate to "/basket"', () => {
+
+    history.push(AppRoute.Basket);
+
+    render(fakeApp);
+
+    expect(screen.getByText('Корзина')).toBeInTheDocument();
+  });
+
   it('should render NotFoundPage when user navigate to "/*"', () => {
 
     history.push('/*');

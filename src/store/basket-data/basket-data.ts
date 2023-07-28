@@ -68,11 +68,6 @@ export const basketData = createSlice({
     removeValidStatus: (state) => {
       state.CouponValidStatus = CouponStatus.Unknown;
     },
-    removeBasketState: (state) => {
-      state.BasketList = [];
-      state.Sale = null;
-      state.CouponValidStatus = CouponStatus.Unknown;
-    },
     setCoupon: (state, action: PayloadAction<string>) => {
       state.Coupon = action.payload;
     },
@@ -113,7 +108,6 @@ export const {
   increaseProductCount,
   decreaseProductCount,
   removeValidStatus,
-  removeBasketState,
   setCoupon,
   closeSuccessPopup
 } = basketData.actions;

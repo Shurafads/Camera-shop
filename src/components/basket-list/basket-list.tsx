@@ -62,7 +62,7 @@ export default function BasketList() {
 
   return (
     <>
-      <ul className="basket__list">
+      <ul className="basket__list" data-testid="basket__list">
         {basketList.map((product) => <BasketItem key={product.vendorCode} product={product} onDeleteClick={handleDeleteClick}/>)}
       </ul>
       <ReactFocusLock>
