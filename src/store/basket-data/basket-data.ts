@@ -91,6 +91,7 @@ export const basketData = createSlice({
         state.BasketList = [];
         state.Sale = null;
         state.CouponValidStatus = CouponStatus.Unknown;
+        state.Coupon = null;
         state.SuccessPopupStatus = true;
         state.IsSendingOrder = false;
       })

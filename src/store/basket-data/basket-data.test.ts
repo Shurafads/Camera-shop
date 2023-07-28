@@ -111,6 +111,7 @@ describe('Reducer: basketData', () => {
           BasketList: [],
           Sale: null,
           CouponValidStatus: CouponStatus.Unknown,
+          Coupon: null,
           SuccessPopupStatus: true,
           IsSendingOrder: false,
         });
