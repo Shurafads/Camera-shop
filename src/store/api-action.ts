@@ -5,6 +5,7 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { TPromo } from '../types/promo';
 import { TReview, TUserReview } from '../types/review';
+import { TCoupon } from '../types/basket';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
@@ -111,6 +112,20 @@ export const postReviewAction = createAsyncThunk<TReview, TUserReview, {
 
     onSubmitModal();
     reset();
+
+    return data;
+  }
+);
+
+export const checkCouponAction = createAsyncThunk<number, TCoupon, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'basket/checkCouponAction',
+  async ({coupon}, {extra: api}) => {
+
+    const {data} = await api.post<number>('/coupons', {coupon});
 
     return data;
   }

@@ -1,4 +1,4 @@
-import { Category, Level, SortDirection, SortType, Type } from '../const';
+import { Category, CouponStatus, Level, SortDirection, SortType, Type } from '../const';
 import { store } from '../store';
 import { TProduct } from './product';
 import { TPromo } from './promo';
@@ -38,4 +38,6 @@ export type TSearchData = {
 
 export type TBasketData = {
   BasketList: TProduct[];
+  Sale: number | null;
+  couponValidStatus: CouponStatus;
 }

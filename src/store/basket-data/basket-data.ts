@@ -1,10 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { CouponStatus, NameSpace } from '../../const';
 import { TBasketData } from '../../types/state';
 import { TProduct } from '../../types/product';
+import { checkCouponAction } from '../api-action';
 
 export const initialState: TBasketData = {
   BasketList: [],
+  Sale: null,
+  couponValidStatus: CouponStatus.Unknown,
 };
 
 export const basketData = createSlice({
@@ -56,7 +59,20 @@ export const basketData = createSlice({
         });
       }
     },
+    removeValidStatus: (state) => {
+      state.couponValidStatus = CouponStatus.Unknown;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(checkCouponAction.fulfilled, (state, action) => {
+        state.Sale = action.payload;
+        state.couponValidStatus = CouponStatus.Valid;
+      })
+      .addCase(checkCouponAction.rejected, (state) => {
+        state.couponValidStatus = CouponStatus.NoValid;
+      });
   }
 });
 
-export const { addProductToBasket, deleteProductFromBasket, changeProductCount, increaseProductCount, decreaseProductCount } = basketData.actions;
+export const { addProductToBasket, deleteProductFromBasket, changeProductCount, increaseProductCount, decreaseProductCount, removeValidStatus } = basketData.actions;

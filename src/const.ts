@@ -85,3 +85,9 @@ export const ProductLevelName: {[key: string]: string} = {
   Любительский: 'amateur',
   Профессиональный: 'professional',
 } as const;
+
+export enum CouponStatus {
+  Valid = 'VALID',
+  NoValid = 'NO_VALID',
+  Unknown = 'UNKNOWN',
+}
