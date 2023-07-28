@@ -4,13 +4,15 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { checkCouponAction } from '../../store/api-action';
 import { getCouponValidStatus } from '../../store/basket-data/basket-data.selectors';
 import { CouponStatus } from '../../const';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { removeValidStatus } from '../../store/basket-data/basket-data';
 
 export default function BasketPromo() {
 
   const dispatch = useAppDispatch();
   const couponValidStatus = useAppSelector(getCouponValidStatus);
+
+  const [state, setState] = useState('');
 
   useEffect(() => {
 
@@ -27,13 +29,6 @@ export default function BasketPromo() {
     mode: 'onBlur',
   });
 
-  const handleFormSubmit = handleSubmit((data) => {
-    const couponData: TCoupon = {
-      coupon: data.coupon,
-    };
-    dispatch(checkCouponAction(couponData));
-  });
-
   const inputClassName = () => {
     if (couponValidStatus === CouponStatus.NoValid) {
       return 'custom-input is-invalid';
@@ -43,6 +38,20 @@ export default function BasketPromo() {
     }
     return 'custom-input';
   };
+
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setState(evt.target.value.replace(/\s/g, ''));
+  };
+
+  const handleFormSubmit = handleSubmit((data) => {
+    if (!data.coupon) {
+      return;
+    }
+    const couponData: TCoupon = {
+      coupon: data.coupon,
+    };
+    dispatch(checkCouponAction(couponData));
+  });
 
   return (
     <div className="basket__promo">
@@ -55,15 +64,9 @@ export default function BasketPromo() {
               <input
                 type="text"
                 placeholder="Введите промокод"
-                {...register('coupon',
-                  // {
-                  //   required: true,
-                  //   pattern: {
-                  //     value: /^[^\s()-]*$/, // ДОРАБОТАТЬ!
-                  //     message: 'Не должно быть пробелов'
-                  //   }
-                  // },
-                )}
+                {...register('coupon')}
+                value={state}
+                onChange={handleInputChange}
               />
             </label>
             {couponValidStatus === CouponStatus.NoValid && <p className="custom-input__error" style={{opacity: '100%'}}>Неверный промокод</p>}

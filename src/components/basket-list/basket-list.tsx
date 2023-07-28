@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getBasketList } from '../../store/basket-data/basket-data.selectors';
-
 import BasketItem from '../basket-item/basket-item';
 import ReactFocusLock from 'react-focus-lock';
 import ModalDeleteProduct from '../modal-delete-product/modal-delete-product';
 import { TProduct } from '../../types/product';
-import { deleteProductFromBasket } from '../../store/basket-data/basket-data';
+import { removeProductFromBasket } from '../../store/basket-data/basket-data';
 
 export default function BasketList() {
 
@@ -36,7 +35,6 @@ export default function BasketList() {
       document.removeEventListener('keydown', handleEscapeKeydown);
       isMounted = false;
     };
-
   });
 
   const handleEscapeKeydown = (evt: KeyboardEvent) => {
@@ -57,7 +55,7 @@ export default function BasketList() {
   const handleModalDeleteClick = () => {
     setModalState(false);
     if (currentBasketProduct) {
-      dispatch(deleteProductFromBasket(currentBasketProduct.id));
+      dispatch(removeProductFromBasket(currentBasketProduct.id));
     }
     setCurrentBasketProduct(null);
   };

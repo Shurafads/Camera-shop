@@ -77,3 +77,10 @@ export const getTotalPrice = (productList: TProduct[]) =>{
   });
   return total;
 };
+
+export const getTotalSale = (price: number, Sale: number | null) => {
+  if (!Sale) {
+    return 0;
+  }
+  return Math.round(Sale / 100 * price);
+};

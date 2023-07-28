@@ -37,7 +37,7 @@ export default function CardList({onBuyClick}: CardListProps) {
 
   return (
     <div className="cards catalog__cards" data-testid="card-list">
-      {productsOnPage.length < 1 && <h2 className={`title title-h2 ${classes.title}`}>По вашему запросу ничего не найдено</h2>}
+      {productsOnPage.length < 1 && <h2 className={`title ${classes.title}`}>По вашему запросу ничего не найдено</h2>}
       {productsOnPage.map((product) => <Card key={product.id} product={product} onBuyClick={onBuyClick}/>)}
     </div>
   );

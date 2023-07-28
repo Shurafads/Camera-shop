@@ -39,5 +39,8 @@ export type TSearchData = {
 export type TBasketData = {
   BasketList: TProduct[];
   Sale: number | null;
-  couponValidStatus: CouponStatus;
+  Coupon: string | null;
+  CouponValidStatus: CouponStatus;
+  SuccessPopupStatus: boolean;
+  IsSendingOrder: boolean;
 }

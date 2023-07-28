@@ -6,6 +6,8 @@ import { AxiosInstance } from 'axios';
 import { TPromo } from '../types/promo';
 import { TReview, TUserReview } from '../types/review';
 import { TCoupon } from '../types/basket';
+import { setCoupon } from './basket-data/basket-data';
+import { TOrderData } from '../types/order';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
@@ -123,10 +125,24 @@ export const checkCouponAction = createAsyncThunk<number, TCoupon, {
   extra: AxiosInstance;
 }>(
   'basket/checkCouponAction',
-  async ({coupon}, {extra: api}) => {
+  async ({coupon}, {dispatch, extra: api}) => {
 
     const {data} = await api.post<number>('/coupons', {coupon});
 
+    dispatch(setCoupon(coupon));
+
     return data;
+  }
+);
+
+export const sendOrderAction = createAsyncThunk<void, TOrderData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'basket/sendOrderAction',
+  async (productList, {extra: api}) => {
+
+    await api.post<TOrderData>('/orders', productList);
   }
 );

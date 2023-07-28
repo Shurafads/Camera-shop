@@ -4,8 +4,20 @@ import { AppRoute } from '../../const';
 import BasketList from '../../components/basket-list/basket-list';
 import BasketPromo from '../../components/basket-promo/basket-promo';
 import BasketOrder from '../../components/basket-order/basket-order';
+import LoadingPage from '../loading-page/loading-page';
+import { useAppSelector } from '../../store';
+import { getBasketList, getSendingOrderStatus } from '../../store/basket-data/basket-data.selectors';
+import classes from './basket-page.module.css';
 
 export default function BasketPage() {
+
+  const isSendingOrder = useAppSelector(getSendingOrderStatus);
+  const basketList = useAppSelector(getBasketList);
+
+  if (isSendingOrder) {
+    return <LoadingPage />;
+  }
+
   return (
     <>
       <Helmet>
@@ -39,7 +51,8 @@ export default function BasketPage() {
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
-              <BasketList />
+              {!basketList.length && <h2 className={`title ${classes.title}`}>В корзине нет товаров</h2>}
+              {basketList.length > 0 && <BasketList />}
               <div className="basket__summary">
                 <BasketPromo />
                 <BasketOrder />
