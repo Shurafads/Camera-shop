@@ -8,6 +8,7 @@ import { TReview, TUserReview } from '../types/review';
 import { TCoupon } from '../types/basket';
 import { setCoupon } from './basket-data/basket-data';
 import { TOrderData } from '../types/order';
+import { persistor } from '.';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
@@ -144,5 +145,7 @@ export const sendOrderAction = createAsyncThunk<void, TOrderData, {
   async (productList, {extra: api}) => {
 
     await api.post<TOrderData>('/orders', productList);
+
+    persistor.purge();
   }
 );
