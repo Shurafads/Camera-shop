@@ -1,14 +1,13 @@
 import { Category, CategoryName, ProductTypeName, ProductLevelName, SortDirection, SortType } from '../const';
 import { TProduct } from '../types/product';
-import { sortProductsList } from './sort';
-import { SortPriceToHigh } from './utils';
+import { sortPriceToHigh, sortProductsList } from './sort';
 
 export const getPrice = (productList: TProduct[], type: 'max' | 'min'): string => {
   if (!productList.length) {
     return '';
   }
 
-  const sortedProductList = [...productList].sort(SortPriceToHigh);
+  const sortedProductList = [...productList].sort(sortPriceToHigh);
 
   if (type === 'max' && sortedProductList.length) {
     return sortedProductList[sortedProductList.length - 1].price.toString();

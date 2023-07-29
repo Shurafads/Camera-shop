@@ -3,14 +3,14 @@ import { Category, Level, NameSpace, SortDirection, SortType, Type } from '../..
 import { TSearchData } from '../../types/state';
 
 export const initialState: TSearchData = {
-  Page: 1,
-  SortType: null,
-  SortDirection: null,
-  MinPrice: 0,
-  MaxPrice: 0,
-  Category: null,
-  FilterType: [],
-  Level: [],
+  page: 1,
+  sortType: null,
+  sortDirection: null,
+  minPrice: 0,
+  maxPrice: 0,
+  category: null,
+  filterType: [],
+  level: [],
 };
 
 export const searchData = createSlice({
@@ -18,43 +18,43 @@ export const searchData = createSlice({
   initialState,
   reducers: {
     changeCurrentPage: (state, action: PayloadAction<number>) => {
-      state.Page = action.payload;
+      state.page = action.payload;
     },
     changeSortType: (state, action: PayloadAction<SortType | null>) => {
-      state.SortType = action.payload;
+      state.sortType = action.payload;
 
-      if (!state.SortDirection) {
-        state.SortDirection = SortDirection.Up;
+      if (!state.sortDirection) {
+        state.sortDirection = SortDirection.Up;
       }
     },
     changeSortDirection: (state, action: PayloadAction<SortDirection | null>) => {
-      state.SortDirection = action.payload;
+      state.sortDirection = action.payload;
 
-      if (!state.SortType) {
-        state.SortType = SortType.Price;
+      if (!state.sortType) {
+        state.sortType = SortType.Price;
       }
     },
     changeMinPrice: (state, action: PayloadAction<number>) => {
-      state.MinPrice = action.payload;
+      state.minPrice = action.payload;
     },
     changeMaxPrice: (state, action: PayloadAction<number>) => {
-      state.MaxPrice = action.payload;
+      state.maxPrice = action.payload;
     },
     changeCategory: (state, action: PayloadAction<Category | null>) => {
-      state.Category = action.payload;
+      state.category = action.payload;
     },
     changeType: (state, action: PayloadAction<Type[]>) => {
-      state.FilterType = action.payload;
+      state.filterType = action.payload;
     },
     changeLevel: (state, action: PayloadAction<Level[]>) => {
-      state.Level = action.payload;
+      state.level = action.payload;
     },
     resetFilter: (state) => {
-      state.MinPrice = 0;
-      state.MaxPrice = 0;
-      state.Category = null;
-      state.FilterType = [];
-      state.Level = [];
+      state.minPrice = 0;
+      state.maxPrice = 0;
+      state.category = null;
+      state.filterType = [];
+      state.level = [];
     },
   },
 });

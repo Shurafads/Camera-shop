@@ -1,6 +1,6 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { WindowScrollToTop } from '../../utils/utils';
+import { scrollWindowToTop } from '../../utils/utils';
 
 type ModalAddProductSuccessProps = {
   isActive: boolean;
@@ -17,7 +17,7 @@ export default function ModalAddProductSuccess({isActive, onCloseClick}: ModalAd
   const handleButtonClick = () => {
     onCloseClick();
     navigate(AppRoute.Basket);
-    WindowScrollToTop();
+    scrollWindowToTop();
   };
 
   return (

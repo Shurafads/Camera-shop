@@ -12,7 +12,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeCurrentPage(5)))
       .toEqual({
         ...initialState,
-        Page: 5
+        page: 5
       });
   });
 
@@ -20,8 +20,8 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeSortType(SortType.Price)))
       .toEqual({
         ...initialState,
-        SortType: SortType.Price,
-        SortDirection: SortDirection.Up
+        sortType: SortType.Price,
+        sortDirection: SortDirection.Up
       });
   });
 
@@ -29,8 +29,8 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeSortDirection(SortDirection.Down)))
       .toEqual({
         ...initialState,
-        SortType: SortType.Price,
-        SortDirection: SortDirection.Down
+        sortType: SortType.Price,
+        sortDirection: SortDirection.Down
       });
   });
 
@@ -38,7 +38,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeMinPrice(500)))
       .toEqual({
         ...initialState,
-        MinPrice: 500
+        minPrice: 500
       });
   });
 
@@ -46,7 +46,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeMaxPrice(500)))
       .toEqual({
         ...initialState,
-        MaxPrice: 500
+        maxPrice: 500
       });
   });
 
@@ -54,7 +54,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeCategory(Category.Photocamera)))
       .toEqual({
         ...initialState,
-        Category: Category.Photocamera
+        category: Category.Photocamera
       });
   });
 
@@ -62,7 +62,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeType([Type.Digital])))
       .toEqual({
         ...initialState,
-        FilterType: [Type.Digital]
+        filterType: [Type.Digital]
       });
   });
 
@@ -70,7 +70,7 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, changeLevel([Level.Amateur])))
       .toEqual({
         ...initialState,
-        Level: [Level.Amateur]
+        level: [Level.Amateur]
       });
   });
 
@@ -78,11 +78,11 @@ describe('Reducer: searchData', () => {
     expect(searchData.reducer(initialState, resetFilter()))
       .toEqual({
         ...initialState,
-        MinPrice: 0,
-        MaxPrice: 0,
-        Category: null,
-        FilterType: [],
-        Level: [],
+        minPrice: 0,
+        maxPrice: 0,
+        category: null,
+        filterType: [],
+        level: [],
       });
   });
 });

@@ -72,30 +72,30 @@ export const createFakeReview = (): TReview => ({
 
 export const fakeStore = () => ({
   [NameSpace.Product]: {
-    ProductsList: [createFakeProduct()],
-    ProductInfo: createFakeProductInfo(),
-    SimilarProductsList: [createFakeProduct()],
+    productsList: [createFakeProduct()],
+    productInfo: createFakeProductInfo(),
+    similarProductsList: [createFakeProduct()],
     isLoadingProductsList: false,
     isLoadingProducInfo: false,
     isLoadingSimilarProducts: false,
   },
   [NameSpace.Review]: {
-    ReviewsList: [createFakeReview()],
+    reviewsList: [createFakeReview()],
   },
   [NameSpace.Promo]: {
-    Promo: createFakePromo(),
+    promo: createFakePromo(),
   },
   [NameSpace.Search]: {
-    Page: faker.datatype.number({min: 1, max: 6}),
-    SortType: null,
-    SortDirection: null,
-    MinPrice: faker.datatype.number(),
-    MaxPrice: faker.datatype.number(),
-    Category: null,
-    FilterType: [],
-    Level: [],
+    page: faker.datatype.number({min: 1, max: 6}),
+    sortType: null,
+    sortDirection: null,
+    minPrice: faker.datatype.number(),
+    maxPrice: faker.datatype.number(),
+    category: null,
+    filterType: [],
+    level: [],
   },
   [NameSpace.Basket]: {
-    BasketList: [createFakeProduct()],
+    basketList: [createFakeProduct()],
   },
 });

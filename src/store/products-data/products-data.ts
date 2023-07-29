@@ -5,12 +5,11 @@ import { fetchProductAction, fetchProductsAction, fetchSimilarProductsAction } f
 import { toast } from 'react-toastify';
 
 export const initialState: TCamerasData = {
-  ProductsList: [],
-  ProductInfo: null,
-  SimilarProductsList: [],
+  productsList: [],
+  productInfo: null,
+  similarProductsList: [],
   isLoadingProductsList: true,
   isLoadingProducInfo: true,
-  isLoadingSimilarProducts: true,
 };
 
 export const productsData = createSlice({
@@ -23,7 +22,7 @@ export const productsData = createSlice({
         state.isLoadingProductsList = true;
       })
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
-        state.ProductsList = action.payload;
+        state.productsList = action.payload;
         state.isLoadingProductsList = false;
       })
       .addCase(fetchProductsAction.rejected, (state) => {
@@ -34,23 +33,18 @@ export const productsData = createSlice({
         state.isLoadingProducInfo = true;
       })
       .addCase(fetchProductAction.fulfilled, (state, action) => {
-        state.ProductInfo = action.payload;
+        state.productInfo = action.payload;
         state.isLoadingProducInfo = false;
       })
       .addCase(fetchProductAction.rejected, (state) => {
         toast.error('Не удалось загрузить данные продуктe, попробуйте позже');
         state.isLoadingProducInfo = false;
       })
-      .addCase(fetchSimilarProductsAction.pending, (state) => {
-        state.isLoadingSimilarProducts = true;
-      })
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
-        state.SimilarProductsList = action.payload;
-        state.isLoadingSimilarProducts = false;
+        state.similarProductsList = action.payload;
       })
-      .addCase(fetchSimilarProductsAction.rejected, (state) => {
+      .addCase(fetchSimilarProductsAction.rejected, () => {
         toast.error('Не удалось загрузить данные о похожих продуктов');
-        state.isLoadingSimilarProducts = false;
       });
   }
 });

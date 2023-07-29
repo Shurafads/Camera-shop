@@ -6,12 +6,12 @@ import { checkCouponAction, sendOrderAction } from '../api-action';
 import { toast } from 'react-toastify';
 
 export const initialState: TBasketData = {
-  BasketList: [],
-  Sale: null,
-  Coupon: null,
-  CouponValidStatus: CouponStatus.Unknown,
-  SuccessPopupStatus: false,
-  IsSendingOrder: false,
+  basketList: [],
+  sale: null,
+  coupon: null,
+  couponValidStatus: CouponStatus.Unknown,
+  successPopupStatus: false,
+  isSendingOrder: false,
 };
 
 export const basketData = createSlice({
@@ -20,20 +20,20 @@ export const basketData = createSlice({
   reducers: {
     addProductToBasket: (state, action: PayloadAction<TProduct>) => {
 
-      const findedProduct = state.BasketList.find((product) => product.id === action.payload.id);
+      const findedProduct = state.basketList.find((product) => product.id === action.payload.id);
 
       if (findedProduct && findedProduct.count) {
         findedProduct.count++;
       } else {
-        state.BasketList = [...state.BasketList, {...action.payload, count: 1}];
+        state.basketList = [...state.basketList, {...action.payload, count: 1}];
       }
     },
     removeProductFromBasket: (state, action: PayloadAction<number>) => {
-      state.BasketList = state.BasketList.filter((product) => product.id !== action.payload);
+      state.basketList = state.basketList.filter((product) => product.id !== action.payload);
     },
     changeProductCount: (state, action: PayloadAction<{id: number; count: number}>) => {
 
-      const findedProduct = state.BasketList.find((product) => product.id === action.payload.id);
+      const findedProduct = state.basketList.find((product) => product.id === action.payload.id);
 
       if (findedProduct) {
         findedProduct.count = action.payload.count;
@@ -41,10 +41,10 @@ export const basketData = createSlice({
     },
     increaseProductCount: (state, action: PayloadAction<TProduct>) => {
 
-      const findedProduct = state.BasketList.find((product) => product.id === action.payload.id);
+      const findedProduct = state.basketList.find((product) => product.id === action.payload.id);
 
       if (findedProduct) {
-        state.BasketList.map((product) => {
+        state.basketList.map((product) => {
           if (product.id === action.payload.id && product.count) {
             product.count++;
           }
@@ -54,10 +54,10 @@ export const basketData = createSlice({
     },
     decreaseProductCount: (state, action: PayloadAction<TProduct>) => {
 
-      const findedProduct = state.BasketList.find((product) => product.id === action.payload.id);
+      const findedProduct = state.basketList.find((product) => product.id === action.payload.id);
 
       if (findedProduct) {
-        state.BasketList.map((product) => {
+        state.basketList.map((product) => {
           if (product.id === action.payload.id && product.count) {
             product.count--;
           }
@@ -66,38 +66,38 @@ export const basketData = createSlice({
       }
     },
     removeValidStatus: (state) => {
-      state.CouponValidStatus = CouponStatus.Unknown;
+      state.couponValidStatus = CouponStatus.Unknown;
     },
     setCoupon: (state, action: PayloadAction<string>) => {
-      state.Coupon = action.payload;
+      state.coupon = action.payload;
     },
     closeSuccessPopup: (state) => {
-      state.SuccessPopupStatus = false;
+      state.successPopupStatus = false;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(checkCouponAction.fulfilled, (state, action) => {
-        state.Sale = action.payload;
-        state.CouponValidStatus = CouponStatus.Valid;
+        state.sale = action.payload;
+        state.couponValidStatus = CouponStatus.Valid;
       })
       .addCase(checkCouponAction.rejected, (state) => {
-        state.CouponValidStatus = CouponStatus.NoValid;
+        state.couponValidStatus = CouponStatus.NoValid;
       })
       .addCase(sendOrderAction.pending, (state) => {
-        state.IsSendingOrder = true;
+        state.isSendingOrder = true;
       })
       .addCase(sendOrderAction.fulfilled, (state) => {
-        state.BasketList = [];
-        state.Sale = null;
-        state.CouponValidStatus = CouponStatus.Unknown;
-        state.Coupon = null;
-        state.SuccessPopupStatus = true;
-        state.IsSendingOrder = false;
+        state.basketList = [];
+        state.sale = null;
+        state.couponValidStatus = CouponStatus.Unknown;
+        state.coupon = null;
+        state.successPopupStatus = true;
+        state.isSendingOrder = false;
       })
       .addCase(sendOrderAction.rejected, (state) => {
         toast.error('Не удалось разместить заказ, попробуйте еще раз');
-        state.IsSendingOrder = false;
+        state.isSendingOrder = false;
       });
   }
 });

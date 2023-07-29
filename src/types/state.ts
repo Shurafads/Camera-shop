@@ -9,38 +9,37 @@ export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export type TCamerasData = {
-  ProductsList: TProduct[];
-  ProductInfo: TProduct | null;
-  SimilarProductsList: TProduct[];
+  productsList: TProduct[];
+  productInfo: TProduct | null;
+  similarProductsList: TProduct[];
   isLoadingProductsList: boolean;
   isLoadingProducInfo: boolean;
-  isLoadingSimilarProducts: boolean;
 }
 
 export type TPromoData = {
-  Promo: TPromo | null;
+  promo: TPromo | null;
 }
 
 export type TReviewsData = {
-  ReviewsList: TReview[];
+  reviewsList: TReview[];
 }
 
 export type TSearchData = {
-  Page: number;
-  SortType: SortType | null;
-  SortDirection: SortDirection | null;
-  MinPrice: number;
-  MaxPrice: number;
-  Category: Category | null;
-  FilterType: Type[];
-  Level: Level[];
+  page: number;
+  sortType: SortType | null;
+  sortDirection: SortDirection | null;
+  minPrice: number;
+  maxPrice: number;
+  category: Category | null;
+  filterType: Type[];
+  level: Level[];
 }
 
 export type TBasketData = {
-  BasketList: TProduct[];
-  Sale: number | null;
-  Coupon: string | null;
-  CouponValidStatus: CouponStatus;
-  SuccessPopupStatus: boolean;
-  IsSendingOrder: boolean;
+  basketList: TProduct[];
+  sale: number | null;
+  coupon: string | null;
+  couponValidStatus: CouponStatus;
+  successPopupStatus: boolean;
+  isSendingOrder: boolean;
 }

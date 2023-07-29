@@ -13,6 +13,6 @@ describe('Reducer: promoData', () => {
 
   it('should update promo by load promo', () => {
     expect(promoData.reducer(initialState, {type: fetchPromoAction.fulfilled.type, payload: promo}))
-      .toEqual({Promo: promo});
+      .toEqual({promo});
   });
 });

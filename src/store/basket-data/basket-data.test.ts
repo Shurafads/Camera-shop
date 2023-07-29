@@ -23,51 +23,51 @@ describe('Reducer: basketData', () => {
       .toEqual({...initialState});
   });
 
-  it('should update BasketList after getting product', () => {
+  it('should update basketList after getting product', () => {
     expect(basketData.reducer(initialState, addProductToBasket(product)))
       .toEqual({
         ...initialState,
-        BasketList: [{...product, count: 1}],
+        basketList: [{...product, count: 1}],
       });
   });
 
-  it('should remove product from BasketList after getting product id', () => {
+  it('should remove product from basketList after getting product id', () => {
     expect(basketData.reducer(initialState, removeProductFromBasket(1)))
       .toEqual({
         ...initialState,
-        BasketList: [],
+        basketList: [],
       });
   });
 
-  it('should change product count in the BasketList', () => {
+  it('should change product count in the basketList', () => {
     expect(basketData.reducer(initialState, changeProductCount({id: 3, count: 5})))
       .toEqual({
         ...initialState,
-        BasketList: [],
+        basketList: [],
       });
   });
 
-  it('should increase product count in the BasketList', () => {
+  it('should increase product count in the basketList', () => {
     expect(basketData.reducer(initialState, increaseProductCount(product)))
       .toEqual({
         ...initialState,
-        BasketList: [],
+        basketList: [],
       });
   });
 
-  it('should decrease product count in the BasketList', () => {
+  it('should decrease product count in the basketList', () => {
     expect(basketData.reducer(initialState, decreaseProductCount(product)))
       .toEqual({
         ...initialState,
-        BasketList: [],
+        basketList: [],
       });
   });
 
-  it('should change CouponValidStatus', () => {
+  it('should change couponValidStatus', () => {
     expect(basketData.reducer(initialState, removeValidStatus()))
       .toEqual({
         ...initialState,
-        CouponValidStatus: CouponStatus.Unknown,
+        couponValidStatus: CouponStatus.Unknown,
       });
   });
 
@@ -79,47 +79,47 @@ describe('Reducer: basketData', () => {
       });
   });
 
-  it('should set SuccessPopupStatus "false"', () => {
+  it('should set successPopupStatus "false"', () => {
     expect(basketData.reducer(initialState, closeSuccessPopup()))
       .toEqual({
         ...initialState,
-        SuccessPopupStatus: false,
+        successPopupStatus: false,
       });
   });
 
   describe('checkCoupon', () => {
-    it('should set Sale and CouponValidStatus "VALID"', () => {
+    it('should set sale and couponValidStatus "VALID"', () => {
       expect(basketData.reducer(initialState, {type: checkCouponAction.fulfilled.type, payload: 15}))
-        .toEqual({...initialState, Sale: 15, CouponValidStatus: CouponStatus.Valid});
+        .toEqual({...initialState, sale: 15, couponValidStatus: CouponStatus.Valid});
     });
 
-    it('should set CouponValidStatus "NO_VALID"', () => {
+    it('should set couponValidStatus "NO_VALID"', () => {
       expect(basketData.reducer(initialState, {type: checkCouponAction.rejected.type}))
-        .toEqual({...initialState, CouponValidStatus: CouponStatus.NoValid});
+        .toEqual({...initialState, couponValidStatus: CouponStatus.NoValid});
     });
   });
 
   describe('sendOrder', () => {
-    it('should set IsSendingOrder "true"', () => {
+    it('should set isSendingOrder "true"', () => {
       expect(basketData.reducer(initialState, {type: sendOrderAction.pending.type}))
-        .toEqual({...initialState, IsSendingOrder: true});
+        .toEqual({...initialState, isSendingOrder: true});
     });
 
     it('should reset state', () => {
       expect(basketData.reducer(initialState, {type: sendOrderAction.fulfilled.type}))
         .toEqual({...initialState,
-          BasketList: [],
-          Sale: null,
-          CouponValidStatus: CouponStatus.Unknown,
-          Coupon: null,
-          SuccessPopupStatus: true,
-          IsSendingOrder: false,
+          basketList: [],
+          sale: null,
+          coupon: null,
+          couponValidStatus: CouponStatus.Unknown,
+          successPopupStatus: true,
+          isSendingOrder: false,
         });
     });
 
-    it('should set IsSendingOrder "false"', () => {
+    it('should set isSendingOrder "false"', () => {
       expect(basketData.reducer(initialState, {type: sendOrderAction.rejected.type}))
-        .toEqual({...initialState, IsSendingOrder: false});
+        .toEqual({...initialState, isSendingOrder: false});
     });
   });
 });

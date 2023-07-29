@@ -3,7 +3,7 @@ import { getFiltredProductsList } from '../../store/products-data/products-data.
 import { Link } from 'react-router-dom';
 import { PRODUCTS_PER_PAGE } from '../../const';
 import { MouseEvent } from 'react';
-import { WindowScrollToTop } from '../../utils/utils';
+import { scrollWindowToTop } from '../../utils/utils';
 import { getCurrentPage } from '../../store/search-data/search-data.selectors';
 import { changeCurrentPage } from '../../store/search-data/search-data';
 
@@ -22,7 +22,7 @@ export default function Pagination() {
 
     if (target.textContent) {
       dispatch(changeCurrentPage(+target.textContent));
-      WindowScrollToTop();
+      scrollWindowToTop();
     }
   };
 
@@ -30,14 +30,14 @@ export default function Pagination() {
     evt.preventDefault();
 
     dispatch(changeCurrentPage(currentPage - 1));
-    WindowScrollToTop();
+    scrollWindowToTop();
   };
 
   const handleNextClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
     dispatch(changeCurrentPage(currentPage + 1));
-    WindowScrollToTop();
+    scrollWindowToTop();
   };
 
   return (

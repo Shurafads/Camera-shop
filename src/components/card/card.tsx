@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { TProduct } from '../../types/product';
 import { AppRoute, ProductTab, STARS_COUNT } from '../../const';
-import { WindowScrollToTop } from '../../utils/utils';
+import { scrollWindowToTop } from '../../utils/utils';
 import Star from '../star/star';
 import { useAppSelector } from '../../store';
 import { getBasketList } from '../../store/basket-data/basket-data.selectors';
@@ -46,11 +46,11 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
         {
           isProductInBasket
             ?
-            <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart" type="button" onClick={() => {navigate(AppRoute.Basket); WindowScrollToTop();}}>В корзине</button>
+            <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart" type="button" onClick={() => {navigate(AppRoute.Basket); scrollWindowToTop();}}>В корзине</button>
             :
             <button className="btn btn--purple product-card__btn" type="button" onClick={() => onBuyClick(product)}>Купить</button>
         }
-        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}?tab=${ProductTab.Description}`} onClick={() => WindowScrollToTop()}>Подробнее
+        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}?tab=${ProductTab.Description}`} onClick={() => scrollWindowToTop()}>Подробнее
         </Link>
       </div>
     </div>

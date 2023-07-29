@@ -20,7 +20,7 @@ describe('Reducer: productsData', () => {
 
     it('should update products by load products', () => {
       expect(productsData.reducer(initialState, {type: fetchProductsAction.fulfilled.type, payload: products}))
-        .toEqual({...initialState, ProductsList: products, isLoadingProductsList: false});
+        .toEqual({...initialState, productsList: products, isLoadingProductsList: false});
     });
 
     it('should show error if server is unavailable', () => {
@@ -37,7 +37,7 @@ describe('Reducer: productsData', () => {
 
     it('should update product info by load product info', () => {
       expect(productsData.reducer(initialState, {type: fetchProductAction.fulfilled.type, payload: productInfo}))
-        .toEqual({...initialState, ProductInfo: productInfo, isLoadingProducInfo: false});
+        .toEqual({...initialState, productInfo: productInfo, isLoadingProducInfo: false});
     });
 
     it('should show error if server is unavailable', () => {
@@ -48,19 +48,14 @@ describe('Reducer: productsData', () => {
 
   describe('getSimilarProducts', () => {
 
-    it('should set loading similar products info status "true"', () => {
-      expect(productsData.reducer(initialState, {type: fetchProductAction.pending.type}))
-        .toEqual({...initialState, isLoadingSimilarProducts: true});
-    });
-
     it('should update similar products by load products', () => {
-      expect(productsData.reducer(initialState, {type: fetchSimilarProductsAction.fulfilled.type, payload: productInfo}))
-        .toEqual({...initialState, SimilarProductsList: productInfo, isLoadingSimilarProducts: false});
+      expect(productsData.reducer(initialState, {type: fetchSimilarProductsAction.fulfilled.type, payload: products}))
+        .toEqual({...initialState, similarProductsList: products});
     });
 
     it('should show error if server is unavailable', () => {
       expect(productsData.reducer(initialState, {type: fetchSimilarProductsAction.rejected.type}))
-        .toEqual({...initialState, isLoadingSimilarProducts: false});
+        .toEqual({...initialState});
     });
   });
 });

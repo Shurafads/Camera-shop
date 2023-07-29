@@ -11,7 +11,7 @@ import ModalReview from '../../components/modal-review/modal-review';
 import ModalSuccess from '../../components/modal-success/modal-success';
 import ReactFocusLock from 'react-focus-lock';
 import LoadingPage from '../loading-page/loading-page';
-import { WindowScrollToTop } from '../../utils/utils';
+import { scrollWindowToTop } from '../../utils/utils';
 import ModalAddProductSuccess from '../../components/modal-add-product-success/modal-add-product-success';
 import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
 import { addProductToBasket } from '../../store/basket-data/basket-data';
@@ -108,7 +108,7 @@ export default function ProductPage() {
 
   const handleUpButtonClick = (evt: MouseEvent) => {
     evt.preventDefault();
-    WindowScrollToTop();
+    scrollWindowToTop();
   };
 
   const handleSuccessModalSubmit = () => {

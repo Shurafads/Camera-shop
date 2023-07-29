@@ -4,7 +4,7 @@ import { TPromoData } from '../../types/state';
 import { fetchPromoAction } from '../api-action';
 
 export const initialState: TPromoData = {
-  Promo: null,
+  promo: null,
 };
 
 export const promoData = createSlice({
@@ -14,7 +14,7 @@ export const promoData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
-        state.Promo = action.payload;
+        state.promo = action.payload;
       });
   }
 });

@@ -1,18 +1,18 @@
 import { Category, Level, NameSpace, SortDirection, SortType, Type } from '../../const';
 import { State } from '../../types/state';
 
-export const getCurrentSortType = (state: State): SortType | null => state[NameSpace.Search].SortType;
+export const getCurrentPage = (state: State): number => state[NameSpace.Search].page;
 
-export const getCurrentSortDirection = (state: State): SortDirection | null => state[NameSpace.Search].SortDirection;
+export const getCurrentSortType = (state: State): SortType | null => state[NameSpace.Search].sortType;
 
-export const getCurrentPage = (state: State): number => state[NameSpace.Search].Page;
+export const getCurrentSortDirection = (state: State): SortDirection | null => state[NameSpace.Search].sortDirection;
 
-export const getCurrentMinPrice = (state: State): number => state[NameSpace.Search].MinPrice;
+export const getCurrentMinPrice = (state: State): number => state[NameSpace.Search].minPrice;
 
-export const getCurrentMaxPrice = (state: State): number => state[NameSpace.Search].MaxPrice;
+export const getCurrentMaxPrice = (state: State): number => state[NameSpace.Search].maxPrice;
 
-export const getCurrentCategory = (state: State): Category | null => state[NameSpace.Search].Category;
+export const getCurrentCategory = (state: State): Category | null => state[NameSpace.Search].category;
 
-export const getCurrentFilterType = (state: State): Type[] => state[NameSpace.Search].FilterType;
+export const getCurrentFilterType = (state: State): Type[] => state[NameSpace.Search].filterType;
 
-export const getCurrentLevel = (state: State): Level[] => state[NameSpace.Search].Level;
+export const getCurrentLevel = (state: State): Level[] => state[NameSpace.Search].level;
