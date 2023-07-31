@@ -5,11 +5,15 @@ export const scrollWindowToTop = () => window.scrollTo({top: 0, behavior: 'smoot
 export const getProductsCount = (productList: TProduct[]) => {
   let totalCount = 0;
 
-  productList.forEach((item) => {
-    if (item.count) {
-      totalCount += item.count;
-    }
-  });
+  if (productList) {
+
+    productList.forEach((item) => {
+      if (item.count) {
+        totalCount += item.count;
+      }
+    });
+  }
+
 
   return totalCount;
 };
