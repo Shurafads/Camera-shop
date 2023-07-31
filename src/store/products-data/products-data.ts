@@ -43,7 +43,7 @@ export const productsData = createSlice({
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
         state.similarProductsList = action.payload;
       })
-      .addCase(fetchSimilarProductsAction.rejected, () => {
+      .addCase(fetchSimilarProductsAction.rejected, (state) => {
         toast.error('Не удалось загрузить данные о похожих продуктов');
       });
   }

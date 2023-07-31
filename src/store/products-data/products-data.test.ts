@@ -13,7 +13,7 @@ describe('Reducer: productsData', () => {
   });
 
   describe('getProducts', () => {
-    it('should set loading ProductList status "true"', () => {
+    it('should set loading productList status "true"', () => {
       expect(productsData.reducer(initialState, {type: fetchProductsAction.pending.type}))
         .toEqual({...initialState, isLoadingProductsList: true});
     });
@@ -37,7 +37,7 @@ describe('Reducer: productsData', () => {
 
     it('should update product info by load product info', () => {
       expect(productsData.reducer(initialState, {type: fetchProductAction.fulfilled.type, payload: productInfo}))
-        .toEqual({...initialState, productInfo: productInfo, isLoadingProducInfo: false});
+        .toEqual({...initialState, productInfo, isLoadingProducInfo: false});
     });
 
     it('should show error if server is unavailable', () => {
@@ -49,8 +49,8 @@ describe('Reducer: productsData', () => {
   describe('getSimilarProducts', () => {
 
     it('should update similar products by load products', () => {
-      expect(productsData.reducer(initialState, {type: fetchSimilarProductsAction.fulfilled.type, payload: products}))
-        .toEqual({...initialState, similarProductsList: products});
+      expect(productsData.reducer(initialState, {type: fetchSimilarProductsAction.fulfilled.type, payload: productInfo}))
+        .toEqual({...initialState, similarProductsList: productInfo});
     });
 
     it('should show error if server is unavailable', () => {

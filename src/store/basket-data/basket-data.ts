@@ -90,8 +90,8 @@ export const basketData = createSlice({
       .addCase(sendOrderAction.fulfilled, (state) => {
         state.basketList = [];
         state.sale = null;
-        state.couponValidStatus = CouponStatus.Unknown;
         state.coupon = null;
+        state.couponValidStatus = CouponStatus.Unknown;
         state.successPopupStatus = true;
         state.isSendingOrder = false;
       })

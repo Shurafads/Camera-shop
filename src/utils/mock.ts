@@ -2,7 +2,7 @@ import { TProduct } from '../types/product';
 import * as faker from 'faker';
 import { TReview, TUserReview } from '../types/review';
 import { TPromo } from '../types/promo';
-import { NameSpace } from '../const';
+import { CouponStatus, NameSpace } from '../const';
 
 export const createFakeProduct = (): TProduct => ({
   type: faker.lorem.word(),
@@ -77,7 +77,6 @@ export const fakeStore = () => ({
     similarProductsList: [createFakeProduct()],
     isLoadingProductsList: false,
     isLoadingProducInfo: false,
-    isLoadingSimilarProducts: false,
   },
   [NameSpace.Review]: {
     reviewsList: [createFakeReview()],
@@ -97,5 +96,10 @@ export const fakeStore = () => ({
   },
   [NameSpace.Basket]: {
     basketList: [createFakeProduct()],
+    sale: null,
+    coupon: null,
+    couponValidStatus: CouponStatus.Unknown,
+    successPopupStatus: false,
+    isSendingOrder: false,
   },
 });

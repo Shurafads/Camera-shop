@@ -2,7 +2,7 @@ import { createFakeReview } from '../../utils/mock';
 import { fetchReviewsAction, postReviewAction } from '../api-action';
 import { initialState, reviewsData } from './reviews-data';
 
-const reviews = [createFakeReview(), createFakeReview()];
+const reviewsList = [createFakeReview(), createFakeReview()];
 const userReview = createFakeReview();
 
 describe('Reducer: reviewData', () => {
@@ -15,8 +15,8 @@ describe('Reducer: reviewData', () => {
   describe('getReviews', () => {
 
     it('should update review list by load review', () => {
-      expect(reviewsData.reducer(initialState, {type: fetchReviewsAction.fulfilled.type, payload: reviews}))
-        .toEqual({...initialState, reviewsList: reviews});
+      expect(reviewsData.reducer(initialState, {type: fetchReviewsAction.fulfilled.type, payload: reviewsList}))
+        .toEqual({...initialState, reviewsList});
     });
 
     it('should show error if server is unavailable', () => {

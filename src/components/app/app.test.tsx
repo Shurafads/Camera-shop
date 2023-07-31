@@ -6,8 +6,10 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute, ProductTab } from '../../const';
 import { createApi } from '../../services/api';
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import { State } from '../../types/state';
+import { Action } from '@reduxjs/toolkit';
 
 const fakeProductInfo = createFakeProductInfo();
 const history = createMemoryHistory();
@@ -16,10 +18,14 @@ const store = fakeStore();
 const api = createApi();
 const middlewares = [thunk.withExtraArgument(api)];
 
-const mockStore = configureMockStore(middlewares);
+const mockStore = configureMockStore<
+  State,
+  Action<string>,
+  ThunkDispatch<State, typeof api, Action<string>>
+>(middlewares)(store);
 
 const fakeApp = (
-  <Provider store={mockStore(store)}>
+  <Provider store={mockStore}>
     <HistoryRouter history={history}>
       <App />
     </HistoryRouter >

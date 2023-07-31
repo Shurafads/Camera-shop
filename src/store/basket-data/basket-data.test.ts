@@ -75,7 +75,7 @@ describe('Reducer: basketData', () => {
     expect(basketData.reducer(initialState, setCoupon('camera-333')))
       .toEqual({
         ...initialState,
-        Coupon: 'camera-333',
+        coupon: 'camera-333',
       });
   });
 
@@ -88,7 +88,7 @@ describe('Reducer: basketData', () => {
   });
 
   describe('checkCoupon', () => {
-    it('should set sale and couponValidStatus "VALID"', () => {
+    it('should set Sale and couponValidStatus "VALID"', () => {
       expect(basketData.reducer(initialState, {type: checkCouponAction.fulfilled.type, payload: 15}))
         .toEqual({...initialState, sale: 15, couponValidStatus: CouponStatus.Valid});
     });
