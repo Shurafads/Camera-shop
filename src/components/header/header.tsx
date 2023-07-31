@@ -65,7 +65,7 @@ export default function Header() {
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
-          {basketList.length > 0 && <span className="header__basket-count">{productsCount}</span>}
+          {basketList && basketList.length > 0 && <span className="header__basket-count">{productsCount}</span>}
         </Link>
       </div>
     </header>
