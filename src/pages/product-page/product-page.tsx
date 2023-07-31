@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { fetchProductAction, fetchReviewsAction, fetchSimilarProductsAction } from '../../store/api-action';
 import { Link, useParams } from 'react-router-dom';
@@ -7,15 +7,8 @@ import { AppRoute } from '../../const';
 import { getIsLoadingProducInfo, getProductInfo } from '../../store/products-data/products-data.selectors';
 import ProductContainer from '../../components/product-container/product-container';
 import ReviewContainer from '../../components/review-container/review-container';
-import ModalReview from '../../components/modal-review/modal-review';
-import ModalSuccess from '../../components/modal-success/modal-success';
-import ReactFocusLock from 'react-focus-lock';
 import LoadingPage from '../loading-page/loading-page';
 import { scrollWindowToTop } from '../../utils/utils';
-import ModalAddProductSuccess from '../../components/modal-add-product-success/modal-add-product-success';
-import ModalAddProduct from '../../components/modal-add-product/modal-add-product';
-import { addProductToBasket } from '../../store/basket-data/basket-data';
-import { TProduct } from '../../types/product';
 
 export default function ProductPage() {
 
@@ -23,13 +16,6 @@ export default function ProductPage() {
   const param = useParams();
   const currentProduct = useAppSelector(getProductInfo);
   const isLoadingProducInfo = useAppSelector(getIsLoadingProducInfo);
-
-  const [modalReviewState, setModalReviewState] = useState(false);
-  const [modalSuccessState, setModalSuccessState] = useState(false);
-
-  const [modalAddState, setModalAddState] = useState(false);
-  const [modalAddSuccessState, setModalAddSuccessState] = useState(false);
-  const [currentBasketProduct, setCurrentBasketProduct] = useState<TProduct | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -45,90 +31,19 @@ export default function ProductPage() {
     };
   }, [param.id, dispatch]);
 
-  useEffect(() => {
-    let isMounted = true;
-
-    if (!modalReviewState && !modalSuccessState && !modalAddState && !modalAddSuccessState && isMounted) {
-      return;
-    }
-
-    if (isMounted) {
-      document.addEventListener('keydown', handleEscapeKeydown);
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.paddingRight = 'calc(17px - (100vw - 100%)';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.paddingRight = '';
-      document.removeEventListener('keydown', handleEscapeKeydown);
-      isMounted = false;
-    };
-  });
-
   if (!currentProduct || isLoadingProducInfo) {
     return <LoadingPage />;
   }
-
-  const handleEscapeKeydown = (evt: globalThis.KeyboardEvent) => {
-    if (evt.key === 'Escape') {
-      handleReviewModalClose();
-      handleSuccessModalClose();
-      handleCloseAddModalClick();
-      handleCloseSuccessModalClick();
-    }
-  };
-
-  const handleFeedbackButtonClick = () => {
-    setModalReviewState(true);
-  };
-
-  const handleReviewModalClose = () => {
-    setModalReviewState(false);
-  };
-
-  const handleReviewModalSubmit = () => {
-    setModalReviewState(false);
-    setModalSuccessState(true);
-  };
-
-  const handleSuccessModalClose = () => {
-    setModalSuccessState(false);
-  };
-
-  const handleBuyClick = (product: TProduct) => {
-    setModalAddState(true);
-    setCurrentBasketProduct(product);
-  };
-
-  const handleCloseAddModalClick = (evt?: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement>) => {
-    evt?.preventDefault();
-    setModalAddState(false);
-  };
 
   const handleUpButtonClick = (evt: MouseEvent) => {
     evt.preventDefault();
     scrollWindowToTop();
   };
 
-  const handleSuccessModalSubmit = () => {
-    setModalAddState(false);
-    if (currentBasketProduct) {
-      dispatch(addProductToBasket(currentBasketProduct));
-    }
-
-    setModalAddSuccessState(true);
-    setCurrentBasketProduct(null);
-  };
-
-  const handleCloseSuccessModalClick = () => {
-    setModalAddSuccessState(false);
-  };
-
   return (
     <>
       <main>
-        <div className="page-content" data-testid="product-content-page">
+        <div className="page-content" data-testid="prouct-page-content">
           <div className="breadcrumbs">
             <div className="container">
               <ul className="breadcrumbs__list">
@@ -153,14 +68,14 @@ export default function ProductPage() {
             </div>
           </div>
           <div className="page-content__section">
-            <ProductContainer onBuyClick={handleBuyClick}/>
+            <ProductContainer/>
           </div>
           <div className="page-content__section">
-            <Slider onBuyClick={handleBuyClick}/>
+            <Slider/>
           </div>
           <div className="page-content__section">
             <section className="review-block">
-              <ReviewContainer onClickFeedbackButton={handleFeedbackButtonClick} />
+              <ReviewContainer />
             </section>
           </div>
         </div>
@@ -170,13 +85,6 @@ export default function ProductPage() {
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
       </a>
-      <ReactFocusLock>
-        <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
-        <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
-
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
-        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
-      </ReactFocusLock>
     </>
   );
 }

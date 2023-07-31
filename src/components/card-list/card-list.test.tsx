@@ -19,7 +19,7 @@ describe('Component: CardList', () => {
       <Provider store={mockStore}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <CardList onBuyClick={jest.fn()}/>
+            <CardList />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>

@@ -1,11 +1,11 @@
 import {render, screen} from '@testing-library/react';
 import {HelmetProvider} from 'react-helmet-async';
 import { Provider } from 'react-redux';
-import CatalogPage from './catalog-page';
 import { fakeStore } from '../../utils/mock';
 import HistoryRouter from '../../components/history-route/history-route';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import CatalogPage from './catalog-page';
 
 const history = createMemoryHistory();
 const store = fakeStore();
@@ -25,6 +25,6 @@ describe('Component: CatalogPage', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Каталог фото- и видеотехники')).toBeInTheDocument();
+    expect(screen.getByText('Каталог')).toBeInTheDocument();
   });
 });

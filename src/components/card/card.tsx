@@ -50,7 +50,8 @@ export default function Card({product, className, style, onBuyClick}: CardProps)
             :
             <button className="btn btn--purple product-card__btn" type="button" onClick={() => onBuyClick(product)}>Купить</button>
         }
-        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}?tab=${ProductTab.Description}`} onClick={() => scrollWindowToTop()}>Подробнее
+        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${product.id}?tab=${ProductTab.Description}`} onClick={() => scrollWindowToTop()}>
+          Подробнее
         </Link>
       </div>
     </div>

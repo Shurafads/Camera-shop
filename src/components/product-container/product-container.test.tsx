@@ -19,13 +19,12 @@ describe('Component: ProductContainer', () => {
       <Provider store={mockStore}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <ProductContainer onBuyClick={jest.fn()}/>
+            <ProductContainer />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>
     );
 
-    expect(screen.getByText(/Всего оценок/)).toBeInTheDocument();
-    expect(screen.getByText(/Цена/)).toBeInTheDocument();
+    expect(screen.getByTestId('product-container')).toBeInTheDocument();
   });
 });

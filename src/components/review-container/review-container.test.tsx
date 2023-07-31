@@ -19,7 +19,7 @@ describe('Component: ReviewContainer', () => {
       <Provider store={mockStore}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <ReviewContainer onClickFeedbackButton={jest.fn()}/>
+            <ReviewContainer/>
           </HelmetProvider>
         </HistoryRouter>
       </Provider>
