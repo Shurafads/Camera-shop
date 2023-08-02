@@ -65,7 +65,7 @@ export default function BasketList() {
       <ul className="basket__list" data-testid="basket__list">
         {basketList.map((product) => <BasketItem key={product.vendorCode} product={product} onDeleteClick={handleDeleteClick}/>)}
       </ul>
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!modalState} returnFocus>
         <ModalDeleteProduct isActive={modalState} onCloseModal={handleCloseModalClick} currentProduct={currentBasketProduct} onDeleteProduct={handleModalDeleteClick}/>
       </ReactFocusLock>
     </>

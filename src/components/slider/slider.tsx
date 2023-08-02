@@ -127,8 +127,10 @@ export default function Slider() {
         </div>
       </section>
 
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddState} returnFocus>
         <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      </ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
         <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
       </ReactFocusLock>
     </>

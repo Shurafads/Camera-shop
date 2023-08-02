@@ -53,7 +53,7 @@ export default function BasketOrder() {
           Оформить заказ
         </button>
       </div>
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!accessPopupStatus} returnFocus>
         <ModalBasketSuccess isActive={accessPopupStatus}/>
       </ReactFocusLock>
     </>

@@ -101,8 +101,10 @@ export default function ProductContainer() {
         </div>
       </section>
 
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddState} returnFocus>
         <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      </ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
         <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
       </ReactFocusLock>
     </>

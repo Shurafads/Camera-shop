@@ -103,8 +103,10 @@ export default function ReviewContainer() {
         </div>
       </div>
 
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!modalReviewState} returnFocus>
         <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
+      </ReactFocusLock>
+      <ReactFocusLock disabled={!modalSuccessState} returnFocus>
         <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
       </ReactFocusLock>
     </>

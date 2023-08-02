@@ -97,8 +97,10 @@ export default function CardList() {
         {productsOnPage.map((product) => <Card key={product.id} product={product} onBuyClick={handleBuyClick}/>)}
       </div>
 
-      <ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddState} returnFocus>
         <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      </ReactFocusLock>
+      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
         <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
       </ReactFocusLock>
     </>
