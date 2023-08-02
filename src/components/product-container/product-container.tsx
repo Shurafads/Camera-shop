@@ -1,4 +1,3 @@
-import ReactFocusLock from 'react-focus-lock';
 import { STARS_COUNT } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getProductInfo } from '../../store/products-data/products-data.selectors';
@@ -101,12 +100,8 @@ export default function ProductContainer() {
         </div>
       </section>
 
-      <ReactFocusLock disabled={!modalAddState} returnFocus>
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentProduct} onSubmitClick={handleSuccessModalSubmit}/>
-      </ReactFocusLock>
-      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
-        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
-      </ReactFocusLock>
+      <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
     </>
   );
 }

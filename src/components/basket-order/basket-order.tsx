@@ -1,4 +1,3 @@
-import ReactFocusLock from 'react-focus-lock';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { sendOrderAction } from '../../store/api-action';
 import { getBasketList, getCoupon, getSale, getSendingOrderStatus, getSuccessPopupStatus } from '../../store/basket-data/basket-data.selectors';
@@ -53,9 +52,8 @@ export default function BasketOrder() {
           Оформить заказ
         </button>
       </div>
-      <ReactFocusLock disabled={!accessPopupStatus} returnFocus>
-        <ModalBasketSuccess isActive={accessPopupStatus}/>
-      </ReactFocusLock>
+
+      <ModalBasketSuccess isActive={accessPopupStatus}/>
     </>
   );
 }

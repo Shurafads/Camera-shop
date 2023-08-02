@@ -4,7 +4,6 @@ import Card from '../card/card';
 import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
-import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../modal-add-product/modal-add-product';
 import ModalAddProductSuccess from '../modal-add-product-success/modal-add-product-success';
 import { TProduct } from '../../types/product';
@@ -127,12 +126,8 @@ export default function Slider() {
         </div>
       </section>
 
-      <ReactFocusLock disabled={!modalAddState} returnFocus>
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
-      </ReactFocusLock>
-      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
-        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
-      </ReactFocusLock>
+      <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
     </>
   );
 }

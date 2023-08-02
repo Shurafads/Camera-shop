@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getBasketList } from '../../store/basket-data/basket-data.selectors';
 import BasketItem from '../basket-item/basket-item';
-import ReactFocusLock from 'react-focus-lock';
 import ModalDeleteProduct from '../modal-delete-product/modal-delete-product';
 import { TProduct } from '../../types/product';
 import { removeProductFromBasket } from '../../store/basket-data/basket-data';
@@ -65,9 +64,7 @@ export default function BasketList() {
       <ul className="basket__list" data-testid="basket__list">
         {basketList.map((product) => <BasketItem key={product.vendorCode} product={product} onDeleteClick={handleDeleteClick}/>)}
       </ul>
-      <ReactFocusLock disabled={!modalState} returnFocus>
-        <ModalDeleteProduct isActive={modalState} onCloseModal={handleCloseModalClick} currentProduct={currentBasketProduct} onDeleteProduct={handleModalDeleteClick}/>
-      </ReactFocusLock>
+      <ModalDeleteProduct isActive={modalState} onCloseModal={handleCloseModalClick} currentProduct={currentBasketProduct} onDeleteProduct={handleModalDeleteClick}/>
     </>
   );
 }

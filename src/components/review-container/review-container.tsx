@@ -4,7 +4,6 @@ import { getReviewsList } from '../../store/reviews-data/reviews-data.selectors'
 import Review from '../review/review';
 import { DEFAULT_REVIEW_COUNT } from '../../const';
 import { getProductInfo } from '../../store/products-data/products-data.selectors';
-import ReactFocusLock from 'react-focus-lock';
 import ModalReview from '../modal-review/modal-review';
 import ModalSuccess from '../modal-success/modal-success';
 
@@ -103,12 +102,8 @@ export default function ReviewContainer() {
         </div>
       </div>
 
-      <ReactFocusLock disabled={!modalReviewState} returnFocus>
-        <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
-      </ReactFocusLock>
-      <ReactFocusLock disabled={!modalSuccessState} returnFocus>
-        <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
-      </ReactFocusLock>
+      <ModalReview isActive={modalReviewState} onCloseModal={handleReviewModalClose} onSubmitModal={handleReviewModalSubmit}/>
+      <ModalSuccess isActive={modalSuccessState} onCloseModal={handleSuccessModalClose}/>
     </>
   );
 }

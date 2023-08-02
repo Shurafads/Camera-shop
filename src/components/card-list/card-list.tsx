@@ -7,7 +7,6 @@ import classes from './card-list.module.css';
 import { useEffect, useState } from 'react';
 import { changeCurrentPage } from '../../store/search-data/search-data';
 import { TProduct } from '../../types/product';
-import ReactFocusLock from 'react-focus-lock';
 import ModalAddProduct from '../modal-add-product/modal-add-product';
 import ModalAddProductSuccess from '../modal-add-product-success/modal-add-product-success';
 import { addProductToBasket } from '../../store/basket-data/basket-data';
@@ -97,12 +96,8 @@ export default function CardList() {
         {productsOnPage.map((product) => <Card key={product.id} product={product} onBuyClick={handleBuyClick}/>)}
       </div>
 
-      <ReactFocusLock disabled={!modalAddState} returnFocus>
-        <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
-      </ReactFocusLock>
-      <ReactFocusLock disabled={!modalAddSuccessState} returnFocus>
-        <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
-      </ReactFocusLock>
+      <ModalAddProduct isActive={modalAddState} onCloseClick={handleCloseAddModalClick} currentBasketProduct={currentBasketProduct} onSubmitClick={handleSuccessModalSubmit}/>
+      <ModalAddProductSuccess isActive={modalAddSuccessState} onCloseClick={handleCloseSuccessModalClick}/>
     </>
 
   );
