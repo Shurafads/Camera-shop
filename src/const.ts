@@ -1,4 +1,4 @@
-export const URL = 'https://camera-shop.accelerator.pages.academy/';
+export const URL = 'https://camera-shop.accelerator.htmlacademy.pro/';
 
 export const PRODUCTS_PER_PAGE = 9;
 

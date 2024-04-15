@@ -17,15 +17,15 @@ export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   'product/fetchProductsAction',
   async (_arg, {extra: api}) => {
 
-    const {data: productsList} = await api.get<TProduct[]>(ApiRoute.Cameras);
+    const {data: productsList} = await api.get<TProduct[]>(`${ApiRoute.Cameras}?_embed=reviews`);
 
-    for (let i = 0; i < productsList.length; i++) {
-      const {data: reviewList} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productsList[i].id}/reviews`);
+    // for (let i = 0; i < productsList.length; i++) {
+    //   const {data: reviewList} = await api.get<TReview[]>(`${ApiRoute.Cameras}/${productsList[i].id}/reviews`);
 
-      const ProductRating = +(reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length).toFixed(1);
+    //   const ProductRating = +(reviewList.reduce((acc, review) => acc + review.rating, 0) / reviewList.length).toFixed(1);
 
-      productsList[i] = { ...productsList[i], rating: ProductRating};
-    }
+    //   productsList[i] = { ...productsList[i], rating: ProductRating};
+    // }
 
     return productsList;
   }
